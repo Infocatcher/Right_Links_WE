@@ -1,0 +1,1 @@
+WebExtensions port of <a href="https://github.com/Infocatcher/Right_Links">Right Links</a> extension for Firefox/SeaMonkey (see <a href="https://github.com/Infocatcher/Right_Links/issues/31">Right_Links#31</a>).
