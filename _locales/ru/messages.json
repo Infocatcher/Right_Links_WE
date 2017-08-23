@@ -1,0 +1,10 @@
+{
+	"extensionName": {
+		"message": "Right Links WE",
+		"description": "Name of the extension"
+	},
+	"extensionDescription": {
+		"message": "Позволяет открывать ссылки в новых вкладках по клику правой кнопкой мыши (для тачпадов и т.п.)",
+		"description": "Description of the extension"
+	}
+}

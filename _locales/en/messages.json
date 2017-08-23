@@ -1,0 +1,10 @@
+{
+	"extensionName": {
+		"message": "Right Links WE",
+		"description": "Name of the extension"
+	},
+	"extensionDescription": {
+		"message": "Right-click to open links in new tabs (for touchpads etc.)",
+		"description": "Description of the extension"
+	}
+}
