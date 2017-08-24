@@ -35,7 +35,7 @@ function loadContentScript(tab) {
 		runAt: "document_start"
 	});
 }
-function ulloadContentScript(tab) {
+function unloadContentScript(tab) {
 	//~ todo
 }
 
