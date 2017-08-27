@@ -1,4 +1,10 @@
+var prefs = {
+	enabledLeft: true,
+	enabledRight: true
+};
+
 function init() {
+	readPrefs(); // Note: will use defaults right after startup
 	browser.runtime.onMessage.addListener(onMessageFromBackgroundScript);
 	window.addEventListener("mousedown", onMouseDown, true);
 	window.addEventListener("mouseup", onMouseUp, true);
@@ -12,6 +18,11 @@ function destroy() {
 	window.removeEventListener("click", onClick, true);
 	window.removeEventListener("contextmenu", onContextMenu, true);
 }
+function readPrefs() {
+	browser.storage.local.get({}).then(function(o) {
+		prefs = o;
+	}, _err);
+}
 
 function onMessageFromBackgroundScript(msg) {
 }
@@ -21,6 +32,13 @@ function onMouseUp(e) {}
 function onClick(e) {}
 function onContextMenu(e) {}
 
+function enabledFor(e) {
+	if("_rightLinksIgnore" in e || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
+		return false;
+	var btn = e.button;
+	return btn == 0 && prefs.enabledLeft
+		|| btn == 2 && prefs.enabledRight;
+}
 function getLink(it) {
 	if(!it || !it.localName)
 		return null;
