@@ -1,3 +1,6 @@
+var flags = {
+	stopContextMenu: false
+};
 var detect = {
 	origItem: null,
 	item: null,
@@ -35,7 +38,10 @@ function onMessageFromBackgroundScript(msg) {
 function onMouseDown(e) {}
 function onMouseUp(e) {}
 function onClick(e) {}
-function onContextMenu(e) {}
+function onContextMenu(e) {
+	if(flags.stopContextMenu)
+		stopEvent(e);
+}
 
 function enabledFor(e) {
 	if("_rightLinksIgnore" in e || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
@@ -43,6 +49,11 @@ function enabledFor(e) {
 	var btn = e.button;
 	return btn == 0 && prefs.enabledLeft
 		|| btn == 2 && prefs.enabledRight;
+}
+function stopEvent(e) {
+	e.preventDefault();
+	e.stopPropagation();
+	e.stopImmediatePropagation();
 }
 
 function getItem(e) {
