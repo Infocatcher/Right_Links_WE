@@ -8,7 +8,11 @@ var detect = {
 };
 var prefs = {
 	enabledLeft: true,
-	enabledRight: true
+	enabledRight: true,
+	enabledOnImages: true,
+	enabledOnCanvasImages: true,
+	canvasImagesSizeLimit: 0,
+	canvasImagesUseBlob: true
 };
 
 function init() {
@@ -71,12 +75,13 @@ function getItem(e) {
 	if(it)
 		return detected(it, "link");
 
+	var it = prefs.enabledOnImages && getImg(it);
+	if(it)
+		return detected(it, "img");
+
 	return null;
 }
 function getLink(it) {
-	if(!it || !it.localName)
-		return null;
-
 	const docNode = Node.DOCUMENT_NODE; // 9
 	const eltNode = Node.ELEMENT_NODE; // 1
 	for(it = it; it && it.nodeType != docNode; it = it.parentNode) {
@@ -99,8 +104,28 @@ function getLink(it) {
 	}
 	return null;
 }
-function getItemURI(a) {
-	return getLinkURI(a);
+function getImg(it) {
+	var itln = it.localName.toLowerCase();
+	if(itln == "_moz_generated_content_before") { // Alt-text
+		it = it.parentNode;
+		itln = it.localName.toLowerCase();
+	}
+	if(
+		(itln == "img" || itln == "image") && it.hasAttribute("src")
+		|| (
+			it instanceof HTMLCanvasElement
+			&& prefs.enabledOnCanvasImages
+			&& Math.max(it.width, it.height) < (prefs.canvasImagesSizeLimit || Infinity)
+		)
+	)
+		return it;
+	return null;
+}
+function getItemURI(it) {
+	return getLinkURI(it)
+		|| it.src || it.getAttribute("src")
+		|| it instanceof HTMLCanvasElement
+			&& (prefs.canvasImagesUseBlob ? "data:," : it.toDataURL());
 }
 function getLinkURI(it) {
 	const ns = "http://www.w3.org/1999/xlink";
