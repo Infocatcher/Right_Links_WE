@@ -1,3 +1,8 @@
+var detect = {
+	origItem: null,
+	item: null,
+	itemType: ""
+};
 var prefs = {
 	enabledLeft: true,
 	enabledRight: true
@@ -39,6 +44,24 @@ function enabledFor(e) {
 	return btn == 0 && prefs.enabledLeft
 		|| btn == 2 && prefs.enabledRight;
 }
+
+function getItem(e) {
+	var trg = e.originalTarget;
+	if(!trg.localName) // trg === document
+		return null;
+
+	function detected(item, type) {
+		detect.origItem = trg;
+		detect.itemType = type;
+		return detect.item = item;
+	}
+
+	var it = getLink(trg);
+	if(it)
+		return detected(it, "link");
+
+	return null;
+}
 function getLink(it) {
 	if(!it || !it.localName)
 		return null;
@@ -65,7 +88,7 @@ function getLink(it) {
 	}
 	return null;
 }
-function getHref(a) {
+function getItemURI(a) {
 	return getLinkURI(a);
 }
 function getLinkURI(it) {
