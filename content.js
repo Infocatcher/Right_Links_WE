@@ -111,7 +111,9 @@ function getImg(it) {
 		itln = it.localName.toLowerCase();
 	}
 	if(
-		(itln == "img" || itln == "image") && it.hasAttribute("src")
+		(itln == "img" || itln == "image")
+			&& it.hasAttribute("src")
+			&& it.src != it.ownerDocument.documentURI // Ignore image documents
 		|| (
 			it instanceof HTMLCanvasElement
 			&& prefs.enabledOnCanvasImages
