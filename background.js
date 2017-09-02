@@ -1,4 +1,4 @@
-const LOG_PREFIX = "[Right Links WE] ";
+const LOG_PREFIX = "[Right Links WE: background] ";
 
 init();
 

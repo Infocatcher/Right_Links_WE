@@ -1,3 +1,5 @@
+const LOG_PREFIX = "[Right Links WE: content] ";
+
 var flags = {
 	stopContextMenu: false
 };
@@ -138,4 +140,17 @@ function getLinkURI(it) {
 		return url;
 	}
 	return it.href || it.getAttribute("href");
+}
+
+function ts() {
+	var d = new Date();
+	var ms = d.getMilliseconds();
+	return d.toTimeString().replace(/^.*\d+:(\d+:\d+).*$/, "$1") + ":" + "000".substr(("" + ms).length) + ms + " ";
+}
+function _log(s) {
+	//if(_dbg)
+	console.log(LOG_PREFIX + ts() + s);
+}
+function _err(s) {
+	console.error(LOG_PREFIX + ts() + s);
 }
