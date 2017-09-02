@@ -2,40 +2,60 @@ const LOG_PREFIX = "[Right Links WE: background] ";
 
 init();
 
-
 function init() {
 	browser.runtime.onMessage.addListener(onMessageFromContent);
-	browser.tabs.onCreated.addListener(onTabCreated);
-	browser.tabs.query({}).then(loadContentScripts, _err);
+	loadContentScript();
+	browser.tabs.onActivated.addListener(onTabActivated);
+	//browser.tabs.query({}).then(loadContentScripts, _err);
 }
 function destroy() {
 	browser.runtime.onMessage.removeListener(onMessageFromContent);
-	browser.tabs.onCreated.removeListener(onTabCreated);
+	browser.tabs.onActivated.removeListener(onTabActivated);
 	browser.tabs.query({}).then(unloadContentScripts, _err);
 }
 
-function onMessageFromContent(msg) {
+function onMessageFromContent(msg, sender, sendResponse) {
 	//~ todo
+	browser.tabs.create({
+		url: msg.uri,
+		//~ todo: add options
+		active: true,
+		index: sender.tab.index + 1
+	});
 }
-function onTabCreated(tab) {
-	loadContentScript(tab);
+function onTabActivated(activeInfo) {
+	loadContentScript(activeInfo.tabId);
 }
 
+var loaded = {};
 function loadContentScripts(tabs) {
 	for(var tab of tabs)
-		loadContentScript(tab);
+		loadContentScript(tab.id);
 }
 function unloadContentScripts(tabs) {
 	for(var tab of tabs)
-		unloadContentScript(tab);
+		unloadContentScript(tab.id);
 }
-function loadContentScript(tab) {
-	browser.tabs.executeScript(tab.id, {
+function loadContentScript(tabId) {
+	if(!tabId) {
+		browser.tabs.query({ currentWindow: true, active: true }).then(function(tabsInfo) {
+			loadContentScript(tabsInfo[0].id);
+		}, _err);
+		return;
+	}
+	if(tabId in loaded)
+		return;
+	loaded[tabId] = true;
+	browser.tabs.executeScript(tabId, {
 		file: "/content.js",
 		runAt: "document_start"
+	}).catch(function(e) {
+		if(e != "No matching message handler")
+			throw e;
+		setTimeout(loadContentScript, 5, tabId);
 	});
 }
-function unloadContentScript(tab) {
+function unloadContentScript(tabId) {
 	//~ todo
 }
 

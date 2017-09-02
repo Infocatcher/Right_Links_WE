@@ -17,6 +17,8 @@ var prefs = {
 	canvasImagesUseBlob: true
 };
 
+init();
+
 function init() {
 	readPrefs(); // Note: will use defaults right after startup
 	browser.runtime.onMessage.addListener(onMessageFromBackgroundScript);
@@ -41,9 +43,29 @@ function readPrefs() {
 function onMessageFromBackgroundScript(msg) {
 }
 
-function onMouseDown(e) {}
-function onMouseUp(e) {}
-function onClick(e) {}
+function onMouseDown(e) {
+	if(!enabledFor(e))
+		return;
+	flags.stopContextMenu = false;
+}
+function onMouseUp(e) {
+	setTimeout(function() {
+		flags.stopContextMenu = false;
+	}, 10);
+}
+function onClick(e) {
+	if(!enabledFor(e))
+		return;
+	var it = getItem(e);
+	_log("onClick " + it);
+	if(!it)
+		return;
+	var uri = getItemURI(it);
+	//~ todo: prefs.canvasImagesUseBlob
+	if(e.button == 2)
+		flags.stopContextMenu = true;
+	openURIInTab(uri);
+}
 function onContextMenu(e) {
 	if(flags.stopContextMenu)
 		stopEvent(e);
@@ -55,6 +77,11 @@ function enabledFor(e) {
 	var btn = e.button;
 	return btn == 0 && prefs.enabledLeft
 		|| btn == 2 && prefs.enabledRight;
+}
+function openURIInTab(uri) {
+	browser.runtime.sendMessage({
+		uri: uri
+	}).then(function onResponse() {}, _err);
 }
 function stopEvent(e) {
 	e.preventDefault();
