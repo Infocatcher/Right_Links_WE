@@ -32,7 +32,7 @@ function destroy() {
 }
 function readPrefs() {
 	browser.storage.local.get({}).then(function(o) {
-		prefs = o;
+		Object.assign(prefs, o);
 	}, _err);
 }
 
