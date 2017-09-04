@@ -45,11 +45,13 @@ function loadContentScript(tabId) {
 	}
 	if(tabId in loaded)
 		return;
-	loaded[tabId] = true;
 	browser.tabs.executeScript(tabId, {
 		file: "/content.js",
 		runAt: "document_start"
-	}).catch(function(e) {
+	}).then(function onLoaded() {
+		loaded[tabId] = true;
+		_log("executeScript done: " + tabId);
+	}, function onError(e) {
 		if(e != "No matching message handler")
 			throw e;
 		setTimeout(loadContentScript, 5, tabId);
