@@ -129,7 +129,7 @@ function getItem(e) {
 	if(it)
 		return detected(it, "link");
 
-	var it = prefs.enabledOnImages && getImg(it);
+	var it = prefs.enabledOnImages && getImg(trg);
 	if(it)
 		return detected(it, "img");
 
