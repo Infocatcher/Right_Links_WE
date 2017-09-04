@@ -90,7 +90,7 @@ function stopEvent(e) {
 }
 
 function getItem(e) {
-	var trg = e.originalTarget;
+	var trg = e.originalTarget || e.target;
 	if(!trg.localName) // trg === document
 		return null;
 
