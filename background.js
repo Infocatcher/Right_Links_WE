@@ -52,9 +52,18 @@ function loadContentScript(tabId) {
 		loaded[tabId] = true;
 		_log("executeScript done: " + tabId);
 	}, function onError(e) {
-		if(e != "No matching message handler")
-			throw e;
-		setTimeout(loadContentScript, 5, tabId);
+		browser.tabs.get(tabId).then(function(tab) {
+			var err = "browser.tabs.executeScript failed:\n" + tab.url + "\n" + e;
+			if(
+				e == "Error: Missing host permission for the tab" // Some privileged page?
+				|| e == "Error: No matching message handler" // Will wait...
+			)
+				_log(err);
+			else
+				_err(err);
+		});
+		if(e == "Error: No matching message handler")
+			setTimeout(loadContentScript, 20, tabId);
 	});
 }
 function unloadContentScript(tabId) {
