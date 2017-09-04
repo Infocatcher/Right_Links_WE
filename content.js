@@ -83,6 +83,31 @@ function openURIInTab(uri) {
 		uri: uri
 	}).then(function onResponse() {}, _err);
 }
+function mouseEvents(trg, evtTypes, origEvt, opts) {
+	for(var evtType of evtTypes)
+		mouseEvent(trg, evtType, origEvt, opts);
+}
+function mouseEvent(trg, evtType, origEvt, opts) {
+	//~ note: doesn't work as expected
+	var evt = new MouseEvent(evtType, {
+		bubbles: true,
+		cancelable: true,
+		view: origEvt.view,
+		detail: 1,
+		screenX: origEvt.screenX,
+		screenY: origEvt.screenY,
+		clientX: origEvt.clientX,
+		clientY: origEvt.clientY,
+		ctrlKey:  opts.ctrlKey  || false,
+		altKey:   opts.altKey   || false,
+		shiftKey: opts.shiftKey || false,
+		metaKey:  opts.metaKey  || false,
+		button:   opts.button   || 0,
+		relatedTarget: null
+	});
+	evt._rightLinksIgnore = true;
+	return trg.dispatchEvent(evt);
+}
 function stopEvent(e) {
 	e.preventDefault();
 	e.stopPropagation();
