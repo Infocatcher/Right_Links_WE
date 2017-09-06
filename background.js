@@ -15,13 +15,23 @@ function destroy() {
 }
 
 function onMessageFromContent(msg, sender, sendResponse) {
-	//~ todo
-	browser.tabs.create({
+	var opts = {
 		url: msg.uri,
 		//~ todo: add options
 		active: true,
-		index: sender.tab.index + 1
-	});
+		index: sender.tab.index + 1,
+		openerTabId: sender.tab.id
+	};
+	try {
+		browser.tabs.create(opts);
+	}
+	catch(e) {
+		// Type error for parameter createProperties (Property "openerTabId" is unsupported by Firefox) for tabs.create.
+		if((e + "").indexOf('"openerTabId" is unsupported') == -1)
+			throw e;
+		delete opts.openerTabId;
+		browser.tabs.create(opts);
+	}
 }
 function onTabActivated(activeInfo) {
 	loadContentScript(activeInfo.tabId);
