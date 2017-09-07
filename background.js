@@ -62,17 +62,20 @@ function loadContentScript(tabId) {
 		loaded[tabId] = true;
 		_log("executeScript done: " + tabId);
 	}, function onError(e) {
+		var noPermission = e == "Error: Missing host permission for the tab";
+		var noHandler    = e == "Error: No matching message handler";
 		browser.tabs.get(tabId).then(function(tab) {
+			if(noPermission && tab.url == "about:blank") { // Looks like pending tab
+				setTimeout(loadContentScript, 20, tabId);
+				return;
+			}
 			var err = "browser.tabs.executeScript failed:\n" + tab.url + "\n" + e;
-			if(
-				e == "Error: Missing host permission for the tab" // Some privileged page?
-				|| e == "Error: No matching message handler" // Will wait...
-			)
+			if(noPermission || noHandler)
 				_log(err);
 			else
 				_err(err);
 		});
-		if(e == "Error: No matching message handler")
+		if(noHandler)
 			setTimeout(loadContentScript, 20, tabId);
 	});
 }
