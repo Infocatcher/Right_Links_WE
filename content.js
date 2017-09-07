@@ -1,6 +1,9 @@
 const LOG_PREFIX = "[Right Links WE: content] ";
 
 var flags = {
+	runned: false,
+	canceled: false,
+	stopClick: false,
 	stopContextMenu: false
 };
 var detect = {
@@ -14,7 +17,9 @@ var prefs = {
 	enabledOnImages: true,
 	enabledOnCanvasImages: true,
 	canvasImagesSizeLimit: 0,
-	canvasImagesUseBlob: true
+	canvasImagesUseBlob: true,
+	showContextMenuTimeout: 500,
+	longLeftClickTimeout: 500
 };
 
 init();
@@ -43,19 +48,60 @@ function readPrefs() {
 function onMessageFromBackgroundScript(msg) {
 }
 
+var delayedTimer = 0;
 function onMouseDown(e) {
 	if(!enabledFor(e))
 		return;
+
+	flags.runned = false;
+	flags.canceled = false;
+	flags.stopClick = false;
 	flags.stopContextMenu = false;
+
+	var isLeft = e.button == 0;
+	var delay = isLeft ? prefs.longLeftClickTimeout : prefs.showContextMenuTimeout;
+	if(delay <= 0)
+		return;
+
+	var it = getItem(e);
+	_log("onClick " + it);
+	if(!it)
+		return;
+
+	clearTimeout(delayedTimer);
+	delayedTimer = setTimeout(function() {
+		flags.runned = true;
+		if(!it.ownerDocument || !it.ownerDocument.location) // Page already unloaded
+			return;
+		if(isLeft) {
+			var uri = getItemURI(it);
+			openURIInTab(uri);
+			flags.stopClick = true;
+		}
+		else {
+			showContextMenu(e.originalTarget || e.target, e);
+		}
+
+	}, prefs.showContextMenuTimeout);
 }
 function onMouseUp(e) {
 	setTimeout(function() {
+		clearTimeout(delayedTimer);
 		flags.stopContextMenu = false;
 	}, 10);
 }
 function onClick(e) {
 	if(!enabledFor(e))
 		return;
+
+	if(flags.stopClick) {
+		flags.stopClick = false;
+		stopEvent(e);
+	}
+
+	if(flags.runned || flags.canceled)
+		return;
+
 	var it = getItem(e);
 	_log("onClick " + it);
 	if(!it)
@@ -82,6 +128,15 @@ function openURIInTab(uri) {
 	browser.runtime.sendMessage({
 		uri: uri
 	}).then(function onResponse() {}, _err);
+}
+function showContextMenu(trg, origEvt) {
+	_log("showContextMenu()");
+	var events = ["mouseup", "contextmenu"];
+	//if(simulateMousedown)
+	//	events.unshift("mousedown");
+	flags.stopContextMenu = false;
+	mouseEvents(trg, events, origEvt, {});
+	blinkNode(trg);
 }
 function mouseEvents(trg, evtTypes, origEvt, opts) {
 	for(var evtType of evtTypes)
@@ -192,6 +247,17 @@ function getLinkURI(it) {
 		return url;
 	}
 	return it.href || it.getAttribute("href");
+}
+function blinkNode(node) {
+	var stl = node.hasAttribute("style") && node.getAttribute("style");
+	node.style.setProperty("opacity", "0.1", "important");
+	node.style.setProperty("transition", "opacity 120ms ease-in-out", "important");
+	setTimeout(function() {
+		if(stl === false)
+			node.removeAttribute("style");
+		else
+			node.setAttribute("style", stl);
+	}, 270);
 }
 
 function ts() {
