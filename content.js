@@ -19,7 +19,8 @@ var prefs = {
 	canvasImagesSizeLimit: 0,
 	canvasImagesUseBlob: true,
 	showContextMenuTimeout: 500,
-	longLeftClickTimeout: 500
+	longLeftClickTimeout: 500,
+	disallowMousemoveDist: 14
 };
 
 init();
@@ -68,6 +69,8 @@ function onMouseDown(e) {
 	if(!it)
 		return;
 
+	moveHandlers(e);
+
 	clearTimeout(delayedTimer);
 	delayedTimer = setTimeout(function() {
 		flags.runned = true;
@@ -85,6 +88,7 @@ function onMouseDown(e) {
 	}, prefs.showContextMenuTimeout);
 }
 function onMouseUp(e) {
+	moveHandlers(false);
 	setTimeout(function() {
 		clearTimeout(delayedTimer);
 		flags.stopContextMenu = false;
@@ -116,6 +120,23 @@ function onContextMenu(e) {
 	if(flags.stopContextMenu)
 		stopEvent(e);
 }
+function onMouseMove(e) {
+	var mmd = moveHandlers.data;
+	if(!mmd.enabled)
+		return;
+	var x = e.screenX;
+	var y = e.screenY;
+	mmd.dist += Math.sqrt(
+		Math.pow(mmd.screenX - x, 2) +
+		Math.pow(mmd.screenY - y, 2)
+	);
+	if(mmd.dist >= prefs.disallowMousemoveDist) {
+		cancel();
+		return;
+	}
+	mmd.screenX = x;
+	mmd.screenY = y;
+}
 
 function enabledFor(e) {
 	if("_rightLinksIgnore" in e || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
@@ -135,8 +156,37 @@ function showContextMenu(trg, origEvt) {
 	//if(simulateMousedown)
 	//	events.unshift("mousedown");
 	flags.stopContextMenu = false;
-	mouseEvents(trg, events, origEvt, {});
+	mouseEvents(trg, events, origEvt, {}); // Actually doesn't work...
 	blinkNode(trg);
+}
+function moveHandlers(e) {
+	if(!e == !moveHandlers.data)
+		return;
+	if(e) {
+		var dist = prefs.disallowMousemoveDist;
+		moveHandlers.data = {
+			enabled: dist >= 0,
+			dist: 0,
+			screenX: e.screenX,
+			screenY: e.screenY
+		};
+		window.addEventListener("mousemove", onMouseMove, true);
+		window.addEventListener("wheel", cancel, true);
+		window.addEventListener("dragstart", cancel, true);
+	}
+	else {
+		moveHandlers.data = null;
+		window.removeEventListener("mousemove", onMouseMove, true);
+		window.removeEventListener("wheel", cancel, true);
+		window.removeEventListener("dragstart", cancel, true);
+	}
+}
+function cancel() {
+	flags.canceled = true;
+	flags.stopContextMenu = false;
+	flags.stopClick = false;
+	clearTimeout(delayedTimer);
+	moveHandlers(false);
 }
 function mouseEvents(trg, evtTypes, origEvt, opts) {
 	for(var evtType of evtTypes)
