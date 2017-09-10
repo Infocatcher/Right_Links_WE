@@ -28,6 +28,7 @@ function readPrefs(callback) {
 }
 
 function onMessageFromContent(msg, sender, sendResponse) {
+	_log("onMessageFromContent() -> browser.tabs.create(), inBG: " + msg.inBG + ", URI:\n" + msg.uri);
 	var opts = {
 		url: msg.uri,
 		//~ todo: add options

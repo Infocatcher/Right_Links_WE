@@ -71,7 +71,7 @@ function onMouseDown(e) {
 		return;
 
 	var it = getItem(e);
-	_log("onClick " + it);
+	_log("onMouseDown() -> getItem(): " + it);
 	if(!it)
 		return;
 
@@ -84,10 +84,12 @@ function onMouseDown(e) {
 			return;
 		if(isLeft) {
 			var uri = getItemURI(it);
+			_log("onMouseDown() -> delayedTimer -> openURIInTab():\n" + uri);
 			openURIInTab(uri, prefs.loadInBackgroundLeft);
 			flags.stopClick = true;
 		}
 		else {
+			_log("onMouseDown() -> delayedTimer -> showContextMenu():");
 			showContextMenu(e.originalTarget || e.target, e);
 		}
 
@@ -113,7 +115,7 @@ function onClick(e) {
 		return;
 
 	var it = getItem(e);
-	_log("onClick " + it);
+	_log("onClick() -> getItem(): " + it);
 	if(!it)
 		return;
 	var uri = getItemURI(it);
