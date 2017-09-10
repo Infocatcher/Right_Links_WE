@@ -18,7 +18,7 @@ function onMessageFromContent(msg, sender, sendResponse) {
 	var opts = {
 		url: msg.uri,
 		//~ todo: add options
-		active: true,
+		active: !msg.inBG,
 		index: sender.tab.index + 1,
 		openerTabId: sender.tab.id
 	};

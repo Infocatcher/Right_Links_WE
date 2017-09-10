@@ -14,6 +14,8 @@ var detect = {
 var prefs = {
 	enabledLeft: true,
 	enabledRight: true,
+	loadInBackgroundLeft: false,
+	loadInBackgroundRight: true,
 	enabledOnImages: true,
 	enabledOnCanvasImages: true,
 	canvasImagesSizeLimit: 0,
@@ -78,7 +80,7 @@ function onMouseDown(e) {
 			return;
 		if(isLeft) {
 			var uri = getItemURI(it);
-			openURIInTab(uri);
+			openURIInTab(uri, prefs.loadInBackgroundLeft);
 			flags.stopClick = true;
 		}
 		else {
@@ -114,7 +116,7 @@ function onClick(e) {
 	//~ todo: prefs.canvasImagesUseBlob
 	if(e.button == 2)
 		flags.stopContextMenu = true;
-	openURIInTab(uri);
+	openURIInTab(uri, prefs.loadInBackgroundRight);
 }
 function onContextMenu(e) {
 	if(flags.stopContextMenu)
@@ -145,9 +147,10 @@ function enabledFor(e) {
 	return btn == 0 && prefs.enabledLeft
 		|| btn == 2 && prefs.enabledRight;
 }
-function openURIInTab(uri) {
+function openURIInTab(uri, inBG) {
 	browser.runtime.sendMessage({
-		uri: uri
+		uri: uri,
+		inBG: inBG
 	}).then(function onResponse() {}, _err);
 }
 function showContextMenu(trg, origEvt) {
