@@ -1,7 +1,14 @@
 const LOG_PREFIX = "[Right Links WE: background] ";
 
-init();
+var prefs = {
+	debug: true
+};
 
+preInit();
+
+function preInit() {
+	readPrefs(init);
+}
 function init() {
 	browser.runtime.onMessage.addListener(onMessageFromContent);
 	loadContentScript();
@@ -12,6 +19,12 @@ function destroy() {
 	browser.runtime.onMessage.removeListener(onMessageFromContent);
 	browser.tabs.onActivated.removeListener(onTabActivated);
 	browser.tabs.query({}).then(unloadContentScripts, _err);
+}
+function readPrefs(callback) {
+	browser.storage.local.get({}).then(function(o) {
+		Object.assign(prefs, o);
+		callback();
+	}, _err);
 }
 
 function onMessageFromContent(msg, sender, sendResponse) {
@@ -90,8 +103,8 @@ function ts() {
 	return d.toTimeString().replace(/^.*\d+:(\d+:\d+).*$/, "$1") + ":" + "000".substr(("" + ms).length) + ms + " ";
 }
 function _log(s) {
-	//if(_dbg)
-	console.log(LOG_PREFIX + ts() + s);
+	if(prefs.debug)
+		console.log(LOG_PREFIX + ts() + s);
 }
 function _err(s) {
 	console.error(LOG_PREFIX + ts() + s);

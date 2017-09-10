@@ -12,6 +12,7 @@ var detect = {
 	itemType: ""
 };
 var prefs = {
+	debug: true,
 	enabledLeft: true,
 	enabledRight: true,
 	loadInBackgroundLeft: false,
@@ -25,10 +26,12 @@ var prefs = {
 	disallowMousemoveDist: 14
 };
 
-init();
+preInit();
 
+function preInit() {
+	readPrefs(init);
+}
 function init() {
-	readPrefs(); // Note: will use defaults right after startup
 	browser.runtime.onMessage.addListener(onMessageFromBackgroundScript);
 	window.addEventListener("mousedown", onMouseDown, true);
 	window.addEventListener("mouseup", onMouseUp, true);
@@ -42,9 +45,10 @@ function destroy() {
 	window.removeEventListener("click", onClick, true);
 	window.removeEventListener("contextmenu", onContextMenu, true);
 }
-function readPrefs() {
+function readPrefs(callback) {
 	browser.storage.local.get({}).then(function(o) {
 		Object.assign(prefs, o);
+		callback();
 	}, _err);
 }
 
@@ -319,8 +323,8 @@ function ts() {
 	return d.toTimeString().replace(/^.*\d+:(\d+:\d+).*$/, "$1") + ":" + "000".substr(("" + ms).length) + ms + " ";
 }
 function _log(s) {
-	//if(_dbg)
-	console.log(LOG_PREFIX + ts() + s);
+	if(prefs.debug)
+		console.log(LOG_PREFIX + ts() + s);
 }
 function _err(s) {
 	console.error(LOG_PREFIX + ts() + s);
