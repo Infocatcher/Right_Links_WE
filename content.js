@@ -46,7 +46,7 @@ function destroy() {
 	window.removeEventListener("contextmenu", onContextMenu, true);
 }
 function readPrefs(callback) {
-	browser.storage.local.get({}).then(function(o) {
+	browser.storage.local.get().then(function(o) {
 		Object.assign(prefs, o);
 		callback();
 	}, _err);
