@@ -47,6 +47,10 @@ function destroy() {
 }
 function readPrefs(callback) {
 	browser.storage.local.get().then(function(o) {
+		browser.storage.onChanged.addListener(function(changes, area) {
+			if(area == "local") for(var key in changes)
+				prefs[key] = changes[key].newValue;
+		});
 		Object.assign(prefs, o);
 		callback();
 	}, _err);
