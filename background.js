@@ -40,15 +40,23 @@ function onMessageFromContent(msg, sender, sendResponse) {
 		index: sender.tab.index + 1,
 		openerTabId: sender.tab.id
 	};
+	function onError(e) {
+		browser.notifications.create({
+			"type": "basic",
+			//"iconUrl": browser.extension.getURL("icon.png"),
+			"title": browser.i18n.getMessage("extensionName"),
+			"message": "" + e
+		});
+	}
 	try {
-		browser.tabs.create(opts);
+		browser.tabs.create(opts).catch(onError);
 	}
 	catch(e) {
 		// Type error for parameter createProperties (Property "openerTabId" is unsupported by Firefox) for tabs.create.
 		if((e + "").indexOf('"openerTabId" is unsupported') == -1)
 			throw e;
 		delete opts.openerTabId;
-		browser.tabs.create(opts);
+		browser.tabs.create(opts).catch(onError);
 	}
 }
 function onTabActivated(activeInfo) {
