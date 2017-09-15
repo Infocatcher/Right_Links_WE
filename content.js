@@ -87,9 +87,8 @@ function onMouseDown(e) {
 		if(!it.ownerDocument || !it.ownerDocument.location) // Page already unloaded
 			return;
 		if(isLeft) {
-			var uri = getItemURI(it);
 			_log("onMouseDown() -> delayedTimer -> openURIInTab():\n" + uri);
-			openURIInTab(uri, prefs.loadInBackgroundLeft);
+			openURIItem(it, prefs.loadInBackgroundLeft);
 			flags.stopClick = true;
 		}
 		else {
@@ -122,11 +121,10 @@ function onClick(e) {
 	_log("onClick() -> getItem(): " + it);
 	if(!it)
 		return;
-	var uri = getItemURI(it);
 	//~ todo: prefs.canvasImagesUseBlob
 	if(e.button == 2)
 		flags.stopContextMenu = true;
-	openURIInTab(uri, prefs.loadInBackgroundRight);
+	openURIItem(it, prefs.loadInBackgroundRight);
 }
 function onContextMenu(e) {
 	if(flags.stopContextMenu)
@@ -156,6 +154,10 @@ function enabledFor(e) {
 	var btn = e.button;
 	return btn == 0 && prefs.enabledLeft
 		|| btn == 2 && prefs.enabledRight;
+}
+function openURIItem(it, inBG) {
+	var uri = getItemURI(it);
+	openURIInTab(uri, inBG);
 }
 function openURIInTab(uri, inBG) {
 	browser.runtime.sendMessage({
