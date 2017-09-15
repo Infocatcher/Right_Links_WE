@@ -121,7 +121,6 @@ function onClick(e) {
 	_log("onClick() -> getItem(): " + it);
 	if(!it)
 		return;
-	//~ todo: prefs.canvasImagesUseBlob
 	if(e.button == 2)
 		flags.stopContextMenu = true;
 	openURIItem(it, prefs.loadInBackgroundRight);
@@ -157,6 +156,20 @@ function enabledFor(e) {
 }
 function openURIItem(it, inBG) {
 	var uri = getItemURI(it);
+	if(
+		uri == "data:,"
+		&& it instanceof HTMLCanvasElement
+		&& "toBlob" in it
+		&& "URL" in window
+		&& "createObjectURL" in URL
+	) {
+		// Note: not allowed at least for now
+		// Security Error: Content at moz-extension://.../ may not load data from blob:...
+		it.toBlob(function(blob) {
+			openURIInTab(URL.createObjectURL(blob), inBG);
+		});
+		return;
+	}
 	openURIInTab(uri, inBG);
 }
 function openURIInTab(uri, inBG) {
