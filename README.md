@@ -47,5 +47,12 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Right_Links">Right
 		<td>Minor</td>
 		<td></td>
 	</tr>
+	<tr>
+		<td>Configurable <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/commands">keyboard shortcuts</a> (note: also not possible to assign Ctrl+Alt+<em>X</em>)</td>
+		<td>UX</td>
+		<td>No API</td>
+		<td>Minor</td>
+		<td><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1303384">Bug 1303384</a></td>
+	</tr>
 </tbody>
 </table>
