@@ -72,7 +72,7 @@ function unloadContentScripts(tabs) {
 	for(var tab of tabs)
 		unloadContentScript(tab.id);
 }
-function loadContentScript(tabId) {
+function loadContentScript(tabId, _stopTime) {
 	if(!tabId) {
 		browser.tabs.query({ currentWindow: true, active: true }).then(function(tabsInfo) {
 			loadContentScript(tabsInfo[0].id);
@@ -92,8 +92,12 @@ function loadContentScript(tabId) {
 		var noHandler    = e == "Error: No matching message handler";
 		browser.tabs.get(tabId).then(function(tab) {
 			if(noPermission && tab.url == "about:blank") { // Looks like pending tab
-				setTimeout(loadContentScript, 20, tabId);
-				return;
+				if(_stopTime && Date.now() > _stopTime)
+					_log("executeScript: stop wait");
+				else {
+					setTimeout(loadContentScript, 20, tabId, _stopTime || Date.now() + 5e3);
+					return;
+				}
 			}
 			var err = "browser.tabs.executeScript failed:\n" + tab.url + "\n" + e;
 			if(noPermission || noHandler)
