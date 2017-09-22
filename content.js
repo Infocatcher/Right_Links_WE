@@ -74,7 +74,8 @@ function onMouseDown(e) {
 	if(delay <= 0)
 		return;
 
-	var it = getItem(e);
+	var trg = e.originalTarget || e.target;
+	var it = getItem(trg);
 	_log("onMouseDown() -> getItem(): " + it);
 	if(!it)
 		return;
@@ -88,12 +89,12 @@ function onMouseDown(e) {
 			return;
 		if(isLeft) {
 			_log("onMouseDown() -> delayedTimer -> openURIInTab():\n" + uri);
-			openURIItem(it, prefs.loadInBackgroundLeft);
+			openURIItem(e, trg, it, prefs.loadInBackgroundLeft);
 			flags.stopClick = true;
 		}
 		else {
 			_log("onMouseDown() -> delayedTimer -> showContextMenu():");
-			showContextMenu(e.originalTarget || e.target, e);
+			showContextMenu(trg, e);
 		}
 
 	}, prefs.showContextMenuTimeout);
@@ -120,13 +121,14 @@ function onClick(e) {
 	if(flags.runned || flags.canceled)
 		return;
 
-	var it = getItem(e);
+	var trg = e.originalTarget || e.target;
+	var it = getItem(trg);
 	_log("onClick() -> getItem(): " + it);
 	if(!it)
 		return;
 	if(e.button == 2)
 		flags.stopContextMenu = true;
-	openURIItem(it, prefs.loadInBackgroundRight);
+	openURIItem(e, trg, it, prefs.loadInBackgroundRight);
 }
 function onContextMenu(e) {
 	if(flags.stopContextMenu)
@@ -157,7 +159,7 @@ function enabledFor(e) {
 	return btn == 0 && prefs.enabledLeft
 		|| btn == 2 && prefs.enabledRight;
 }
-function openURIItem(it, inBG) {
+function openURIItem(e, trg, it, inBG) {
 	var uri = getItemURI(it);
 	if(
 		uri == "data:,"
@@ -250,8 +252,7 @@ function stopEvent(e) {
 	e.stopImmediatePropagation();
 }
 
-function getItem(e) {
-	var trg = e.originalTarget || e.target;
+function getItem(trg) {
 	if(!trg.localName) // trg === document
 		return null;
 
