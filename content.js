@@ -99,6 +99,9 @@ function onMouseDown(e) {
 	}, prefs.showContextMenuTimeout);
 }
 function onMouseUp(e) {
+	if("_rightLinksIgnore" in e)
+		return;
+
 	moveHandlers(false);
 	setTimeout(function() {
 		clearTimeout(delayedTimer);
