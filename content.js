@@ -175,6 +175,13 @@ function openURIItem(e, trg, it, inBG) {
 		});
 		return;
 	}
+	if(isVoidURI(uri) || isDummyURI(it, uri)) {
+		_log("openURIItem() -> void or dummy URI");
+		mouseEvents(trg, ["mousedown", "mouseup", "click"], e, {
+			ctrlKey: true
+		});
+		return;
+	}
 	openURIInTab(uri, inBG);
 }
 function openURIInTab(uri, inBG) {
@@ -329,6 +336,27 @@ function getLinkURI(it) {
 		return url;
 	}
 	return it.href || it.getAttribute("href");
+}
+function isVoidURI(uri) {
+	uri = (uri || "").replace(/(?:\s|%20)+/g, " ");
+	return /^javascript: *(?:|\/\/|void *(?: +0|\( *0 *\))) *;? *$/i.test(uri);
+}
+function isDummyURI(it, uri) {
+	var doc = it.ownerDocument;
+	var loc = doc.documentURI.replace(/#.*$/, "");
+	if(!uri.startsWith(loc))
+		return false;
+	var hash = uri.substr(loc.length);
+	if(!hash && it.hasAttribute && it.hasAttribute("href") && !it.getAttribute("href")) // <a href="">
+		return true;
+	if(hash.charAt(0) != "#")
+		return false;
+	var anchor = hash.substr(1);
+	if(!anchor) // <a href="#">
+		return true;
+	if(anchor.charAt(0) == "!") // site.com/#!... links on JavaScript-based sites like http://twitter.com/
+		return false;
+	return !doc.getElementById(anchor) && !doc.getElementsByName(anchor).length;
 }
 function blinkNode(node) {
 	var stl = node.hasAttribute("style") && node.getAttribute("style");
