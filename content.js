@@ -175,6 +175,11 @@ function openURIItem(e, trg, it, inBG) {
 		});
 		return;
 	}
+	if(isJSURI(uri)) {
+		_log("openURIItem() -> javascript:... URI");
+		//~ todo
+		return;
+	}
 	if(isVoidURI(uri) || isDummyURI(it, uri)) {
 		_log("openURIItem() -> void or dummy URI");
 		mouseEvents(trg, ["mousedown", "mouseup", "click"], e, {
@@ -336,6 +341,9 @@ function getLinkURI(it) {
 		return url;
 	}
 	return it.href || it.getAttribute("href");
+}
+function isJSURI(uri) {
+	return /^javascript:/i.test(uri);
 }
 function isVoidURI(uri) {
 	uri = (uri || "").replace(/(?:\s|%20)+/g, " ");
