@@ -177,7 +177,7 @@ function openURIItem(e, trg, it, inBG) {
 	}
 	if(isJSURI(uri)) {
 		_log("openURIItem() -> javascript:... URI");
-		//~ todo
+		loadJSURI(trg, uri);
 		return;
 	}
 	if(isVoidURI(uri) || isDummyURI(it, uri)) {
@@ -194,6 +194,10 @@ function openURIInTab(uri, inBG) {
 		uri: uri,
 		inBG: inBG
 	}).then(function onResponse() {}, _err);
+}
+function loadJSURI(trg, uri) {
+	var win = trg.ownerDocument.defaultView;
+	new win.Function("location = " + JSON.stringify(uri))();
 }
 function showContextMenu(trg, origEvt) {
 	_log("showContextMenu()");
