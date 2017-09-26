@@ -13,12 +13,10 @@ function init() {
 	browser.runtime.onMessage.addListener(onMessageFromContent);
 	loadContentScript();
 	browser.tabs.onActivated.addListener(onTabActivated);
-	//browser.tabs.query({}).then(loadContentScripts, _err);
 }
 function destroy() {
 	browser.runtime.onMessage.removeListener(onMessageFromContent);
 	browser.tabs.onActivated.removeListener(onTabActivated);
-	browser.tabs.query({}).then(unloadContentScripts, _err);
 }
 function readPrefs(callback) {
 	browser.storage.local.get().then(function(o) {
@@ -64,14 +62,6 @@ function onTabActivated(activeInfo) {
 }
 
 var loaded = {};
-function loadContentScripts(tabs) {
-	for(var tab of tabs)
-		loadContentScript(tab.id);
-}
-function unloadContentScripts(tabs) {
-	for(var tab of tabs)
-		unloadContentScript(tab.id);
-}
 function loadContentScript(tabId, _stopTime) {
 	if(!tabId) {
 		browser.tabs.query({ currentWindow: true, active: true }).then(function(tabsInfo) {
@@ -108,9 +98,6 @@ function loadContentScript(tabId, _stopTime) {
 		if(noHandler)
 			setTimeout(loadContentScript, 20, tabId);
 	});
-}
-function unloadContentScript(tabId) {
-	//~ todo
 }
 
 
