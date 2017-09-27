@@ -47,11 +47,20 @@ function readPrefs(callback) {
 	browser.storage.local.get().then(function(o) {
 		browser.storage.onChanged.addListener(function(changes, area) {
 			if(area == "local") for(var key in changes)
-				prefs[key] = changes[key].newValue;
+				onPrefChanged(key, changes[key].newValue);
 		});
 		Object.assign(prefs, o);
 		callback();
 	}, _err);
+}
+function onPrefChanged(key, newVal) {
+	prefs[key] = newVal;
+	if(key == "enabled") {
+		if(newVal)
+			init();
+		else
+			destroy();
+	}
 }
 
 var delayedTimer = 0;

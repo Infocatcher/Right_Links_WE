@@ -1,5 +1,6 @@
 var prefs = { // Defaults
 	debug: true,
+	enabled: true,
 	enabledLeft: true,
 	enabledRight: true,
 	loadInBackgroundLeft: false,

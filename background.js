@@ -1,7 +1,8 @@
 const LOG_PREFIX = "[Right Links WE: background] ";
 
 var prefs = {
-	debug: true
+	debug: true,
+	enabled: true
 };
 
 preInit();
@@ -10,6 +11,8 @@ function preInit() {
 	readPrefs(init);
 }
 function init() {
+	if(!prefs.enabled)
+		return;
 	browser.runtime.onMessage.addListener(onMessageFromContent);
 	loadContentScript();
 	browser.tabs.onActivated.addListener(onTabActivated);
@@ -22,11 +25,20 @@ function readPrefs(callback) {
 	browser.storage.local.get().then(function(o) {
 		browser.storage.onChanged.addListener(function(changes, area) {
 			if(area == "local") for(var key in changes)
-				prefs[key] = changes[key].newValue;
+				onPrefChanged(key, changes[key].newValue);
 		});
 		Object.assign(prefs, o);
 		callback();
 	}, _err);
+}
+function onPrefChanged(key, newVal) {
+	prefs[key] = newVal;
+	if(key == "enabled") {
+		if(newVal)
+			init();
+		else
+			destroy();
+	}
 }
 
 function onMessageFromContent(msg, sender, sendResponse) {
