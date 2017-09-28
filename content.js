@@ -92,7 +92,7 @@ function onMouseDown(e) {
 		if(!it.ownerDocument || !it.ownerDocument.location) // Page already unloaded
 			return;
 		if(isLeft) {
-			_log("onMouseDown() -> delayedTimer -> openURIInTab():\n" + uri);
+			_log("onMouseDown() -> delayedTimer -> openURIInTab()");
 			openURIItem(e, trg, it, prefs.loadInBackgroundLeft);
 			flags.stopClick = true;
 		}
