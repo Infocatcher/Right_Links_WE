@@ -32,5 +32,9 @@
 			"16": "icon16.png",
 			"24": "icon24.png"
 		}
+	},
+	"icons": {
+		"16": "icon16.png",
+		"24": "icon24.png"
 	}
 }
