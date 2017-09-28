@@ -12,14 +12,16 @@ function preInit() {
 }
 function init() {
 	if(!prefs.enabled)
-		return;
+		return updateState();
 	browser.runtime.onMessage.addListener(onMessageFromContent);
 	loadContentScript();
 	browser.tabs.onActivated.addListener(onTabActivated);
+	return updateState();
 }
 function destroy() {
 	browser.runtime.onMessage.removeListener(onMessageFromContent);
 	browser.tabs.onActivated.removeListener(onTabActivated);
+	updateState();
 }
 function readPrefs(callback) {
 	browser.storage.local.get().then(function(o) {
@@ -40,6 +42,26 @@ function onPrefChanged(key, newVal) {
 			destroy();
 	}
 }
+function updateState() {
+	setTimeout(setState, 0, prefs.enabled);
+}
+function setState(enabled) {
+	_log("setState(" + enabled + ")");
+	var key = enabled ? "" : "-off";
+	browser.browserAction.setIcon({
+		path: {
+			16: "icon16" + key + ".png",
+			24: "icon24" + key + ".png"
+		}
+	});
+}
+
+browser.browserAction.onClicked.addListener(function() {
+	_log("browserAction.onClicked");
+	browser.storage.local.set({
+		enabled: !prefs.enabled
+	});
+});
 
 function onMessageFromContent(msg, sender, sendResponse) {
 	_log("onMessageFromContent() -> browser.tabs.create(), inBG: " + msg.inBG + ", URI:\n" + msg.uri);

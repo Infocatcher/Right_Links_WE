@@ -24,5 +24,13 @@
 	"options_ui": {
 		"page": "options.html",
 		"browser_style": true
+	},
+	"browser_action": {
+		"browser_style": true,
+		"default_title": "__MSG_extensionName__",
+		"default_icon": {
+			"16": "icon16.png",
+			"24": "icon24.png"
+		}
 	}
 }
