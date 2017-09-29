@@ -13,7 +13,6 @@ var prefs = { // Defaults
 	longLeftClickTimeout: 500,
 	disallowMousemoveDist: 14
 };
-
 function loadOptions() {
 	browser.storage.local.get().then(function(o) {
 		browser.storage.onChanged.addListener(function(changes, area) {
@@ -34,16 +33,17 @@ function loadOption(id, val) {
 	else
 		node.value = val;
 }
-function saveOptions() {
-	var nodes = document.querySelectorAll("[id]");
-	for(var node of nodes)
-		prefs[node.id] = node.type == "checkbox"
-			? node.checked
-			: node.type == "number"
-				? +node.value
-				: node.value;
-	browser.storage.local.set(prefs);
+function saveOption(e) {
+	var node = e.target;
+	if(!(node.id in prefs))
+		return;
+	var o = {};
+	o[node.id] = node.type == "checkbox"
+		? node.checked
+		: node.type == "number"
+			? +node.value
+			: node.value;
+	browser.storage.local.set(o);
 }
 document.addEventListener("DOMContentLoaded", loadOptions, true);
-document.addEventListener("change", saveOptions, false);
-document.addEventListener("input", saveOptions, false);
+document.addEventListener("input", saveOption, false);
