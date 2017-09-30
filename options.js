@@ -37,13 +37,13 @@ function saveOption(e) {
 	var node = e.target;
 	if(!(node.id in prefs))
 		return;
-	var o = {};
-	o[node.id] = node.type == "checkbox"
-		? node.checked
-		: node.type == "number"
-			? +node.value
-			: node.value;
-	browser.storage.local.set(o);
+	browser.storage.local.set({
+		[node.id]: node.type == "checkbox"
+			? node.checked
+			: node.type == "number"
+				? +node.value
+				: node.value
+	});
 }
 document.addEventListener("DOMContentLoaded", loadOptions, true);
 document.addEventListener("input", saveOption, false);
