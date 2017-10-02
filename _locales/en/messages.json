@@ -10,5 +10,10 @@
 	"rlOptions": {
 		"message": "Right Links WE Options",
 		"description": "Menu item in toolbar button context menu"
-	}
+	},
+	"enabled": { "message": "Enabled" },
+	"longLeftClick": { "message": "Long left-click" },
+	"loadInBackground": { "message": "Load links in background" },
+	"rightClick": { "message": "Right-click" },
+	"enabledOnImages": { "message": "Handle clicks on images" }
 }

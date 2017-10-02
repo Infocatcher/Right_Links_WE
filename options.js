@@ -13,6 +13,18 @@ var prefs = { // Defaults
 	longLeftClickTimeout: 500,
 	disallowMousemoveDist: 14
 };
+function init() {
+	localize();
+	loadOptions();
+}
+function localize() {
+	var its = document.getElementsByTagName("data");
+	for(var i = its.length - 1; i >= 0; --i) {
+		var it = its[i];
+		var s = browser.i18n.getMessage(it.textContent);
+		s && it.parentNode.replaceChild(document.createTextNode(s), it);
+	}
+}
 function loadOptions() {
 	browser.storage.local.get().then(function(o) {
 		browser.storage.onChanged.addListener(function(changes, area) {
@@ -45,5 +57,5 @@ function saveOption(e) {
 				: node.value
 	});
 }
-document.addEventListener("DOMContentLoaded", loadOptions, true);
+document.addEventListener("DOMContentLoaded", init, true);
 document.addEventListener("input", saveOption, false);

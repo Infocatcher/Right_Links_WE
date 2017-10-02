@@ -10,5 +10,10 @@
 	"rlOptions": {
 		"message": "Настройки Right Links WE",
 		"description": "Menu item in toolbar button context menu"
-	}
+	},
+	"enabled": { "message": "Включено" },
+	"longLeftClick": { "message": "Долгий клик левой кнопкой мыши" },
+	"loadInBackground": { "message": "Открывать ссылки в фоне" },
+	"rightClick": { "message": "Клик правой кнопкой мыши" },
+	"enabledOnImages": { "message": "Обрабатывать клики по изображениям" }
 }
