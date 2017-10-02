@@ -6,5 +6,9 @@
 	"extensionDescription": {
 		"message": "Right-click to open links in new tabs (for touchpads etc.)",
 		"description": "Description of the extension"
+	},
+	"rlOptions": {
+		"message": "Right Links WE Options",
+		"description": "Menu item in toolbar button context menu"
 	}
 }

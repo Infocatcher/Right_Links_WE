@@ -6,5 +6,9 @@
 	"extensionDescription": {
 		"message": "Позволяет открывать ссылки в новых вкладках по клику правой кнопкой мыши (для тачпадов и т.п.)",
 		"description": "Description of the extension"
+	},
+	"rlOptions": {
+		"message": "Настройки Right Links WE",
+		"description": "Menu item in toolbar button context menu"
 	}
 }

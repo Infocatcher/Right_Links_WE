@@ -62,6 +62,17 @@ browser.browserAction.onClicked.addListener(function() {
 		enabled: !prefs.enabled
 	});
 });
+browser.contextMenus.create({
+	id: "options",
+	title: browser.i18n.getMessage("rlOptions"),
+	contexts: ["browser_action"]
+});
+browser.contextMenus.onClicked.addListener(function(info, tab) {
+	var miId = info.menuItemId;
+	_log("contextMenus.onClicked: " + miId);
+	if(miId == "options")
+		browser.runtime.openOptionsPage();
+});
 
 function onMessageFromContent(msg, sender, sendResponse) {
 	_log("onMessageFromContent() -> browser.tabs.create(), inBG: " + msg.inBG + ", URI:\n" + msg.uri);
