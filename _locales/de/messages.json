@@ -22,5 +22,8 @@
 	},
 	"enabledOnImages": {
 		"message": "Klicks auf Grafiken anwenden"
+	},
+	"debug": {
+		"message": "Debug mode"
 	}
 }

@@ -22,5 +22,8 @@
 	},
 	"enabledOnImages": {
 		"message": "Handle clicks on images"
+	},
+	"debug": {
+		"message": "Debug mode"
 	}
 }

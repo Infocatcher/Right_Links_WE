@@ -22,5 +22,8 @@
 	},
 	"enabledOnImages": {
 		"message": "Прихващай кликове върху изображения"
+	},
+	"debug": {
+		"message": "Debug mode"
 	}
 }
