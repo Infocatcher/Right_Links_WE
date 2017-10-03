@@ -1,19 +1,26 @@
 {
 	"extensionName": {
-		"message": "Right Links WE",
-		"description": "Name of the extension"
+		"message": "Right Links WE"
 	},
 	"extensionDescription": {
-		"message": "Klicken Sie mit der rechten Maustaste, um Verweise auf neuen Tabs zu öffnen (für Touchpads usw.)",
-		"description": "Description of the extension"
+		"message": "Klicken Sie mit der rechten Maustaste, um Verweise auf neuen Tabs zu öffnen (für Touchpads usw.)"
 	},
 	"rlOptions": {
-		"message": "Right Links WE Options",
-		"description": "Menu item in toolbar button context menu"
+		"message": "Right Links WE Options"
 	},
-	"enabled": { "message": "Aktiviert" },
-	"longLeftClick": { "message": "Langer Linksklick" },
-	"loadInBackground": { "message": "Verweise im Hintergrund laden" },
-	"rightClick": { "message": "Right-click" },
-	"enabledOnImages": { "message": "Klicks auf Grafiken anwenden" }
+	"enabled": {
+		"message": "Aktiviert"
+	},
+	"longLeftClick": {
+		"message": "Langer Linksklick"
+	},
+	"loadInBackground": {
+		"message": "Verweise im Hintergrund laden"
+	},
+	"rightClick": {
+		"message": "Right-click"
+	},
+	"enabledOnImages": {
+		"message": "Klicks auf Grafiken anwenden"
+	}
 }

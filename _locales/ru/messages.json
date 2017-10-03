@@ -1,19 +1,26 @@
 {
 	"extensionName": {
-		"message": "Right Links WE",
-		"description": "Name of the extension"
+		"message": "Right Links WE"
 	},
 	"extensionDescription": {
-		"message": "Позволяет открывать ссылки в новых вкладках по клику правой кнопкой мыши (для тачпадов и т.п.)",
-		"description": "Description of the extension"
+		"message": "Позволяет открывать ссылки в новых вкладках по клику правой кнопкой мыши (для тачпадов и т.п.)"
 	},
 	"rlOptions": {
-		"message": "Настройки Right Links WE",
-		"description": "Menu item in toolbar button context menu"
+		"message": "Настройки Right Links WE"
 	},
-	"enabled": { "message": "Включено" },
-	"longLeftClick": { "message": "Долгий клик левой кнопкой мыши" },
-	"loadInBackground": { "message": "Открывать ссылки в фоне" },
-	"rightClick": { "message": "Клик правой кнопкой мыши" },
-	"enabledOnImages": { "message": "Обрабатывать клики по изображениям" }
+	"enabled": {
+		"message": "Включено"
+	},
+	"longLeftClick": {
+		"message": "Долгий клик левой кнопкой мыши"
+	},
+	"loadInBackground": {
+		"message": "Открывать ссылки в фоне"
+	},
+	"rightClick": {
+		"message": "Клик правой кнопкой мыши"
+	},
+	"enabledOnImages": {
+		"message": "Обрабатывать клики по изображениям"
+	}
 }

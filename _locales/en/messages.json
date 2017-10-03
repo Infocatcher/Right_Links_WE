@@ -1,19 +1,26 @@
 {
 	"extensionName": {
-		"message": "Right Links WE",
-		"description": "Name of the extension"
+		"message": "Right Links WE"
 	},
 	"extensionDescription": {
-		"message": "Right-click to open links in new tabs (for touchpads etc.)",
-		"description": "Description of the extension"
+		"message": "Right-click to open links in new tabs (for touchpads etc.)"
 	},
 	"rlOptions": {
-		"message": "Right Links WE Options",
-		"description": "Menu item in toolbar button context menu"
+		"message": "Right Links WE Options"
 	},
-	"enabled": { "message": "Enabled" },
-	"longLeftClick": { "message": "Long left-click" },
-	"loadInBackground": { "message": "Load links in background" },
-	"rightClick": { "message": "Right-click" },
-	"enabledOnImages": { "message": "Handle clicks on images" }
+	"enabled": {
+		"message": "Enabled"
+	},
+	"longLeftClick": {
+		"message": "Long left-click"
+	},
+	"loadInBackground": {
+		"message": "Load links in background"
+	},
+	"rightClick": {
+		"message": "Right-click"
+	},
+	"enabledOnImages": {
+		"message": "Handle clicks on images"
+	}
 }

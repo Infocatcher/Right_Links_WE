@@ -1,19 +1,26 @@
 {
 	"extensionName": {
-		"message": "Right Links WE",
-		"description": "Name of the extension"
+		"message": "Right Links WE"
 	},
 	"extensionDescription": {
-		"message": "Right Links - Щракнете, за да отворите връзка в нов раздел (за тъчпади и др.)",
-		"description": "Description of the extension"
+		"message": "Right Links - Щракнете, за да отворите връзка в нов раздел (за тъчпади и др.)"
 	},
 	"rlOptions": {
-		"message": "Right Links WE Options",
-		"description": "Menu item in toolbar button context menu"
+		"message": "Right Links WE Options"
 	},
-	"enabled": { "message": "Включено" },
-	"longLeftClick": { "message": "Дълъг ляв бутон" },
-	"loadInBackground": { "message": "Зареждай връзките на на заден фон" },
-	"rightClick": { "message": "Right-click" },
-	"enabledOnImages": { "message": "Прихващай кликове върху изображения" }
+	"enabled": {
+		"message": "Включено"
+	},
+	"longLeftClick": {
+		"message": "Дълъг ляв бутон"
+	},
+	"loadInBackground": {
+		"message": "Зареждай връзките на на заден фон"
+	},
+	"rightClick": {
+		"message": "Right-click"
+	},
+	"enabledOnImages": {
+		"message": "Прихващай кликове върху изображения"
+	}
 }
