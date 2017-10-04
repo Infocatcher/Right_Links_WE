@@ -121,10 +121,10 @@ function loadContentScript(tabId, _stopTime) {
 		runAt: "document_start"
 	}).then(function onLoaded() {
 		loaded[tabId] = true;
-		_log("executeScript done: " + tabId);
+		_log("browser.tabs.executeScript(): successfully loaded into tab #" + tabId);
 	}, function onError(e) {
 		if(_stopTime && Date.now() > _stopTime) {
-			_log("executeScript: stop wait");
+			_log("browser.tabs.executeScript(): stop wait for tab #" + tabId);
 			return;
 		}
 		var noPermission = e == "Error: Missing host permission for the tab";
@@ -134,14 +134,16 @@ function loadContentScript(tabId, _stopTime) {
 				setTimeout(loadContentScript, 20, tabId, _stopTime || Date.now() + 5e3);
 				return;
 			}
-			var err = "browser.tabs.executeScript failed:\n" + tab.url + "\n" + e;
+			if(_stopTime)
+				return; // Log only once
+			var err = "browser.tabs.executeScript() failed for tab #" + tabId + ":\n" + tab.url + "\n" + e;
 			if(noPermission || noHandler)
 				_log(err);
 			else
 				_err(err);
 		});
 		if(noHandler)
-			setTimeout(loadContentScript, 20, tabId, _stopTime || Date.now() + 5e3);
+			setTimeout(loadContentScript, 20, tabId, _stopTime || Date.now() + 2e3);
 	});
 }
 
