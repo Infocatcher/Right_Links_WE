@@ -86,7 +86,7 @@ function onMessageFromContent(msg, sender, sendResponse) {
 	function onError(e) {
 		browser.notifications.create({
 			"type": "basic",
-			//"iconUrl": browser.extension.getURL("icon.png"),
+			"iconUrl": browser.extension.getURL("icon24-off.png"),
 			"title": browser.i18n.getMessage("extensionName"),
 			"message": "" + e
 		});
