@@ -75,13 +75,15 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 });
 
 function onMessageFromContent(msg, sender, sendResponse) {
-	_log("onMessageFromContent() -> browser.tabs.create(), inBG: " + msg.inBG + ", URI:\n" + msg.uri);
+	openURIInTab(sender.tab, msg);
+}
+function openURIInTab(sourceTab, data) {
+	_log("openURIInTab(), inBG: " + data.inBG + ", URI: " + data.uri);
 	var opts = {
-		url: msg.uri,
-		//~ todo: add options
-		active: !msg.inBG,
-		index: sender.tab.index + 1,
-		openerTabId: sender.tab.id
+		url: data.uri,
+		active: !data.inBG,
+		index: sourceTab.index + 1,
+		openerTabId: sourceTab.id
 	};
 	function onError(e) {
 		browser.notifications.create({
