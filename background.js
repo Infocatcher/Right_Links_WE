@@ -16,11 +16,13 @@ function init() {
 	browser.runtime.onMessage.addListener(onMessageFromContent);
 	loadContentScript();
 	browser.tabs.onActivated.addListener(onTabActivated);
+	browser.tabs.onRemoved.addListener(onTabRemoved);
 	return updateState();
 }
 function destroy() {
 	browser.runtime.onMessage.removeListener(onMessageFromContent);
 	browser.tabs.onActivated.removeListener(onTabActivated);
+	browser.tabs.onRemoved.removeListener(onTabRemoved);
 	updateState();
 }
 function readPrefs(callback) {
@@ -77,12 +79,13 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 function onMessageFromContent(msg, sender, sendResponse) {
 	openURIInTab(sender.tab, msg);
 }
+var nextTabPos = 0;
 function openURIInTab(sourceTab, data) {
 	_log("openURIInTab(), inBG: " + data.inBG + ", URI: " + data.uri);
 	var opts = {
 		url: data.uri,
 		active: !data.inBG,
-		index: sourceTab.index + 1,
+		index: sourceTab.index + ++nextTabPos,
 		openerTabId: sourceTab.id
 	};
 	function onError(e) {
@@ -105,7 +108,11 @@ function openURIInTab(sourceTab, data) {
 	}
 }
 function onTabActivated(activeInfo) {
+	nextTabPos = 0;
 	loadContentScript(activeInfo.tabId);
+}
+function onTabRemoved(tabId, removeInfo) {
+	nextTabPos = 0;
 }
 
 var loaded = {};
