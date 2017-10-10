@@ -116,6 +116,10 @@ function onTabActivated(activeInfo) {
 }
 function onTabUpdated(tabId, changeInfo, tab) {
 	if(changeInfo.url && tab.active) {
+		if(/^(?:about|chrome|resource|data):/i.test(changeInfo.url)) {
+			_log("Loaded restricted URL -> reset loaded flag");
+			delete loaded[tabId];
+		}
 		_log("Changed URL in active tab, will try to load content script");
 		loadContentScript(tabId);
 	}
