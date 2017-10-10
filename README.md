@@ -13,10 +13,10 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Right_Links">Right
 </thead>
 <tbody>
 	<tr>
-		<td>Browser behavior for “open link in new tab” (<em>browser.tabs.insertRelatedAfterCurrent</em> & Co)</td>
-		<td>UX</td>
-		<td>No API</td>
-		<td>Major</td>
+		<td><del>Browser behavior for “open link in new tab” (<em>browser.tabs.insertRelatedAfterCurrent</em> & Co)</del></td>
+		<td><del>UX</del></td>
+		<td><del>No API</del><br><em>In Firefox 57 supported browser.tabs.create({ openerTabId: … })</td>
+		<td><del>Major</del></td>
 		<td></td>
 	</tr>
 	<tr>
