@@ -16,12 +16,14 @@ function init() {
 	browser.runtime.onMessage.addListener(onMessageFromContent);
 	loadContentScript();
 	browser.tabs.onActivated.addListener(onTabActivated);
+	browser.tabs.onUpdated.addListener(onTabUpdated);
 	browser.tabs.onRemoved.addListener(onTabRemoved);
 	return updateState();
 }
 function destroy() {
 	browser.runtime.onMessage.removeListener(onMessageFromContent);
 	browser.tabs.onActivated.removeListener(onTabActivated);
+	browser.tabs.onUpdated.removeListener(onTabUpdated);
 	browser.tabs.onRemoved.removeListener(onTabRemoved);
 	updateState();
 }
@@ -111,6 +113,12 @@ function openURIInTab(sourceTab, data) {
 function onTabActivated(activeInfo) {
 	nextTabPos = 0;
 	loadContentScript(activeInfo.tabId);
+}
+function onTabUpdated(tabId, changeInfo, tab) {
+	if(changeInfo.url && tab.active) {
+		_log("Changed URL in active tab, will try to load content script");
+		loadContentScript(tabId);
+	}
 }
 function onTabRemoved(tabId, removeInfo) {
 	nextTabPos = 0;
