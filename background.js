@@ -85,7 +85,6 @@ function openURIInTab(sourceTab, data) {
 	var opts = {
 		url: data.uri,
 		active: !data.inBG,
-		index: sourceTab.index + ++nextTabPos,
 		openerTabId: sourceTab.id
 	};
 	function onError(e) {
@@ -103,7 +102,9 @@ function openURIInTab(sourceTab, data) {
 		// Type error for parameter createProperties (Property "openerTabId" is unsupported by Firefox) for tabs.create.
 		if((e + "").indexOf('"openerTabId" is unsupported') == -1)
 			throw e;
+		_log("openURIInTab(): openerTabId not supported, will use workaround");
 		delete opts.openerTabId;
+		opts.index = sourceTab.index + ++nextTabPos;
 		browser.tabs.create(opts).catch(onError);
 	}
 }
