@@ -149,13 +149,16 @@ function loadContentScript(tabId, _stopTime) {
 			_log("browser.tabs.executeScript(): stop wait for tab #" + tabId);
 			return;
 		}
-		var noPermission = e == "Error: Missing host permission for the tab";
-		var noHandler    = e == "Error: No matching message handler";
 		browser.tabs.get(tabId).then(function(tab) {
-			if(noPermission && tab.url == "about:blank") { // Looks like pending tab
-				setTimeout(loadContentScript, 20, tabId, _stopTime || Date.now() + 5e3);
+			var noPermission = e == "Error: Missing host permission for the tab";
+			var noHandler    = e == "Error: No matching message handler";
+			if(!tab.url || tab.url == "about:blank") {
+				_log("browser.tabs.executeScript(): tab is blank, will wait for onUpdated event");
 				return;
 			}
+			if(noHandler)
+				setTimeout(loadContentScript, 20, tabId, _stopTime || Date.now() + 2e3);
+
 			if(_stopTime)
 				return; // Log only once
 			var err = "browser.tabs.executeScript() failed for tab #" + tabId + ":\n" + tab.url + "\n" + e;
@@ -164,8 +167,6 @@ function loadContentScript(tabId, _stopTime) {
 			else
 				_err(err);
 		});
-		if(noHandler)
-			setTimeout(loadContentScript, 20, tabId, _stopTime || Date.now() + 2e3);
 	});
 }
 
