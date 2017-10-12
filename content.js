@@ -44,6 +44,12 @@ function destroy() {
 	window.removeEventListener("contextmenu", onContextMenu, true);
 	cancel();
 }
+function toggle(enable) {
+	if(enable)
+		init();
+	else
+		destroy();
+}
 function readPrefs(callback) {
 	browser.storage.local.get().then(function(o) {
 		browser.storage.onChanged.addListener(function(changes, area) {
@@ -56,12 +62,8 @@ function readPrefs(callback) {
 }
 function onPrefChanged(key, newVal) {
 	prefs[key] = newVal;
-	if(key == "enabled") {
-		if(newVal)
-			init();
-		else
-			destroy();
-	}
+	if(key == "enabled")
+		toggle(newVal);
 }
 
 var delayedTimer = 0;
