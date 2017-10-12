@@ -42,6 +42,7 @@ function destroy() {
 	window.removeEventListener("mouseup", onMouseUp, true);
 	window.removeEventListener("click", onClick, true);
 	window.removeEventListener("contextmenu", onContextMenu, true);
+	cancel();
 }
 function readPrefs(callback) {
 	browser.storage.local.get().then(function(o) {
