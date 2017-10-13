@@ -41,6 +41,13 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Right_Links">Right
 		<td></td>
 	</tr>
 	<tr>
+		<td>Ability to send <a href="https://en.wikipedia.org/wiki/HTTP_referer">HTTP referer</a></td>
+		<td>Core functionality</td>
+		<td>No API</td>
+		<td>Major</td>
+		<td></td>
+	</tr>
+	<tr>
 		<td>Support for canvas images (ability to open data:… and blob:… URIs)</td>
 		<td>Core functionality</td>
 		<td>Forbidden</td>
