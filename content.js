@@ -125,6 +125,11 @@ function onClick(e) {
 	if(flags.runned || flags.canceled)
 		return;
 
+	if(e.button == 0) {
+		clearTimeout(delayedTimer);
+		return;
+	}
+
 	var trg = e.originalTarget || e.target;
 	var it = getItem(trg);
 	_log("onClick() -> getItem(): " + it);
