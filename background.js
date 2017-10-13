@@ -11,7 +11,7 @@ function init() {
 	if(!prefs.enabled)
 		return updateState();
 	browser.runtime.onMessage.addListener(onMessageFromContent);
-	loadContentScript();
+	loadInCurrentTab();
 	browser.tabs.onActivated.addListener(onTabActivated);
 	browser.tabs.onUpdated.addListener(onTabUpdated);
 	browser.tabs.onRemoved.addListener(onTabRemoved);
@@ -127,12 +127,6 @@ function onTabRemoved(tabId, removeInfo) {
 
 var loaded = {};
 function loadContentScript(tabId, _stopTime) {
-	if(!tabId) {
-		browser.tabs.query({ currentWindow: true, active: true }).then(function(tabsInfo) {
-			loadContentScript(tabsInfo[0].id);
-		}, _err);
-		return;
-	}
 	if(tabId in loaded)
 		return;
 	browser.tabs.executeScript(tabId, {
@@ -165,6 +159,11 @@ function loadContentScript(tabId, _stopTime) {
 				_err(err);
 		});
 	});
+}
+function loadInCurrentTab() {
+	browser.tabs.query({ currentWindow: true, active: true }).then(function(tabsInfo) {
+		loadContentScript(tabsInfo[0].id);
+	}, _err);
 }
 
 
