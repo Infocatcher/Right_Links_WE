@@ -26,11 +26,8 @@ var prefs = {
 	disallowMousemoveDist: 14
 };
 
-preInit();
+readPrefs(init);
 
-function preInit() {
-	readPrefs(init);
-}
 function init() {
 	window.addEventListener("mousedown", onMouseDown, true);
 	window.addEventListener("mouseup", onMouseUp, true);

@@ -5,11 +5,8 @@ var prefs = {
 	enabled: true
 };
 
-preInit();
+readPrefs(init);
 
-function preInit() {
-	readPrefs(init);
-}
 function init() {
 	if(!prefs.enabled)
 		return updateState();
