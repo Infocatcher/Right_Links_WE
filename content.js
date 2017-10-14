@@ -33,13 +33,22 @@ function init() {
 	window.addEventListener("mouseup", onMouseUp, true);
 	window.addEventListener("click", onClick, true);
 	window.addEventListener("contextmenu", onContextMenu, true);
+	window.addEventListener("unload", onUnload, true);
 }
 function destroy() {
 	window.removeEventListener("mousedown", onMouseDown, true);
 	window.removeEventListener("mouseup", onMouseUp, true);
 	window.removeEventListener("click", onClick, true);
 	window.removeEventListener("contextmenu", onContextMenu, true);
+	window.removeEventListener("unload", onUnload, true);
 	cancel();
+}
+function onUnload(e) {
+	_log("onUnload(): " + location);
+	destroy();
+	browser.runtime.sendMessage({
+		action: "contentScriptUnloaded"
+	}).then(function onResponse() {}, _err);
 }
 function toggle(enable) {
 	if(enable)
@@ -200,6 +209,7 @@ function openURIItem(e, trg, it, inBG) {
 }
 function openURIInTab(uri, inBG) {
 	browser.runtime.sendMessage({
+		action: "openURI",
 		uri: uri,
 		inBG: inBG
 	}).then(function onResponse() {}, _err);

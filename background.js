@@ -76,7 +76,14 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 });
 
 function onMessageFromContent(msg, sender, sendResponse) {
-	openURIInTab(sender.tab, msg);
+	if(msg.action == "openURI")
+		openURIInTab(sender.tab, msg);
+	else if(msg.action == "contentScriptUnloaded") {
+		if(!sender.tab) // Tab was closed
+			return;
+		_log("onMessageFromContent(): reset loaded flag for tab #" + sender.tab.id);
+		delete loaded[sender.tab.id];
+	}
 }
 var nextTabPos = 0;
 function openURIInTab(sourceTab, data) {
@@ -114,10 +121,10 @@ function onTabActivated(activeInfo) {
 function onTabUpdated(tabId, changeInfo, tab) {
 	if(changeInfo.url && tab.active) {
 		if(/^(?:about|chrome|resource|data):/i.test(changeInfo.url)) {
-			_log("Loaded restricted URL -> reset loaded flag");
+			_log("Loaded restricted URL -> reset loaded flag for tab #" + tabId);
 			delete loaded[tabId];
 		}
-		_log("Changed URL in active tab, will try to load content script");
+		_log("Changed URL in active tab #" + tabId + ", will try to load content script");
 		loadContentScript(tabId);
 	}
 }
