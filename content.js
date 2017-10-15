@@ -17,6 +17,8 @@ var prefs = {
 	enabledRight: true,
 	loadInBackgroundLeft: false,
 	loadInBackgroundRight: true,
+	loadInLeft: 0,
+	loadInRight: 0,
 	enabledOnImages: true,
 	enabledOnCanvasImages: true,
 	canvasImagesSizeLimit: 0,
@@ -102,7 +104,7 @@ function onMouseDown(e) {
 			return;
 		if(isLeft) {
 			_log("onMouseDown() -> delayedTimer -> openURIInTab()");
-			openURIItem(e, trg, it, prefs.loadInBackgroundLeft);
+			openURIItem(e, trg, it, prefs.loadInBackgroundLeft, prefs.loadInLeft);
 			flags.stopClick = true;
 		}
 		else {
@@ -146,7 +148,7 @@ function onClick(e) {
 		return;
 	if(e.button == 2)
 		flags.stopContextMenu = true;
-	openURIItem(e, trg, it, prefs.loadInBackgroundRight);
+	openURIItem(e, trg, it, prefs.loadInBackgroundRight, prefs.loadInRight);
 }
 function onContextMenu(e) {
 	if(flags.stopContextMenu)
@@ -177,7 +179,7 @@ function enabledFor(e) {
 	return btn == 0 && prefs.enabledLeft
 		|| btn == 2 && prefs.enabledRight;
 }
-function openURIItem(e, trg, it, inBG) {
+function openURIItem(e, trg, it, inBG, loadIn) {
 	var uri = getItemURI(it);
 	if(
 		uri == "data:,"
@@ -205,6 +207,11 @@ function openURIItem(e, trg, it, inBG) {
 		});
 		return;
 	}
+	if(loadIn == 2) {
+		_log("openURIItem() -> load in current tab");
+		loadURI(trg, uri);
+		return;
+	}
 	openURIInTab(uri, inBG);
 }
 function openURIInTab(uri, inBG) {
@@ -217,6 +224,10 @@ function openURIInTab(uri, inBG) {
 function loadJSURI(trg, uri) {
 	var win = trg.ownerDocument.defaultView;
 	new win.Function("location = " + JSON.stringify(uri))();
+}
+function loadURI(trg, uri) {
+	blinkNode(trg, true);
+	trg.ownerDocument.location = uri;
 }
 function showContextMenu(trg, origEvt) {
 	_log("showContextMenu()");
@@ -389,10 +400,16 @@ function isDummyURI(it, uri) {
 		return false;
 	return !doc.getElementById(anchor) && !doc.getElementsByName(anchor).length;
 }
-function blinkNode(node) {
+function blinkNode(node, hl) {
 	var stl = node.hasAttribute("style") && node.getAttribute("style");
-	node.style.setProperty("opacity", "0.1", "important");
-	node.style.setProperty("transition", "opacity 120ms ease-in-out", "important");
+	if(hl) {
+		node.style.setProperty("outline", "1px dotted red", "important");
+		node.style.setProperty("transition", "outline 70ms ease-in-out", "important");
+	}
+	else {
+		node.style.setProperty("opacity", "0.1", "important");
+		node.style.setProperty("transition", "opacity 120ms ease-in-out", "important");
+	}
 	setTimeout(function() {
 		if(stl === false)
 			node.removeAttribute("style");
