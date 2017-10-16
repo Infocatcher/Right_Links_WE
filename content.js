@@ -103,7 +103,7 @@ function onMouseDown(e) {
 		if(!it.ownerDocument || !it.ownerDocument.location) // Page already unloaded
 			return;
 		if(isLeft) {
-			_log("onMouseDown() -> delayedTimer -> openURIInTab()");
+			_log("onMouseDown() -> delayedTimer -> openURIItem()");
 			openURIItem(e, trg, it, prefs.loadInBackgroundLeft, prefs.loadInLeft);
 			flags.stopClick = true;
 		}
@@ -191,7 +191,7 @@ function openURIItem(e, trg, it, inBG, loadIn) {
 		// Note: not allowed at least for now
 		// Security Error: Content at moz-extension://.../ may not load data from blob:...
 		it.toBlob(function(blob) {
-			openURIInTab(URL.createObjectURL(blob), inBG);
+			openURIIn(URL.createObjectURL(blob), inBG, loadIn);
 		});
 		return;
 	}
@@ -212,13 +212,14 @@ function openURIItem(e, trg, it, inBG, loadIn) {
 		loadURI(trg, uri);
 		return;
 	}
-	openURIInTab(uri, inBG);
+	openURIIn(uri, inBG, loadIn);
 }
-function openURIInTab(uri, inBG) {
+function openURIIn(uri, inBG, loadIn) {
 	browser.runtime.sendMessage({
 		action: "openURI",
 		uri: uri,
-		inBG: inBG
+		inBG: inBG,
+		loadIn: loadIn
 	}).then(function onResponse() {}, _err);
 }
 function loadJSURI(trg, uri) {

@@ -76,8 +76,12 @@ browser.contextMenus.onClicked.addListener(function(info, tab) {
 });
 
 function onMessageFromContent(msg, sender, sendResponse) {
-	if(msg.action == "openURI")
-		openURIInTab(sender.tab, msg);
+	if(msg.action == "openURI") {
+		if(msg.loadIn == 1)
+			openURIInWindow(sender.tab, msg);
+		else
+			openURIInTab(sender.tab, msg);
+	}
 	else if(msg.action == "contentScriptUnloaded") {
 		if(!sender.tab) // Tab was closed
 			return;
@@ -108,10 +112,36 @@ function openURIInTab(sourceTab, data) {
 		// Type error for parameter createProperties (Property "openerTabId" is unsupported by Firefox) for tabs.create.
 		if((e + "").indexOf('"openerTabId" is unsupported') == -1)
 			throw e;
-		_log("openURIInTab(): openerTabId not supported, will use workaround");
+		_log("openURIInTab(): openerTabId property not supported, will use workaround");
 		delete opts.openerTabId;
 		opts.index = sourceTab.index + ++nextTabPos;
 		browser.tabs.create(opts).catch(onError);
+	}
+}
+function openURIInWindow(sourceTab, data) {
+	_log("openURIInWindow(), inBG: " + data.inBG + ", URI: " + data.uri);
+	var opts = {
+		url: data.uri,
+		focused: !data.inBG
+	};
+	function onError(e) {
+		browser.notifications.create({
+			"type": "basic",
+			"iconUrl": browser.extension.getURL("icon24-off.png"),
+			"title": browser.i18n.getMessage("extensionName"),
+			"message": "" + e
+		});
+	}
+	try {
+		browser.windows.create(opts).catch(onError);
+	}
+	catch(e) {
+		// Type error for parameter createData (Property "focused" is unsupported by Firefox) for windows.create.
+		if((e + "").indexOf('"focused" is unsupported') == -1)
+			throw e;
+		_log("openURIInWindow(): focused property not supported");
+		delete opts.focused;
+		browser.windows.create(opts).catch(onError);
 	}
 }
 function onTabActivated(activeInfo) {
