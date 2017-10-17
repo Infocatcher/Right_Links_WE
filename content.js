@@ -404,8 +404,8 @@ function isDummyURI(it, uri) {
 function blinkNode(node, hl) {
 	var stl = node.hasAttribute("style") && node.getAttribute("style");
 	if(hl) {
-		node.style.setProperty("outline", "1px dotted red", "important");
-		node.style.setProperty("transition", "outline 70ms ease-in-out", "important");
+		node.style.setProperty("outline", "1px solid", "important");
+		node.style.setProperty("transition", "outline 100ms ease-in-out", "important");
 	}
 	else {
 		node.style.setProperty("opacity", "0.1", "important");
