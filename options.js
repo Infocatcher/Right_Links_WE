@@ -38,24 +38,28 @@ function loadOptions() {
 }
 function loadOption(id, val) {
 	var node = document.getElementById(id);
-	if(!node)
-		return;
-	if(node.type == "checkbox")
-		node.checked = val;
-	else
-		node.value = val;
+	node && setValue(node, val);
 }
 function saveOption(e) {
 	var node = e.target;
 	if(!(node.id in prefs))
 		return;
 	browser.storage.local.set({
-		[node.id]: node.type == "checkbox"
-			? node.checked
-			: node.type == "number"
-				? +node.value
-				: node.value
+		[node.id]: getValue(node)
 	});
+}
+function getValue(node) {
+	return node.type == "checkbox"
+		? node.checked
+		: node.type == "number"
+			? +node.value
+			: node.value;
+}
+function setValue(node, val) {
+	if(node.type == "checkbox")
+		node.checked = val;
+	else
+		node.value = val;
 }
 document.addEventListener("DOMContentLoaded", init, true);
 document.addEventListener("input", saveOption, false);
