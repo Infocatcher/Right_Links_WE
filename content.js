@@ -4,6 +4,7 @@ var flags = {
 	runned: false,
 	canceled: false,
 	stopClick: false,
+	stopMouseUp: false,
 	stopContextMenu: false
 };
 var detect = {
@@ -82,6 +83,7 @@ function onMouseDown(e) {
 	flags.runned = false;
 	flags.canceled = false;
 	flags.stopClick = false;
+	flags.stopMouseUp = false;
 	flags.stopContextMenu = false;
 
 	var isLeft = e.button == 0;
@@ -105,7 +107,7 @@ function onMouseDown(e) {
 		if(isLeft) {
 			_log("onMouseDown() -> delayedTimer -> openURIItem()");
 			openURIItem(e, trg, it, prefs.loadInBackgroundLeft, prefs.loadInLeft);
-			flags.stopClick = true;
+			flags.stopMouseUp = flags.stopClick = true;
 		}
 		else {
 			_log("onMouseDown() -> delayedTimer -> showContextMenu():");
@@ -117,6 +119,11 @@ function onMouseDown(e) {
 function onMouseUp(e) {
 	if("_rightLinksIgnore" in e)
 		return;
+
+	if(flags.stopMouseUp) {
+		flags.stopMouseUp = false;
+		stopEvent(e);
+	}
 
 	moveHandlers(false);
 	setTimeout(function() {
@@ -263,8 +270,9 @@ function moveHandlers(e) {
 }
 function cancel() {
 	flags.canceled = true;
-	flags.stopContextMenu = false;
+	flags.stopMouseUp = false;
 	flags.stopClick = false;
+	flags.stopContextMenu = false;
 	clearTimeout(delayedTimer);
 	moveHandlers(false);
 }
