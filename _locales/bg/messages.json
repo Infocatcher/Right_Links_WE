@@ -17,6 +17,18 @@
 	"loadInBackground": {
 		"message": "Зареждай връзките на на заден фон"
 	},
+	"loadIn": {
+		"message": "Load in"
+	},
+	"newTab": {
+		"message": "new tab"
+	},
+	"newWindow": {
+		"message": "new window"
+	},
+	"currentTab": {
+		"message": "current tab"
+	},
 	"rightClick": {
 		"message": "Right-click"
 	},

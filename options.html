@@ -14,10 +14,26 @@
 	<section class="group">
 		<section><label><input id="enabledLeft" type="checkbox" /> <data>longLeftClick</data></label></section>
 		<section class="sub"><label><input id="loadInBackgroundLeft" type="checkbox" /> <data>loadInBackground</data></label></section>
+		<section class="sub">
+			<data>loadIn</data>
+			<select id="loadInLeft">
+				<option value="0"><data>newTab</data></option>
+				<option value="1"><data>newWindow</data></option>
+				<option value="2"><data>currentTab</data></option>
+			</select>
+		</section>
 	</section>
 	<section class="group">
 		<section><label><input id="enabledRight" type="checkbox" /> <data>rightClick</data></label></section>
 		<section class="sub"><label><input id="loadInBackgroundRight" type="checkbox" /> <data>loadInBackground</data></label></section>
+		<section class="sub">
+			<data>loadIn</data>
+			<select id="loadInRight">
+				<option value="0"><data>newTab</data></option>
+				<option value="1"><data>newWindow</data></option>
+				<option value="2"><data>currentTab</data></option>
+			</select>
+		</section>
 	</section>
 	<section class="group">
 		<section><label><input id="enabledOnImages" type="checkbox" /> <data>enabledOnImages</data></label></section>

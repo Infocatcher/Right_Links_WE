@@ -5,6 +5,8 @@ var prefs = { // Defaults
 	enabledRight: true,
 	loadInBackgroundLeft: false,
 	loadInBackgroundRight: true,
+	loadInLeft: 0,
+	loadInRight: 0,
 	enabledOnImages: true,
 	enabledOnCanvasImages: true,
 	canvasImagesSizeLimit: 0,
@@ -49,10 +51,10 @@ function saveOption(e) {
 	});
 }
 function getValue(node) {
-	return node.type == "checkbox"
-		? node.checked
-		: node.type == "number"
-			? +node.value
+	return node.localName == "select" || node.type == "number"
+		? +node.value
+		: node.type == "checkbox"
+			? node.checked
 			: node.value;
 }
 function setValue(node, val) {

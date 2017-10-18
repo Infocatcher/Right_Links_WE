@@ -17,6 +17,18 @@
 	"loadInBackground": {
 		"message": "Открывать ссылки в фоне"
 	},
+	"loadIn": {
+		"message": "Открывать в"
+	},
+	"newTab": {
+		"message": "new tab"
+	},
+	"newWindow": {
+		"message": "new window"
+	},
+	"currentTab": {
+		"message": "current tab"
+	},
 	"rightClick": {
 		"message": "Клик правой кнопкой мыши"
 	},
