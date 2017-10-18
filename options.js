@@ -20,12 +20,8 @@ function init() {
 	loadOptions();
 }
 function localize() {
-	var its = document.getElementsByTagName("data");
-	for(var i = its.length - 1; i >= 0; --i) {
-		var it = its[i];
-		var s = browser.i18n.getMessage(it.textContent);
-		s && it.parentNode.replaceChild(document.createTextNode(s), it);
-	}
+	for(var it of document.getElementsByClassName("localize"))
+		it.textContent = browser.i18n.getMessage(it.textContent) || it.textContent;
 }
 function loadOptions() {
 	browser.storage.local.get().then(function(o) {

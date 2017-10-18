@@ -9,34 +9,34 @@
 </head>
 <body>
 	<section class="group">
-		<section><label><input id="enabled" type="checkbox" /> <strong><data>enabled</data></strong></label></section>
+		<section><label><input id="enabled" type="checkbox" /> <strong class="localize">enabled</strong></label></section>
 	</section>
 	<section class="group">
-		<section><label><input id="enabledLeft" type="checkbox" /> <data>longLeftClick</data></label></section>
-		<section class="sub"><label><input id="loadInBackgroundLeft" type="checkbox" /> <data>loadInBackground</data></label></section>
+		<section><label><input id="enabledLeft" type="checkbox" /> <span class="localize">longLeftClick</span></label></section>
+		<section class="sub"><label><input id="loadInBackgroundLeft" type="checkbox" /> <span class="localize">loadInBackground</span></label></section>
 		<section class="sub">
-			<data>loadIn</data>
+			<span class="localize">loadIn</span>
 			<select id="loadInLeft">
-				<option value="0"><data>newTab</data></option>
-				<option value="1"><data>newWindow</data></option>
-				<option value="2"><data>currentTab</data></option>
+				<option value="0" class="localize">newTab</option>
+				<option value="1" class="localize">newWindow</option>
+				<option value="2" class="localize">currentTab</option>
 			</select>
 		</section>
 	</section>
 	<section class="group">
-		<section><label><input id="enabledRight" type="checkbox" /> <data>rightClick</data></label></section>
-		<section class="sub"><label><input id="loadInBackgroundRight" type="checkbox" /> <data>loadInBackground</data></label></section>
+		<section><label><input id="enabledRight" type="checkbox" /> <span class="localize">rightClick</span></label></section>
+		<section class="sub"><label><input id="loadInBackgroundRight" type="checkbox" /> <span class="localize">loadInBackground</span></label></section>
 		<section class="sub">
-			<data>loadIn</data>
+			<span class="localize">loadIn</span>
 			<select id="loadInRight">
-				<option value="0"><data>newTab</data></option>
-				<option value="1"><data>newWindow</data></option>
-				<option value="2"><data>currentTab</data></option>
+				<option value="0" class="localize">newTab</option>
+				<option value="1" class="localize">newWindow</option>
+				<option value="2" class="localize">currentTab</option>
 			</select>
 		</section>
 	</section>
 	<section class="group">
-		<section><label><input id="enabledOnImages" type="checkbox" /> <data>enabledOnImages</data></label></section>
+		<section><label><input id="enabledOnImages" type="checkbox" /> <span class="localize">enabledOnImages</span></label></section>
 		<section class="sub"><label><input id="enabledOnCanvasImages" type="checkbox" /> Canvas images</label></section>
 		<section class="sub"><label><input id="canvasImagesUseBlob" type="checkbox" /> Use blob:…</label></section>
 		<section class="sub"><label>Size limit: <input id="canvasImagesSizeLimit" type="number" /></label></section>
@@ -46,7 +46,7 @@
 		<section><label>Long left-click timeout: <input id="longLeftClickTimeout" type="number" /></label></section>
 		<section><label>Mouse move tolerance: <input id="disallowMousemoveDist" type="number" /></label></section>
 	</section>
-	<section><label><input id="debug" type="checkbox" /> <data>debug</data></label></label></section>
+	<section><label><input id="debug" type="checkbox" /> <span class="localize">debug</span></label></label></section>
 	<script src="options.js"></script>
 </body>
 </html>
