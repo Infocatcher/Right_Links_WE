@@ -1,7 +1,7 @@
 const LOG_PREFIX = "[Right Links WE: content] ";
 
 var flags = {
-	runned: false,
+	executed: false,
 	canceled: false,
 	stopClick: false,
 	stopMouseUp: false,
@@ -80,7 +80,7 @@ function onMouseDown(e) {
 	if(!enabledFor(e))
 		return;
 
-	flags.runned = false;
+	flags.executed = false;
 	flags.canceled = false;
 	resetFlags();
 
@@ -99,7 +99,7 @@ function onMouseDown(e) {
 
 	clearTimeout(delayedTimer);
 	delayedTimer = setTimeout(function() {
-		flags.runned = true;
+		flags.executed = true;
 		if(!it.ownerDocument || !it.ownerDocument.location) // Page already unloaded
 			return;
 		if(isLeft) {
@@ -138,7 +138,7 @@ function onClick(e) {
 		stopEvent(e);
 	}
 
-	if(flags.runned || flags.canceled)
+	if(flags.executed || flags.canceled)
 		return;
 
 	if(e.button == 0) {
@@ -151,7 +151,7 @@ function onClick(e) {
 	_log("onClick() -> getItem(): " + it);
 	if(!it)
 		return;
-	flags.runned = true;
+	flags.executed = true;
 	if(e.button == 2)
 		flags.stopContextMenu = true;
 	openURIItem(e, trg, it, prefs.loadInBackgroundRight, prefs.loadInRight);
