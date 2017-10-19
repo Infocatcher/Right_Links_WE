@@ -82,9 +82,7 @@ function onMouseDown(e) {
 
 	flags.runned = false;
 	flags.canceled = false;
-	flags.stopClick = false;
-	flags.stopMouseUp = false;
-	flags.stopContextMenu = false;
+	resetFlags();
 
 	var isLeft = e.button == 0;
 	var delay = isLeft ? prefs.longLeftClickTimeout : prefs.showContextMenuTimeout;
@@ -153,6 +151,7 @@ function onClick(e) {
 	_log("onClick() -> getItem(): " + it);
 	if(!it)
 		return;
+	flags.runned = true;
 	if(e.button == 2)
 		flags.stopContextMenu = true;
 	openURIItem(e, trg, it, prefs.loadInBackgroundRight, prefs.loadInRight);
@@ -268,11 +267,14 @@ function moveHandlers(e) {
 		window.removeEventListener("dragstart", cancel, true);
 	}
 }
-function cancel() {
-	flags.canceled = true;
+function resetFlags() {
 	flags.stopMouseUp = false;
 	flags.stopClick = false;
 	flags.stopContextMenu = false;
+}
+function cancel() {
+	flags.canceled = true;
+	resetFlags();
 	clearTimeout(delayedTimer);
 	moveHandlers(false);
 }
