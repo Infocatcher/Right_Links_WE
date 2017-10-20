@@ -84,8 +84,7 @@ function onMouseDown(e) {
 	flags.canceled = false;
 	resetFlags();
 
-	var isLeft = e.button == 0;
-	var delay = isLeft ? prefs.longLeftClickTimeout : prefs.showContextMenuTimeout;
+	var delay = isLeft(e) ? prefs.longLeftClickTimeout : prefs.showContextMenuTimeout;
 	if(delay <= 0)
 		return;
 
@@ -102,7 +101,7 @@ function onMouseDown(e) {
 		flags.executed = true;
 		if(!it.ownerDocument || !it.ownerDocument.location) // Page already unloaded
 			return;
-		if(isLeft) {
+		if(isLeft(e)) {
 			_log("onMouseDown() -> delayedTimer -> openURIItem()");
 			openURIItem(e, trg, it, prefs.loadInBackgroundLeft, prefs.loadInLeft);
 			flags.stopMouseUp = flags.stopClick = true;
@@ -111,7 +110,6 @@ function onMouseDown(e) {
 			_log("onMouseDown() -> delayedTimer -> showContextMenu():");
 			showContextMenu(trg, e);
 		}
-
 	}, prefs.showContextMenuTimeout);
 }
 function onMouseUp(e) {
@@ -141,7 +139,7 @@ function onClick(e) {
 	if(flags.executed || flags.canceled)
 		return;
 
-	if(e.button == 0) {
+	if(isLeft(e)) {
 		clearTimeout(delayedTimer);
 		return;
 	}
@@ -152,8 +150,7 @@ function onClick(e) {
 	if(!it)
 		return;
 	flags.executed = true;
-	if(e.button == 2)
-		flags.stopContextMenu = true;
+	flags.stopContextMenu = true;
 	openURIItem(e, trg, it, prefs.loadInBackgroundRight, prefs.loadInRight);
 }
 function onContextMenu(e) {
@@ -178,13 +175,19 @@ function onMouseMove(e) {
 	mmd.screenY = y;
 }
 
+function isLeft(e) {
+	return e.button == 0;
+}
+function isRight(e) {
+	return e.button == 2;
+}
 function enabledFor(e) {
 	if("_rightLinksIgnore" in e || e.ctrlKey || e.shiftKey || e.altKey || e.metaKey)
 		return false;
-	var btn = e.button;
-	return btn == 0 && prefs.enabledLeft
-		|| btn == 2 && prefs.enabledRight;
+	return prefs.enabledLeft && isLeft(e)
+		|| prefs.enabledRight && isRight(e);
 }
+
 function openURIItem(e, trg, it, inBG, loadIn) {
 	var uri = getItemURI(it);
 	if(
