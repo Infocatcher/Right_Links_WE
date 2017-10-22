@@ -32,18 +32,22 @@ var prefs = {
 readPrefs(init);
 
 function init() {
-	window.addEventListener("mousedown", onMouseDown, true);
-	window.addEventListener("mouseup", onMouseUp, true);
-	window.addEventListener("click", onClick, true);
-	window.addEventListener("contextmenu", onContextMenu, true);
-	window.addEventListener("unload", onUnload, true);
+	listen(true, {
+		mousedown:   onMouseDown,
+		mouseup:     onMouseUp,
+		click:       onClick,
+		contextmenu: onContextMenu,
+		unload:      onUnload
+	});
 }
 function destroy() {
-	window.removeEventListener("mousedown", onMouseDown, true);
-	window.removeEventListener("mouseup", onMouseUp, true);
-	window.removeEventListener("click", onClick, true);
-	window.removeEventListener("contextmenu", onContextMenu, true);
-	window.removeEventListener("unload", onUnload, true);
+	listen(false, {
+		mousedown:   onMouseDown,
+		mouseup:     onMouseUp,
+		click:       onClick,
+		contextmenu: onContextMenu,
+		unload:      onUnload
+	});
 	cancel();
 }
 function onUnload(e) {
@@ -259,15 +263,19 @@ function moveHandlers(e) {
 			screenX: e.screenX,
 			screenY: e.screenY
 		};
-		window.addEventListener("mousemove", onMouseMove, true);
-		window.addEventListener("wheel", cancel, true);
-		window.addEventListener("dragstart", cancel, true);
+		listen(true, {
+			mousemove: onMouseMove,
+			wheel:     cancel,
+			dragstart: cancel
+		});
 	}
 	else {
 		moveHandlers.data = null;
-		window.removeEventListener("mousemove", onMouseMove, true);
-		window.removeEventListener("wheel", cancel, true);
-		window.removeEventListener("dragstart", cancel, true);
+		listen(false, {
+			mousemove: onMouseMove,
+			wheel:     cancel,
+			dragstart: cancel
+		});
 	}
 }
 function resetFlags() {
@@ -280,6 +288,11 @@ function cancel() {
 	resetFlags();
 	clearTimeout(delayedTimer);
 	moveHandlers(false);
+}
+function listen(add, o) {
+	var fn = add ? addEventListener : removeEventListener;
+	for(var type in o)
+		fn(type, o[type], true);
 }
 function mouseEvents(trg, evtTypes, origEvt, opts) {
 	for(var evtType of evtTypes)
