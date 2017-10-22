@@ -172,7 +172,7 @@ function onMouseMove(e) {
 		Math.pow(mmd.screenY - y, 2)
 	);
 	if(mmd.dist >= prefs.disallowMousemoveDist) {
-		cancel();
+		cancel(e);
 		return;
 	}
 	mmd.screenX = x;
@@ -283,7 +283,8 @@ function resetFlags() {
 	flags.stopClick = false;
 	flags.stopContextMenu = false;
 }
-function cancel() {
+function cancel(e) {
+	_log("cancel()" + (e ? " " + e.type : ""));
 	flags.canceled = true;
 	resetFlags();
 	clearTimeout(delayedTimer);
