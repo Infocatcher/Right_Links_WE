@@ -330,21 +330,17 @@ function getItem(trg) {
 	if(!trg.localName) // trg === document
 		return null;
 
-	function detected(item, type) {
+	function detector(getter, type) {
+		var it = getter(trg);
+		if(!it)
+			return null;
 		detect.origItem = trg;
 		detect.itemType = type;
-		return detect.item = item;
+		return detect.item = it;
 	}
-
-	var it = getLink(trg);
-	if(it)
-		return detected(it, "link");
-
-	var it = prefs.enabledOnImages && getImg(trg);
-	if(it)
-		return detected(it, "img");
-
-	return null;
+	return detector(getLink, "link")
+		|| prefs.enabledOnImages && detector(getImg, "img")
+		|| null;
 }
 function getLink(it) {
 	const docNode = Node.DOCUMENT_NODE; // 9
