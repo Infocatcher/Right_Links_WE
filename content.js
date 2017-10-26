@@ -49,6 +49,7 @@ function destroy() {
 		unload:      onUnload
 	});
 	cancel();
+	detect.origItem = detect.item = null;
 }
 function onUnload(e) {
 	_log("onUnload(): " + location);
