@@ -163,21 +163,21 @@ function onContextMenu(e) {
 		stopEvent(e);
 }
 function onMouseMove(e) {
-	var mmd = moveHandlers.data;
-	if(!mmd.enabled)
+	var md = moveData;
+	if(!md.enabled)
 		return;
 	var x = e.screenX;
 	var y = e.screenY;
-	mmd.dist += Math.sqrt(
-		Math.pow(mmd.screenX - x, 2) +
-		Math.pow(mmd.screenY - y, 2)
+	md.dist += Math.sqrt(
+		Math.pow(md.x - x, 2) +
+		Math.pow(md.y - y, 2)
 	);
-	if(mmd.dist >= prefs.disallowMousemoveDist) {
+	if(md.dist >= prefs.disallowMousemoveDist) {
 		cancel(e);
 		return;
 	}
-	mmd.screenX = x;
-	mmd.screenY = y;
+	md.x = x;
+	md.y = y;
 }
 
 function isLeft(e) {
@@ -253,31 +253,31 @@ function showContextMenu(trg, origEvt) {
 	mouseEvents(trg, events, origEvt, {}); // Actually doesn't work...
 	blinkNode(trg);
 }
+var moveData = null;
 function moveHandlers(e) {
-	if(!e == !moveHandlers.data)
+	if(!e == !moveData)
 		return;
-	if(e) {
-		var dist = prefs.disallowMousemoveDist;
-		moveHandlers.data = {
-			enabled: dist >= 0,
-			dist: 0,
-			screenX: e.screenX,
-			screenY: e.screenY
-		};
-		listen(true, {
-			mousemove: onMouseMove,
-			wheel:     cancel,
-			dragstart: cancel
-		});
-	}
-	else {
-		moveHandlers.data = null;
+	if(!e) {
+		moveData = null;
 		listen(false, {
 			mousemove: onMouseMove,
 			wheel:     cancel,
 			dragstart: cancel
 		});
+		return;
 	}
+	var dist = prefs.disallowMousemoveDist;
+	moveData = {
+		enabled: dist >= 0,
+		dist: 0,
+		screenX: e.screenX,
+		screenY: e.screenY
+	};
+	listen(true, {
+		mousemove: onMouseMove,
+		wheel:     cancel,
+		dragstart: cancel
+	});
 }
 function resetFlags() {
 	flags.stopMouseUp = false;
