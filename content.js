@@ -427,13 +427,16 @@ function isDummyURI(it, uri) {
 }
 function blinkNode(node, hl) {
 	var stl = node.hasAttribute("style") && node.getAttribute("style");
+	function s(p, v) {
+		node.style.setProperty(p, v, "important");
+	}
 	if(hl) {
-		node.style.setProperty("outline", "1px solid", "important");
-		node.style.setProperty("transition", "outline 100ms ease-in-out", "important");
+		s("outline", "1px solid");
+		s("transition", "outline 100ms ease-in-out");
 	}
 	else {
-		node.style.setProperty("opacity", "0.1", "important");
-		node.style.setProperty("transition", "opacity 120ms ease-in-out", "important");
+		s("opacity", "0.1");
+		s("transition", "opacity 120ms ease-in-out");
 	}
 	setTimeout(function() {
 		if(stl === false)
