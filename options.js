@@ -18,6 +18,11 @@ var prefs = { // Defaults
 function init() {
 	localize();
 	loadOptions();
+	addEventListener("input", saveOption);
+	addEventListener("unload", destroy, { once: true });
+}
+function destroy() {
+	removeEventListener("input", saveOption);
 }
 function localize() {
 	for(var it of document.getElementsByClassName("localize"))
@@ -59,5 +64,4 @@ function setValue(node, val) {
 	else
 		node.value = val;
 }
-document.addEventListener("DOMContentLoaded", init, true);
-document.addEventListener("input", saveOption, false);
+addEventListener("DOMContentLoaded", init, { once: true });
