@@ -8,6 +8,9 @@
 	"rlOptions": {
 		"message": "Настройки Right Links WE"
 	},
+	"updateNotice": {
+		"message": "Некоторые возможности теперь невозможно реализовать из-за ограничений <a href='https://wiki.mozilla.org/WebExtensions'>WebExtensions</a>, для Firefox 56 и более старых, пожалуйста, используйте <a href='https://addons.mozilla.org/addon/right-links/versions/0.4.1'>Right Links 0.4.1</a>."
+	},
 	"enabled": {
 		"message": "Включено"
 	},

@@ -26,7 +26,7 @@ function destroy() {
 }
 function localize() {
 	for(var it of document.getElementsByClassName("localize"))
-		it.textContent = browser.i18n.getMessage(it.textContent) || it.textContent;
+		it.innerHTML = browser.i18n.getMessage(it.textContent) || it.textContent;
 }
 function loadOptions() {
 	browser.storage.local.get().then(function(o) {
