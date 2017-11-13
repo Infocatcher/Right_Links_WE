@@ -1,7 +1,7 @@
 const LOG_PREFIX = "[Right Links WE: background] ";
 
 var prefs = {
-	debug: true,
+	debug: false,
 	enabled: true,
 	updateNotice: true
 };

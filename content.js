@@ -13,7 +13,7 @@ var detect = {
 	itemType: ""
 };
 var prefs = {
-	debug: true,
+	debug: false,
 	enabledLeft: true,
 	enabledRight: true,
 	loadInBackgroundLeft: false,
