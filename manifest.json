@@ -1,13 +1,13 @@
 {
 	"manifest_version": 2,
-	"version": "0.1a1",
+	"version": "0.5b1",
 	"name": "__MSG_extensionName__",
 	"description": "__MSG_extensionDescription__",
 	"author": "Infocatcher",
 	"default_locale": "en",
 	"applications": {
 		"gecko": {
-			"id": "rightLinksWE@infocatcher"
+			"id": "{B5F5E8D3-AE31-49A1-AC42-78B7B1CC5CDC}"
 		}
 	},
 
