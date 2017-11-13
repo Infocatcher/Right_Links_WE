@@ -9,7 +9,7 @@
 		"message": "Right Links WE Options"
 	},
 	"updateNotice": {
-		"message": "Some features are not implementable anymore due to <a href='https://wiki.mozilla.org/WebExtensions'>WebExtensions</a> restrictions, for Firefox 56 and older please use <a href='https://addons.mozilla.org/addon/right-links/versions/0.4.1'>Right Links 0.4.1</a>."
+		"message": "<a href='https://github.com/Infocatcher/Right_Links_WE#issues'>Some features</a> are not implementable anymore due to <a href='https://wiki.mozilla.org/WebExtensions'>WebExtensions</a> restrictions, for Firefox 56 and older please use <a href='https://addons.mozilla.org/addon/right-links/versions/0.4.1'>Right Links 0.4.1</a>."
 	},
 	"enabled": {
 		"message": "Enabled"
