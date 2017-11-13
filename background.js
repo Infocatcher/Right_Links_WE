@@ -2,7 +2,8 @@ const LOG_PREFIX = "[Right Links WE: background] ";
 
 var prefs = {
 	debug: true,
-	enabled: true
+	enabled: true,
+	updateNotice: true
 };
 
 readPrefs(init);
@@ -15,6 +16,12 @@ function init() {
 	browser.tabs.onActivated.addListener(onTabActivated);
 	browser.tabs.onUpdated.addListener(onTabUpdated);
 	browser.tabs.onRemoved.addListener(onTabRemoved);
+	if(prefs.updateNotice) setTimeout(function() {
+		browser.storage.local.set({
+			updateNotice: false
+		});
+		browser.runtime.openOptionsPage();
+	}, 500);
 	return updateState();
 }
 function destroy() {
