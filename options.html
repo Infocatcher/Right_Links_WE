@@ -43,12 +43,12 @@
 		<section><label><input id="enabledOnImages" type="checkbox" /> <span class="localize">enabledOnImages</span></label></section>
 		<section class="sub"><label><input id="enabledOnCanvasImages" type="checkbox" /> Canvas images</label></section>
 		<section class="sub"><label><input id="canvasImagesUseBlob" type="checkbox" /> Use blob:…</label></section>
-		<section class="sub"><label>Size limit: <input id="canvasImagesSizeLimit" type="number" /></label></section>
+		<section class="sub"><label>Size limit: <input id="canvasImagesSizeLimit" type="number" min="0" max="10000" /></label></section>
 	</section>
 	<section class="group">
-		<section><label><span class="localize">contextMenuTimeout</span><input id="showContextMenuTimeout" type="number" /></label></section>
-		<section><label><span class="localize">longLeftClickTimeout</span><input id="longLeftClickTimeout" type="number" /></label></section>
-		<section><label><span class="localize">mouseMoveTolerance</span><input id="disallowMousemoveDist" type="number" /></label></section>
+		<section><label><span class="localize">contextMenuTimeout</span><input id="showContextMenuTimeout" type="number" min="0" max="30000" /></label></section>
+		<section><label><span class="localize">longLeftClickTimeout</span><input id="longLeftClickTimeout" type="number" min="0" max="30000" /></label></section>
+		<section><label><span class="localize">mouseMoveTolerance</span><input id="disallowMousemoveDist" type="number" min="-1" max="1000" /></label></section>
 	</section>
 	<section><label><input id="debug" type="checkbox" /> <span class="localize">debug</span></label></label></section>
 	<script src="options.js"></script>
