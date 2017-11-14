@@ -35,6 +35,15 @@
 	"enabledOnImages": {
 		"message": "Klicks auf Grafiken anwenden"
 	},
+	"contextMenuTimeout": {
+		"message": "Context menu timeout (ms): "
+	},
+	"longLeftClickTimeout": {
+		"message": "Long left-click timeout (ms): "
+	},
+	"mouseMoveTolerance": {
+		"message": "Mouse move tolerance (for mouse gestures, in px): "
+	},
 	"debug": {
 		"message": "Debug mode"
 	}
