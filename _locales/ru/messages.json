@@ -24,13 +24,13 @@
 		"message": "Открывать в"
 	},
 	"newTab": {
-		"message": "new tab"
+		"message": "новой вкладке"
 	},
 	"newWindow": {
-		"message": "new window"
+		"message": "новом окне"
 	},
 	"currentTab": {
-		"message": "current tab"
+		"message": "текущей вкладке"
 	},
 	"rightClick": {
 		"message": "Клик правой кнопкой мыши"
