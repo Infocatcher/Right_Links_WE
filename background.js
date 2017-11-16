@@ -15,7 +15,6 @@ function init() {
 	loadInCurrentTab();
 	browser.tabs.onActivated.addListener(onTabActivated);
 	browser.tabs.onUpdated.addListener(onTabUpdated);
-	browser.tabs.onRemoved.addListener(onTabRemoved);
 	if(prefs.updateNotice) setTimeout(function() {
 		browser.storage.local.set({
 			updateNotice: false
@@ -28,7 +27,6 @@ function destroy() {
 	browser.runtime.onMessage.removeListener(onMessageFromContent);
 	browser.tabs.onActivated.removeListener(onTabActivated);
 	browser.tabs.onUpdated.removeListener(onTabUpdated);
-	browser.tabs.onRemoved.removeListener(onTabRemoved);
 	updateState();
 }
 function readPrefs(callback) {
@@ -96,7 +94,6 @@ function onMessageFromContent(msg, sender, sendResponse) {
 		delete loaded[sender.tab.id];
 	}
 }
-var nextTabPos = 0;
 function openURIInTab(sourceTab, data) {
 	_log("openURIInTab(), inBG: " + data.inBG + ", URI: " + data.uri);
 	var opts = {
@@ -121,7 +118,7 @@ function openURIInTab(sourceTab, data) {
 			throw e;
 		_log("openURIInTab(): openerTabId property not supported, will use workaround");
 		delete opts.openerTabId;
-		opts.index = sourceTab.index + ++nextTabPos;
+		opts.index = sourceTab.index + 1;
 		browser.tabs.create(opts).catch(onError);
 	}
 }
@@ -152,7 +149,6 @@ function openURIInWindow(sourceTab, data) {
 	}
 }
 function onTabActivated(activeInfo) {
-	nextTabPos = 0;
 	loadContentScript(activeInfo.tabId);
 }
 function onTabUpdated(tabId, changeInfo, tab) {
@@ -164,9 +160,6 @@ function onTabUpdated(tabId, changeInfo, tab) {
 		_log("Changed URL in active tab #" + tabId + ", will try to load content script");
 		loadContentScript(tabId);
 	}
-}
-function onTabRemoved(tabId, removeInfo) {
-	nextTabPos = 0;
 }
 
 var loaded = {};
