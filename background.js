@@ -101,16 +101,8 @@ function openURIInTab(sourceTab, data) {
 		active: !data.inBG,
 		openerTabId: sourceTab.id
 	};
-	function onError(e) {
-		browser.notifications.create({
-			"type": "basic",
-			"iconUrl": browser.extension.getURL("icon24-off.png"),
-			"title": browser.i18n.getMessage("extensionName"),
-			"message": "" + e
-		});
-	}
 	try {
-		browser.tabs.create(opts).catch(onError);
+		browser.tabs.create(opts).catch(notifyError);
 	}
 	catch(e) {
 		// Type error for parameter createProperties (Property "openerTabId" is unsupported by Firefox) for tabs.create.
@@ -119,7 +111,7 @@ function openURIInTab(sourceTab, data) {
 		_log("openURIInTab(): openerTabId property not supported, will use workaround");
 		delete opts.openerTabId;
 		opts.index = sourceTab.index + 1;
-		browser.tabs.create(opts).catch(onError);
+		browser.tabs.create(opts).catch(notifyError);
 	}
 }
 function openURIInWindow(sourceTab, data) {
@@ -128,16 +120,8 @@ function openURIInWindow(sourceTab, data) {
 		url: data.uri,
 		focused: !data.inBG
 	};
-	function onError(e) {
-		browser.notifications.create({
-			"type": "basic",
-			"iconUrl": browser.extension.getURL("icon24-off.png"),
-			"title": browser.i18n.getMessage("extensionName"),
-			"message": "" + e
-		});
-	}
 	try {
-		browser.windows.create(opts).catch(onError);
+		browser.windows.create(opts).catch(notifyError);
 	}
 	catch(e) {
 		// Type error for parameter createData (Property "focused" is unsupported by Firefox) for windows.create.
@@ -145,8 +129,16 @@ function openURIInWindow(sourceTab, data) {
 			throw e;
 		_log("openURIInWindow(): focused property not supported");
 		delete opts.focused;
-		browser.windows.create(opts).catch(onError);
+		browser.windows.create(opts).catch(notifyError);
 	}
+}
+function notifyError(err) {
+	browser.notifications.create({
+		type: "basic",
+		iconUrl: browser.extension.getURL("icon24-off.png"),
+		title: browser.i18n.getMessage("extensionName"),
+		message: "" + err
+	});
 }
 function onTabActivated(activeInfo) {
 	loadContentScript(activeInfo.tabId);
