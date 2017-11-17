@@ -81,6 +81,7 @@ function onPrefChanged(key, newVal) {
 }
 
 var delayedTimer = 0;
+var cleanupTimer = 0;
 function onMouseDown(e) {
 	if(!enabledFor(e))
 		return;
@@ -102,6 +103,7 @@ function onMouseDown(e) {
 	moveHandlers(e);
 
 	clearTimeout(delayedTimer);
+	clearTimeout(cleanupTimer);
 	delayedTimer = setTimeout(function() {
 		flags.executed = true;
 		if(!it.ownerDocument || !it.ownerDocument.location) // Page already unloaded
@@ -127,10 +129,11 @@ function onMouseUp(e) {
 	}
 
 	moveHandlers(false);
-	setTimeout(function() {
-		clearTimeout(delayedTimer);
+	clearTimeout(delayedTimer);
+	clearTimeout(cleanupTimer);
+	cleanupTimer = setTimeout(function() {
 		flags.stopContextMenu = false;
-	}, 10);
+	}, 100);
 }
 function onClick(e) {
 	if(!enabledFor(e))
