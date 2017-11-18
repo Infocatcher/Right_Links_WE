@@ -277,8 +277,8 @@ function moveHandlers(e) {
 	moveData = {
 		enabled: dist >= 0,
 		dist: 0,
-		screenX: e.screenX,
-		screenY: e.screenY
+		x: e.screenX,
+		y: e.screenY
 	};
 	listen(true, {
 		mousemove: onMouseMove,
