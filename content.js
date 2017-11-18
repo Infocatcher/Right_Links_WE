@@ -90,14 +90,17 @@ function onMouseDown(e) {
 	flags.canceled = false;
 	resetFlags();
 
-	var delay = isLeft(e) ? prefs.longLeftClickTimeout : prefs.showContextMenuTimeout;
-	if(delay <= 0)
-		return;
-
 	var trg = e.originalTarget || e.target;
 	var it = getItem(trg);
 	_log("onMouseDown() -> getItem(): " + it);
 	if(!it)
+		return;
+
+	if(isRight(e)) // For Linux with "contextmenu" event right after "mousedown"
+		flags.stopContextMenu = true;
+
+	var delay = isLeft(e) ? prefs.longLeftClickTimeout : prefs.showContextMenuTimeout;
+	if(delay <= 0)
 		return;
 
 	moveHandlers(e);
@@ -155,10 +158,11 @@ function onClick(e) {
 	var trg = e.originalTarget || e.target;
 	var it = getItem(trg);
 	_log("onClick() -> getItem(): " + it);
-	if(!it)
+	if(!it) {
+		flags.stopContextMenu = false;
 		return;
+	}
 	flags.executed = true;
-	flags.stopContextMenu = true;
 	openURIItem(e, trg, it, prefs.loadInBackgroundRight, prefs.loadInRight);
 }
 function onContextMenu(e) {
