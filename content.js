@@ -120,7 +120,7 @@ function onMouseDown(e) {
 			_log("onMouseDown() -> delayedTimer -> showContextMenu():");
 			showContextMenu(trg, e);
 		}
-	}, prefs.showContextMenuTimeout);
+	}, delay);
 }
 function onMouseUp(e) {
 	if("_rightLinksIgnore" in e)
