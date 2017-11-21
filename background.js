@@ -160,6 +160,8 @@ function loadContentScript(tabId, _stopTime) {
 		return;
 	browser.tabs.executeScript(tabId, {
 		file: "/content.js",
+		allFrames: true,
+		matchAboutBlank: true,
 		runAt: "document_start"
 	}).then(function onLoaded() {
 		loaded[tabId] = true;

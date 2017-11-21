@@ -52,7 +52,10 @@ function destroy() {
 	detect.origItem = detect.item = null;
 }
 function onUnload(e) {
-	_log("onUnload(): " + location);
+	var doc = e.target;
+	if(doc && doc.location == "about:blank")
+		return;
+	_log("onUnload(): " + (doc && doc.location));
 	destroy();
 	browser.runtime.sendMessage({
 		action: "contentScriptUnloaded"
