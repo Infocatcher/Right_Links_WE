@@ -140,17 +140,36 @@ function notifyError(err) {
 		message: "" + err
 	});
 }
+var loading = {};
 function onTabActivated(activeInfo) {
-	loadContentScript(activeInfo.tabId);
+	var tabId = activeInfo.tabId;
+	loading[tabId] = setTimeout(function() {
+		delete loading[tabId];
+		loadContentScript(tabId);
+	}, 20);
 }
 function onTabUpdated(tabId, changeInfo, tab) {
 	if(changeInfo.url && tab.active) {
+		if(tabId in loading) {
+			_log("URL was updated again (restored unloaded tab?), cancel scheduled loading");
+			clearTimeout(loading[tabId]);
+			delete loading[tabId];
+		}
+		var msg = "Changed URL in active tab #" + tabId + ": " + changeInfo.url;
+		if(changeInfo.url == "about:blank") {
+			delete loaded[tabId];
+			_log(msg + ", will wait for next onUpdated event");
+			return;
+		}
 		if(/^(?:about|chrome|resource|data):/i.test(changeInfo.url)) {
 			_log("Loaded restricted URL -> reset loaded flag for tab #" + tabId);
 			delete loaded[tabId];
 		}
-		_log("Changed URL in active tab #" + tabId + ", will try to load content script");
-		loadContentScript(tabId);
+		_log(msg + ", will try to load content script");
+		loading[tabId] = setTimeout(function() {
+			delete loading[tabId];
+			loadContentScript(tabId);
+		}, 20);
 	}
 }
 
