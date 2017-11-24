@@ -146,7 +146,7 @@ function onTabActivated(activeInfo) {
 	loading[tabId] = setTimeout(function() {
 		delete loading[tabId];
 		loadContentScript(tabId);
-	}, 20);
+	}, 40);
 }
 function onTabUpdated(tabId, changeInfo, tab) {
 	if(changeInfo.url && tab.active) {
@@ -169,7 +169,7 @@ function onTabUpdated(tabId, changeInfo, tab) {
 		loading[tabId] = setTimeout(function() {
 			delete loading[tabId];
 			loadContentScript(tabId);
-		}, 20);
+		}, 40);
 	}
 }
 
@@ -184,6 +184,7 @@ function loadContentScript(tabId, _stopTime) {
 		runAt: "document_start"
 	}).then(function onLoaded() {
 		loaded[tabId] = true;
+		// Note: we may receive "Error: WebExtension context not found!" right after this
 		_log("browser.tabs.executeScript(): successfully loaded into tab #" + tabId);
 	}, function onError(e) {
 		if(_stopTime && Date.now() > _stopTime) {
