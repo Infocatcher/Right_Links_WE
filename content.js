@@ -32,6 +32,8 @@ var prefs = {
 readPrefs(init);
 
 function init() {
+	if(!prefs.enabled)
+		return;
 	listen(true, {
 		mousedown:   onMouseDown,
 		mouseup:     onMouseUp,
@@ -53,13 +55,11 @@ function destroy() {
 }
 function onUnload(e) {
 	var doc = e.target;
-	if(doc && doc.location == "about:blank")
+	var win = doc && doc.defaultView;
+	if(win != window)
 		return;
 	_log("onUnload(): " + (doc && doc.location));
 	destroy();
-	browser.runtime.sendMessage({
-		action: "contentScriptUnloaded"
-	}).then(function onResponse() {}, _err);
 }
 function toggle(enable) {
 	if(enable)
