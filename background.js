@@ -9,6 +9,7 @@ var prefs = {
 readPrefs(init);
 
 function init() {
+	createMenusOnce();
 	if(!prefs.enabled)
 		return updateState();
 	browser.runtime.onMessage.addListener(onMessageFromContent);
@@ -65,17 +66,27 @@ browser.browserAction.onClicked.addListener(function() {
 		enabled: !prefs.enabled
 	});
 });
-browser.contextMenus.create({
-	id: "options",
-	title: browser.i18n.getMessage("rlOptions"),
-	contexts: ["browser_action"]
-});
-browser.contextMenus.onClicked.addListener(function(info, tab) {
-	var miId = info.menuItemId;
-	_log("contextMenus.onClicked: " + miId);
-	if(miId == "options")
-		browser.runtime.openOptionsPage();
-});
+
+function createMenusOnce() {
+	createMenusOnce = function() {};
+	setTimeout(createMenus, 50);
+}
+function createMenus() {
+	createMenus = function() {};
+
+	browser.contextMenus.create({
+		id: "options",
+		title: browser.i18n.getMessage("rlOptions"),
+		contexts: ["browser_action"]
+	});
+
+	browser.contextMenus.onClicked.addListener(function(info, tab) {
+		var miId = info.menuItemId;
+		_log("contextMenus.onClicked: " + miId);
+		if(miId == "options")
+			browser.runtime.openOptionsPage();
+	});
+}
 
 function onMessageFromContent(msg, sender, sendResponse) {
 	if(msg.action == "openURI") {
