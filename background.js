@@ -3,6 +3,10 @@ const LOG_PREFIX = "[Right Links WE: background] ";
 var prefs = {
 	debug: false,
 	enabled: true,
+	enabledLeft: true,
+	enabledRight: true,
+	loadInBackgroundLeft: false,
+	loadInBackgroundRight: true,
 	updateNotice: true
 };
 
@@ -45,6 +49,14 @@ function onPrefChanged(key, newVal) {
 	prefs[key] = newVal;
 	if(key == "enabled")
 		toggle(newVal);
+	if(
+		key == "enabled"
+		|| key == "enabledLeft"
+		|| key == "loadInBackgroundLeft"
+		|| key == "enabledRight"
+		|| key == "loadInBackgroundRight"
+	)
+		updateMenus();
 }
 function updateState() {
 	setTimeout(setState, 0, prefs.enabled);
@@ -73,6 +85,7 @@ function createMenusOnce() {
 }
 function createMenus() {
 	createMenus = function() {};
+	setTimeout(updateMenus, 50);
 
 	// Note: browser.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT == 6
 
@@ -113,6 +126,24 @@ function createMenus() {
 		_log("contextMenus.onClicked: " + miId);
 		if(miId == "options")
 			browser.runtime.openOptionsPage();
+	});
+}
+function updateMenus() {
+	browser.contextMenus.update("enabledLeft", {
+		checked: prefs.enabledLeft,
+		enabled: prefs.enabled
+	});
+	browser.contextMenus.update("loadInBackgroundLeft", {
+		checked: prefs.loadInBackgroundLeft,
+		enabled: prefs.enabled && prefs.enabledLeft
+	});
+	browser.contextMenus.update("enabledRight", {
+		checked: prefs.enabledRight,
+		enabled: prefs.enabled
+	});
+	browser.contextMenus.update("loadInBackgroundRight", {
+		checked: prefs.loadInBackgroundRight,
+		enabled: prefs.enabled && prefs.enabledRight
 	});
 }
 
