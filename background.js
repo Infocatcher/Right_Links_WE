@@ -74,6 +74,34 @@ function createMenusOnce() {
 function createMenus() {
 	createMenus = function() {};
 
+	// Note: browser.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT == 6
+
+	browser.contextMenus.create({
+		id: "enabledLeft",
+		title: browser.i18n.getMessage("longLeftClick"),
+		type: "checkbox",
+		contexts: ["browser_action"]
+	});
+	browser.contextMenus.create({
+		id: "loadInBackgroundLeft",
+		title: browser.i18n.getMessage("loadInBackground"),
+		type: "checkbox",
+		contexts: ["browser_action"]
+	});
+
+	browser.contextMenus.create({
+		id: "enabledRight",
+		title: browser.i18n.getMessage("rightClick"),
+		type: "checkbox",
+		contexts: ["browser_action"]
+	});
+	browser.contextMenus.create({
+		id: "loadInBackgroundRight",
+		title: browser.i18n.getMessage("loadInBackground"),
+		type: "checkbox",
+		contexts: ["browser_action"]
+	});
+
 	browser.contextMenus.create({
 		id: "options",
 		title: browser.i18n.getMessage("rlOptions"),
