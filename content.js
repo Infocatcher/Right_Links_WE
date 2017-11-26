@@ -50,7 +50,7 @@ function destroy() {
 		contextmenu: onContextMenu,
 		unload:      onUnload
 	});
-	cancel();
+	moveData && cancel();
 	detect.origItem = detect.item = null;
 }
 function onUnload(e) {
