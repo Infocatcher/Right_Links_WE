@@ -123,9 +123,21 @@ function createMenus() {
 
 	browser.contextMenus.onClicked.addListener(function(info, tab) {
 		var miId = info.menuItemId;
-		_log("contextMenus.onClicked: " + miId);
-		if(miId == "options")
+		if(miId == "options") {
+			_log("contextMenus.onClicked(): " + miId);
 			browser.runtime.openOptionsPage();
+		}
+		else if(
+			miId == "enabledLeft"
+			|| miId == "loadInBackgroundLeft"
+			|| miId == "enabledRight"
+			|| miId == "loadInBackgroundRight"
+		) {
+			_log("contextMenus.onClicked(): " + miId + " -> " + info.checked);
+			browser.storage.local.set({
+				[miId]: info.checked
+			});
+		}
 	});
 }
 function updateMenus() {
