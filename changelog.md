@@ -6,6 +6,8 @@
 `*` – improved<br>
 
 ##### master/HEAD
+`+` Added checkboxes in toolbar button context menu: left/right-click + load in background.<br>
+
 ##### 0.5b5 (2017-11-26)
 `x` Fixed long left-click timeout.<br>
 `x` Fixed handling of frames and restored “on demand” tabs (now content script will be automatically loaded into all tabs and frames).<br>
