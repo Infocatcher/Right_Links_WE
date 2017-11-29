@@ -18,10 +18,10 @@
 		"message": "Long left-click"
 	},
 	"loadInBackground": {
-		"message": "Load links in background"
+		"message": "Open links in background"
 	},
 	"loadIn": {
-		"message": "Load in"
+		"message": "Open in"
 	},
 	"newTab": {
 		"message": "new tab"
