@@ -6,6 +6,7 @@
 `*` – improved<br>
 
 ##### master/HEAD
+##### 0.5b6 (2017-12-15)
 `+` Added checkboxes in toolbar button context menu: left/right-click + load in background.<br>
 `x` Correctly set default value for “Enabled” preference in content script (failed to load on new installs without unchecking/checking of that checkbox).<br>
 
