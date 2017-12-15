@@ -14,6 +14,7 @@ var detect = {
 };
 var prefs = {
 	debug: false,
+	enabled: true,
 	enabledLeft: true,
 	enabledRight: true,
 	loadInBackgroundLeft: false,
