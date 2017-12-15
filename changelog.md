@@ -7,6 +7,7 @@
 
 ##### master/HEAD
 `+` Added checkboxes in toolbar button context menu: left/right-click + load in background.<br>
+`x` Correctly set default value for “Enabled” preference in content script (failed to load on new installs without unchecking/checking of that checkbox).<br>
 
 ##### 0.5b5 (2017-11-26)
 `x` Fixed long left-click timeout.<br>
