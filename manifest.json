@@ -12,11 +12,11 @@
 	},
 
 	"background": {
-		"scripts": ["background.js"]
+		"scripts": ["global.js", "background.js"]
 	},
 	"content_scripts": [{
 		"matches": ["<all_urls>"],
-		"js": ["content.js"],
+		"js": ["global.js", "content.js"],
 		"run_at": "document_start",
 		"all_frames": true
 	}],

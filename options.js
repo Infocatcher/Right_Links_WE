@@ -1,23 +1,6 @@
-var prefs = { // Defaults
-	debug: false,
-	enabled: true,
-	enabledLeft: true,
-	enabledRight: true,
-	loadInBackgroundLeft: false,
-	loadInBackgroundRight: true,
-	loadInLeft: 0,
-	loadInRight: 0,
-	enabledOnImages: true,
-	enabledOnCanvasImages: true,
-	canvasImagesSizeLimit: 0,
-	canvasImagesUseBlob: true,
-	showContextMenuTimeout: 500,
-	longLeftClickTimeout: 500,
-	disallowMousemoveDist: 14
-};
 function init() {
 	localize();
-	loadOptions();
+	readPrefs(loadOptions);
 	addEventListener("input", saveOption);
 	addEventListener("unload", destroy, { once: true });
 }
@@ -29,15 +12,11 @@ function localize() {
 		it.innerHTML = browser.i18n.getMessage(it.textContent) || it.textContent;
 }
 function loadOptions() {
-	browser.storage.local.get().then(function(o) {
-		browser.storage.onChanged.addListener(function(changes, area) {
-			if(area == "local") for(var key in changes)
-				loadOption(key, changes[key].newValue);
-		});
-		Object.assign(prefs, o);
-		for(var id in prefs)
-			loadOption(id, prefs[id]);
-	});
+	for(var id in prefs)
+		loadOption(id, prefs[id]);
+}
+function onPrefChanged(key, newVal) {
+	loadOption(key, newVal);
 }
 function loadOption(id, val) {
 	var node = document.getElementById(id);

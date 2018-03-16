@@ -1,15 +1,3 @@
-const LOG_PREFIX = "[Right Links WE: background] ";
-
-var prefs = {
-	debug: false,
-	enabled: true,
-	enabledLeft: true,
-	enabledRight: true,
-	loadInBackgroundLeft: false,
-	loadInBackgroundRight: true,
-	updateNotice: true
-};
-
 readPrefs(init);
 
 function init() {
@@ -34,16 +22,6 @@ function toggle(enable) {
 		init();
 	else
 		destroy();
-}
-function readPrefs(callback) {
-	browser.storage.local.get().then(function(o) {
-		browser.storage.onChanged.addListener(function(changes, area) {
-			if(area == "local") for(var key in changes)
-				onPrefChanged(key, changes[key].newValue);
-		});
-		Object.assign(prefs, o);
-		callback();
-	}, _err);
 }
 function onPrefChanged(key, newVal) {
 	prefs[key] = newVal;
@@ -212,18 +190,4 @@ function notifyError(err) {
 		title: browser.i18n.getMessage("extensionName"),
 		message: "" + err
 	});
-}
-
-
-function ts() {
-	var d = new Date();
-	var ms = d.getMilliseconds();
-	return d.toTimeString().replace(/^.*\d+:(\d+:\d+).*$/, "$1") + ":" + "000".substr(("" + ms).length) + ms + " ";
-}
-function _log(s) {
-	if(prefs.debug)
-		console.log(LOG_PREFIX + ts() + s);
-}
-function _err(s) {
-	console.error(LOG_PREFIX + ts() + s);
 }
