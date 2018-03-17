@@ -94,6 +94,11 @@ function createMenus() {
 	});
 
 	browser.contextMenus.create({
+		id: "optionsSeparator",
+		type: "separator",
+		contexts: ["browser_action"]
+	});
+	browser.contextMenus.create({
 		id: "options",
 		title: browser.i18n.getMessage("rlOptions"),
 		contexts: ["browser_action"]
