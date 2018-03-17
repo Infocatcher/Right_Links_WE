@@ -1,15 +1,11 @@
 function init() {
-	localize();
+	document.getElementById("updateNotice").innerHTML = browser.i18n.getMessage("updateNotice");
 	readPrefs(loadOptions);
 	addEventListener("input", saveOption);
 	addEventListener("unload", destroy, { once: true });
 }
 function destroy() {
 	removeEventListener("input", saveOption);
-}
-function localize() {
-	for(var it of document.getElementsByClassName("localize"))
-		it.innerHTML = browser.i18n.getMessage(it.textContent) || it.textContent;
 }
 function loadOptions() {
 	for(var id in prefs)

@@ -10,48 +10,47 @@
 	</style>
 </head>
 <body>
-	<section id="updateNotice" class="group notice">
-		<span class="localize">updateNotice</span>
+	<section id="updateNotice" class="group notice"></section>
+	<section class="group">
+		<section><label><input id="enabled" type="checkbox" /> <strong>__MSG_enabled__</strong></label></section>
 	</section>
 	<section class="group">
-		<section><label><input id="enabled" type="checkbox" /> <strong class="localize">enabled</strong></label></section>
-	</section>
-	<section class="group">
-		<section><label><input id="enabledLeft" type="checkbox" /> <span class="localize">longLeftClick</span></label></section>
-		<section class="sub"><label><input id="loadInBackgroundLeft" type="checkbox" /> <span class="localize">loadInBackground</span></label></section>
+		<section><label><input id="enabledLeft" type="checkbox" /> __MSG_longLeftClick__</label></section>
+		<section class="sub"><label><input id="loadInBackgroundLeft" type="checkbox" /> __MSG_loadInBackground__</label></section>
 		<section class="sub">
-			<span class="localize">loadIn</span>
+			__MSG_loadIn__
 			<select id="loadInLeft">
-				<option value="0" class="localize">newTab</option>
-				<option value="1" class="localize">newWindow</option>
-				<option value="2" class="localize">currentTab</option>
+				<option value="0">__MSG_newTab__</option>
+				<option value="1">__MSG_newWindow__</option>
+				<option value="2">__MSG_currentTab__</option>
 			</select>
 		</section>
 	</section>
 	<section class="group">
-		<section><label><input id="enabledRight" type="checkbox" /> <span class="localize">rightClick</span></label></section>
-		<section class="sub"><label><input id="loadInBackgroundRight" type="checkbox" /> <span class="localize">loadInBackground</span></label></section>
+		<section><label><input id="enabledRight" type="checkbox" /> __MSG_rightClick__</label></section>
+		<section class="sub"><label><input id="loadInBackgroundRight" type="checkbox" /> __MSG_loadInBackground__</label></section>
 		<section class="sub">
-			<span class="localize">loadIn</span>
+			__MSG_loadIn__
 			<select id="loadInRight">
-				<option value="0" class="localize">newTab</option>
-				<option value="1" class="localize">newWindow</option>
-				<option value="2" class="localize">currentTab</option>
+				<option value="0">__MSG_newTab__</option>
+				<option value="1">__MSG_newWindow__</option>
+				<option value="2">__MSG_currentTab__</option>
 			</select>
 		</section>
 	</section>
 	<section class="group">
-		<section><label><input id="enabledOnImages" type="checkbox" /> <span class="localize">enabledOnImages</span></label></section>
+		<section><label><input id="enabledOnImages" type="checkbox" /> __MSG_enabledOnImages__</label></section>
 		<section class="sub"><label><input id="enabledOnCanvasImages" type="checkbox" /> Canvas images</label></section>
 		<section class="sub"><label><input id="canvasImagesUseBlob" type="checkbox" /> Use blob:…</label></section>
 		<section class="sub"><label>Size limit: <input id="canvasImagesSizeLimit" type="number" min="0" max="10000" /></label></section>
 	</section>
 	<section class="group">
-		<section><label><span class="localize">contextMenuTimeout</span><input id="showContextMenuTimeout" type="number" min="0" max="30000" /></label></section>
-		<section><label><span class="localize">longLeftClickTimeout</span><input id="longLeftClickTimeout" type="number" min="0" max="30000" /></label></section>
-		<section><label><span class="localize">mouseMoveTolerance</span><input id="disallowMousemoveDist" type="number" min="-1" max="1000" /></label></section>
+		<section><label>__MSG_contextMenuTimeout__<input id="showContextMenuTimeout" type="number" min="0" max="30000" /></label></section>
+		<section><label>__MSG_longLeftClickTimeout__<input id="longLeftClickTimeout" type="number" min="0" max="30000" /></label></section>
+		<section><label>__MSG_mouseMoveTolerance__<input id="disallowMousemoveDist" type="number" min="-1" max="1000" /></label></section>
 	</section>
-	<section><label><input id="debug" type="checkbox" /> <span class="localize">debug</span></label></label></section>
+	<section><label><input id="debug" type="checkbox" /> __MSG_debug__</label></label></section>
+	<script src="i18n.js"></script>
 	<script src="global.js"></script>
 	<script src="options.js"></script>
 </body>
