@@ -5,8 +5,8 @@
 	"extensionDescription": {
 		"message": "Klicken Sie mit der rechten Maustaste, um Verweise auf neuen Tabs zu öffnen (für Touchpads usw.)"
 	},
-	"rlOptions": {
-		"message": "Right Links WE Options"
+	"options": {
+		"message": "Options"
 	},
 	"enabled": {
 		"message": "Aktiviert"

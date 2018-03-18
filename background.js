@@ -100,7 +100,11 @@ function createMenus() {
 	});
 	browser.contextMenus.create({
 		id: "options",
-		title: browser.i18n.getMessage("rlOptions"),
+		title: browser.i18n.getMessage("options"),
+		icons: {
+			"16": "icon16.png",
+			"24": "icon24.png"
+		},
 		contexts: ["browser_action"]
 	});
 

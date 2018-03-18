@@ -5,8 +5,8 @@
 	"extensionDescription": {
 		"message": "Right Links - Щракнете, за да отворите връзка в нов раздел (за тъчпади и др.)"
 	},
-	"rlOptions": {
-		"message": "Right Links WE Options"
+	"options": {
+		"message": "Options"
 	},
 	"enabled": {
 		"message": "Включено"
