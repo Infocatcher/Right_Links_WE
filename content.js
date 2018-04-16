@@ -184,10 +184,8 @@ function openURIItem(e, trg, it, inBG, loadIn) {
 		&& "URL" in window
 		&& "createObjectURL" in URL
 	) {
-		// Note: not allowed at least for now
-		// Security Error: Content at moz-extension://.../ may not load data from blob:...
 		it.toBlob(function(blob) {
-			openURIIn(URL.createObjectURL(blob), inBG, loadIn);
+			openURIIn(blob, inBG, loadIn);
 		});
 		return;
 	}

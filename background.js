@@ -148,6 +148,8 @@ function updateMenus() {
 
 function onMessageFromContent(msg, sender, sendResponse) {
 	if(msg.action == "openURI") {
+		if(msg.uri instanceof Blob) // Should be converted here to prevent security errors
+			msg.uri = URL.createObjectURL(msg.uri);
 		if(msg.loadIn == 1)
 			openURIInWindow(sender.tab, msg);
 		else
