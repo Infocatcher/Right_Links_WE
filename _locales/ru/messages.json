@@ -38,6 +38,15 @@
 	"enabledOnImages": {
 		"message": "Обрабатывать клики по изображениям"
 	},
+	"canvasImages": {
+		"message": "Canvas изображения"
+	},
+	"useBlob": {
+		"message": "Использовать blob:…"
+	},
+	"sizeLimit": {
+		"message": "Ограничение размеров (в пикселях):"
+	},
 	"contextMenuTimeout": {
 		"message": "Задержка перед контекстным меню (мс): "
 	},
