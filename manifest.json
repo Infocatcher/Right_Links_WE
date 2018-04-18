@@ -40,6 +40,14 @@
 			"24": "icon24.png"
 		}
 	},
+	"commands": {
+		"_execute_browser_action": {
+			"suggested_key": {
+				"default": "F2"
+			},
+			"description": "__MSG_extensionName__"
+		}
+	},
 	"icons": {
 		"16": "icon16.png",
 		"24": "icon24.png"
