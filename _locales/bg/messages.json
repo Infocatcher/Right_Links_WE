@@ -11,6 +11,9 @@
 	"enabled": {
 		"message": "Включено"
 	},
+	"keyboardShortcut": {
+		"message": "Keyboard shortcut:"
+	},
 	"longLeftClick": {
 		"message": "Дълъг ляв бутон"
 	},

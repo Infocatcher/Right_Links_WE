@@ -11,6 +11,9 @@
 	"enabled": {
 		"message": "Aktiviert"
 	},
+	"keyboardShortcut": {
+		"message": "Keyboard shortcut:"
+	},
 	"longLeftClick": {
 		"message": "Langer Linksklick"
 	},

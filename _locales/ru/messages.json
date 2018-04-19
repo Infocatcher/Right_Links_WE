@@ -14,6 +14,9 @@
 	"enabled": {
 		"message": "Включено"
 	},
+	"keyboardShortcut": {
+		"message": "Сочетание клавиш:"
+	},
 	"longLeftClick": {
 		"message": "Долгий клик левой кнопкой мыши"
 	},

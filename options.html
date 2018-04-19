@@ -7,12 +7,17 @@
 		.group:not(:last-child) { margin-bottom: 1em; }
 		input[type="number"] { width: 5.5em; }
 		#updateNotice { border: 1px solid grayText; padding: 0.5em; font-size: 1.2em; }
+		.error { color: #e00; }
 	</style>
 </head>
 <body>
 	<section id="updateNotice" class="group notice"></section>
 	<section class="group">
 		<section><label><input id="enabled" type="checkbox" /> <strong>__MSG_enabled__</strong></label></section>
+		<section>
+			<label>__MSG_keyboardShortcut__ <input id="toggleKey" type="text" /></label>
+			<a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/commands#Shortcut_values" target="_blank">(?)</a>
+		</section>
 	</section>
 	<section class="group">
 		<section><label><input id="enabledLeft" type="checkbox" /> __MSG_longLeftClick__</label></section>
