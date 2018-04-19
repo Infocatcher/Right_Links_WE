@@ -24,9 +24,9 @@ function saveOption(e) {
 	var id = node.id;
 	if(!(id in prefs))
 		return;
-	browser.storage.local.set({
-		[id]: getValue(node)
-	});
+	(save.prefs || (save.prefs = {}))[id] = getValue(node);
+	if(!save.timer)
+		save.timer = setTimeout(save, Date.now() - (save.last || 0) < 1000 ? 400 : 20);
 	if(id == "toggleKey")
 		validateKey();
 }
@@ -39,6 +39,13 @@ function validateKey() {
 		|| /^\s*((Alt|Ctrl|Command|MacCtrl)\s*\+\s*)?(Shift\s*\+\s*)?(F[1-9]|F1[0-2])\s*$/.test(key)
 		|| /^(MediaNextTrack|MediaPlayPause|MediaPrevTrack|MediaStop)$/.test(key);
 	inp.classList.toggle("error", !isValid);
+}
+function save() {
+	_log("Save: " + JSON.stringify(save.prefs));
+	browser.storage.local.set(save.prefs);
+	save.prefs = {};
+	save.timer = 0;
+	save.last = Date.now();
 }
 function getValue(node) {
 	return node.localName == "select" || node.type == "number"
@@ -56,4 +63,5 @@ function setValue(node, val) {
 function $(id) {
 	return document.getElementById(id);
 }
-addEventListener("DOMContentLoaded", init, { once: true });
+
+init();
