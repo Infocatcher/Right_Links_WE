@@ -1,7 +1,7 @@
 readPrefs(init);
 
 function init() {
-	createMenusOnce();
+	initOnce();
 	if(!prefs.enabled)
 		return updateState();
 	browser.runtime.onMessage.addListener(onMessageFromContent);
@@ -13,6 +13,11 @@ function init() {
 	}, 500);
 	return updateState();
 }
+function initOnce() {
+	initOnce = function() {};
+	setTimeout(createMenus, 50);
+	updateHotkey();
+}
 function destroy() {
 	browser.runtime.onMessage.removeListener(onMessageFromContent);
 	updateState();
@@ -22,19 +27,21 @@ function toggle(enable) {
 		init();
 	else
 		destroy();
+	updateMenus();
 }
 function onPrefChanged(key, newVal) {
 	prefs[key] = newVal;
 	if(key == "enabled")
 		toggle(newVal);
-	if(
-		key == "enabled"
-		|| key == "enabledLeft"
+	else if(
+		key == "enabledLeft"
 		|| key == "loadInBackgroundLeft"
 		|| key == "enabledRight"
 		|| key == "loadInBackgroundRight"
 	)
 		updateMenus();
+	else if(key == "toggleKey")
+		updateHotkey(250);
 }
 function updateState() {
 	setTimeout(setState, 0, prefs.enabled);
@@ -57,16 +64,8 @@ browser.browserAction.onClicked.addListener(function() {
 	});
 });
 
-function createMenusOnce() {
-	createMenusOnce = function() {};
-	setTimeout(createMenus, 50);
-}
 function createMenus() {
-	createMenus = function() {};
-	setTimeout(updateMenus, 50);
-
 	// Note: browser.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT == 6
-
 	browser.contextMenus.create({
 		id: "enabledLeft",
 		title: browser.i18n.getMessage("longLeftClick"),
@@ -126,6 +125,8 @@ function createMenus() {
 			});
 		}
 	});
+
+	setTimeout(updateMenus, 50);
 }
 function updateMenus() {
 	browser.contextMenus.update("enabledLeft", {
@@ -144,6 +145,19 @@ function updateMenus() {
 		checked: prefs.loadInBackgroundRight,
 		enabled: prefs.enabled && prefs.enabledRight
 	});
+}
+function updateHotkey(delay = 0) {
+	if(!("update" in browser.commands)) // Firefox 60+
+		return;
+	if(updateHotkey.timer || 0)
+		return;
+	updateHotkey.timer = setTimeout(function() {
+		updateHotkey.timer = 0;
+		browser.commands.update({
+			name: "_execute_browser_action",
+			shortcut: prefs.toggleKey
+		});
+	}, delay);
 }
 
 function onMessageFromContent(msg, sender, sendResponse) {

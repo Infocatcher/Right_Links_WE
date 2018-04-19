@@ -16,7 +16,8 @@ var prefs = { // Defaults
 	canvasImagesUseBlob: true,
 	showContextMenuTimeout: 500,
 	longLeftClickTimeout: 500,
-	disallowMousemoveDist: 14
+	disallowMousemoveDist: 14,
+	toggleKey: "F2"
 };
 
 function readPrefs(callback) {
