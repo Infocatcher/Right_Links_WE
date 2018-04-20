@@ -42,9 +42,6 @@
 	},
 	"commands": {
 		"_execute_browser_action": {
-			"suggested_key": {
-				"default": "F2"
-			},
 			"description": "__MSG_extensionName__"
 		}
 	},

@@ -153,10 +153,15 @@ function updateHotkey(delay = 0) {
 		return;
 	updateHotkey.timer = setTimeout(function() {
 		updateHotkey.timer = 0;
-		browser.commands.update({
-			name: "_execute_browser_action",
-			shortcut: prefs.toggleKey
-		});
+		if(prefs.toggleKey) {
+			browser.commands.update({
+				name: "_execute_browser_action",
+				shortcut: prefs.toggleKey
+			});
+		}
+		else {
+			browser.commands.reset("_execute_browser_action");
+		}
 	}, delay);
 }
 

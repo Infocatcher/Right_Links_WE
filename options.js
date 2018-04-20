@@ -35,7 +35,8 @@ function validateKey() {
 	var key = inp.value;
 	// Patterns from error message
 	// Type error for parameter detail (Error processing shortcut: Value "..." must either: match the pattern ...
-	var isValid = /^\s*(Alt|Ctrl|Command|MacCtrl)\s*\+\s*(Shift\s*\+\s*)?([A-Z0-9]|Comma|Period|Home|End|PageUp|PageDown|Space|Insert|Delete|Up|Down|Left|Right)\s*$/.test(key)
+	var isValid = !key // We use dummy manifest.json entry + browser.commands.reset()
+		|| /^\s*(Alt|Ctrl|Command|MacCtrl)\s*\+\s*(Shift\s*\+\s*)?([A-Z0-9]|Comma|Period|Home|End|PageUp|PageDown|Space|Insert|Delete|Up|Down|Left|Right)\s*$/.test(key)
 		|| /^\s*((Alt|Ctrl|Command|MacCtrl)\s*\+\s*)?(Shift\s*\+\s*)?(F[1-9]|F1[0-2])\s*$/.test(key)
 		|| /^(MediaNextTrack|MediaPlayPause|MediaPrevTrack|MediaStop)$/.test(key);
 	inp.classList.toggle("error", !isValid);
