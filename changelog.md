@@ -6,6 +6,12 @@
 `*` – improved<br>
 
 ##### master/HEAD
+`*` Internal tweaks: used separate global.js script for shared code, simplified localization.<br>
+`*` Improved options menu (on toolbar button).<br>
+`*` Logically re-grouped options.<br>
+`+` Implemented support for canvas images (<a href="https://forum.mozilla-russia.org/viewtopic.php?pid=756712#p756712">thanks to Dumby</a>).<br>
+`+` Added (configurable) F2 hotkey to toggle Right Links WE.<br>
+
 ##### 0.5b6 (2017-12-15)
 `+` Added checkboxes in toolbar button context menu: left/right-click + load in background.<br>
 `x` Correctly set default value for “Enabled” preference in content script (failed to load on new installs without unchecking/checking of that checkbox).<br>
