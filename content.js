@@ -5,11 +5,6 @@ var flags = {
 	stopMouseUp: false,
 	stopContextMenu: false
 };
-var detect = {
-	origItem: null,
-	item: null,
-	itemType: ""
-};
 
 readPrefs(init);
 
@@ -33,7 +28,6 @@ function destroy() {
 		unload:      onUnload
 	});
 	moveData && cancel();
-	detect.origItem = detect.item = null;
 }
 function onUnload(e) {
 	var doc = e.target;
@@ -310,18 +304,8 @@ function stopEvent(e) {
 function getItem(trg) {
 	if(!trg.localName) // trg === document
 		return null;
-
-	function detector(getter, type) {
-		var it = getter(trg);
-		if(!it)
-			return null;
-		detect.origItem = trg;
-		detect.itemType = type;
-		return detect.item = it;
-	}
-	return detector(getLink, "link")
-		|| prefs.enabledOnImages && detector(getImg, "img")
-		|| null;
+	return getLink(trg)
+		|| getImg(trg);
 }
 function getLink(it) {
 	const docNode = Node.DOCUMENT_NODE; // 9
