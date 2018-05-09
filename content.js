@@ -183,16 +183,16 @@ function openURIItem(e, trg, it, inBG, loadIn) {
 		});
 		return;
 	}
-	if(isJSURI(uri)) {
-		_log("openURIItem() -> javascript:... URI");
-		loadJSURI(trg, uri);
-		return;
-	}
 	if(isVoidURI(uri) || isDummyURI(it, uri)) {
 		_log("openURIItem() -> void or dummy URI");
 		mouseEvents(trg, ["mousedown", "mouseup", "click"], e, {
 			ctrlKey: true
 		});
+		return;
+	}
+	if(isJSURI(uri)) {
+		_log("openURIItem() -> javascript:... URI");
+		loadJSURI(trg, uri);
 		return;
 	}
 	if(loadIn == 2) {
