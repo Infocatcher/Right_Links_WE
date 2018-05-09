@@ -369,8 +369,9 @@ function isJSURI(uri) {
 	return /^javascript:/i.test(uri);
 }
 function isVoidURI(uri) {
-	uri = (uri || "").replace(/(?:\s|%20)+/g, " ");
-	return /^javascript: *(?:|\/\/|void *(?: +0|\( *0 *\))) *;? *$/i.test(uri);
+	return isJSURI(uri) && /^javascript: *(?:|\/\/|void *(?: +0|\( *0 *\))) *;? *$/i.test(
+		uri.replace(/(?:\s|%20)+/g, " ")
+	);
 }
 function isDummyURI(it, uri) {
 	var doc = it.ownerDocument;
