@@ -5,6 +5,15 @@
 	"extensionDescription": {
 		"message": "Right-click to open links in new tabs (for touchpads etc.)"
 	},
+	"buttonTooltip": {
+		"message": "Right Links WE: "
+	},
+	"tooltipEnabled": {
+		"message": "Enabled"
+	},
+	"tooltipDisabled": {
+		"message": "Disabled"
+	},
 	"options": {
 		"message": "Options"
 	},

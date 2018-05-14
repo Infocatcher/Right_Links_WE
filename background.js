@@ -55,6 +55,10 @@ function setState(enabled) {
 			24: "icon24" + key + ".png"
 		}
 	});
+	browser.browserAction.setTitle({
+		title: browser.i18n.getMessage("buttonTooltip")
+			+ browser.i18n.getMessage(enabled ? "tooltipEnabled" : "tooltipDisabled")
+	});
 }
 
 browser.browserAction.onClicked.addListener(function() {

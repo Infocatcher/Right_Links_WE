@@ -5,6 +5,15 @@
 	"extensionDescription": {
 		"message": "Позволяет открывать ссылки в новых вкладках по клику правой кнопкой мыши (для тачпадов и т.п.)"
 	},
+	"buttonTooltip": {
+		"message": "Right Links WE: "
+	},
+	"tooltipEnabled": {
+		"message": "Включено"
+	},
+	"tooltipDisabled": {
+		"message": "Выключено"
+	},
 	"options": {
 		"message": "Настройки"
 	},

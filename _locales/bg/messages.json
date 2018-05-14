@@ -5,6 +5,15 @@
 	"extensionDescription": {
 		"message": "Right Links - Щракнете, за да отворите връзка в нов раздел (за тъчпади и др.)"
 	},
+	"buttonTooltip": {
+		"message": "Right Links WE: "
+	},
+	"tooltipEnabled": {
+		"message": "Включено"
+	},
+	"tooltipDisabled": {
+		"message": "Изключено"
+	},
 	"options": {
 		"message": "Options"
 	},

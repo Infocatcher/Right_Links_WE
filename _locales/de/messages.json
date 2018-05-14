@@ -5,6 +5,15 @@
 	"extensionDescription": {
 		"message": "Klicken Sie mit der rechten Maustaste, um Verweise auf neuen Tabs zu öffnen (für Touchpads usw.)"
 	},
+	"buttonTooltip": {
+		"message": "Right Links WE: "
+	},
+	"tooltipEnabled": {
+		"message": "Aktiviert"
+	},
+	"tooltipDisabled": {
+		"message": "Deaktiviert"
+	},
 	"options": {
 		"message": "Options"
 	},
