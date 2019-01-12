@@ -3,7 +3,9 @@ License, v. 2.0. If a copy of the MPL was not distributed with this
 file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 Right Links WE extension for Firefox
-(c) Infocatcher 2017 <https://github.com/Infocatcher>
+https://github.com/Infocatcher/Right_Links_WE
+(c) Infocatcher 2017-2019 <https://github.com/Infocatcher>
 
 Based on code from Right Links extension for Firefox and SeaMonkey
+https://github.com/Infocatcher/Right_Links
 (c) Infocatcher 2007-2017 <https://github.com/Infocatcher>
