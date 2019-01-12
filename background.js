@@ -96,20 +96,28 @@ function createMenus() {
 		contexts: ["browser_action"]
 	});
 
-	browser.contextMenus.create({
-		id: "optionsSeparator",
-		type: "separator",
-		contexts: ["browser_action"]
-	});
-	browser.contextMenus.create({
-		id: "options",
-		title: browser.i18n.getMessage("options"),
-		icons: {
-			"16": "icon16.png",
-			"24": "icon24.png"
-		},
-		contexts: ["browser_action"]
-	});
+	function addOptionsItems(brInfo) {
+		if(brInfo && brInfo.name == "Firefox" && parseFloat(brInfo.version) >= 62)
+			return; // Built-in Manage Extension menu item
+		browser.contextMenus.create({
+			id: "optionsSeparator",
+			type: "separator",
+			contexts: ["browser_action"]
+		});
+		browser.contextMenus.create({
+			id: "options",
+			title: browser.i18n.getMessage("options"),
+			icons: {
+				"16": "icon16.png",
+				"24": "icon24.png"
+			},
+			contexts: ["browser_action"]
+		});
+	}
+	if("getBrowserInfo" in browser.runtime)
+		browser.runtime.getBrowserInfo().then(addOptionsItems);
+	else
+		addOptionsItems();
 
 	browser.contextMenus.onClicked.addListener(function(info, tab) {
 		var miId = info.menuItemId;
