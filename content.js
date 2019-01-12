@@ -9,24 +9,10 @@ var flags = {
 readPrefs(init);
 
 function init() {
-	if(!prefs.enabled)
-		return;
-	listen(true, {
-		mousedown:   onMouseDown,
-		mouseup:     onMouseUp,
-		click:       onClick,
-		contextmenu: onContextMenu,
-		unload:      onUnload
-	});
+	prefs.enabled && listenClicks(true);
 }
 function destroy() {
-	listen(false, {
-		mousedown:   onMouseDown,
-		mouseup:     onMouseUp,
-		click:       onClick,
-		contextmenu: onContextMenu,
-		unload:      onUnload
-	});
+	listenClicks(false);
 	moveData && cancel();
 }
 function onUnload(e) {
@@ -49,6 +35,15 @@ function onPrefChanged(key, newVal) {
 		toggle(newVal);
 }
 
+function listenClicks(on) {
+	listen(on, {
+		mousedown:   onMouseDown,
+		mouseup:     onMouseUp,
+		click:       onClick,
+		contextmenu: onContextMenu,
+		unload:      onUnload
+	});
+}
 var delayedTimer = 0;
 var cleanupTimer = 0;
 function onMouseDown(e) {
@@ -227,17 +222,21 @@ function showContextMenu(trg, origEvt) {
 	mouseEvents(trg, events, origEvt, {}); // Actually doesn't work...
 	blinkNode(trg);
 }
+
+function listenMove(on) {
+	listen(on, {
+		mousemove: onMouseMove,
+		wheel:     cancel,
+		dragstart: cancel
+	});
+}
 var moveData = null;
 function moveHandlers(e) {
 	if(!e == !moveData)
 		return;
 	if(!e) {
 		moveData = null;
-		listen(false, {
-			mousemove: onMouseMove,
-			wheel:     cancel,
-			dragstart: cancel
-		});
+		listenMove(false);
 		return;
 	}
 	var dist = prefs.disallowMousemoveDist;
@@ -247,11 +246,7 @@ function moveHandlers(e) {
 		x: e.screenX,
 		y: e.screenY
 	};
-	listen(true, {
-		mousemove: onMouseMove,
-		wheel:     cancel,
-		dragstart: cancel
-	});
+	listenMove(true);
 }
 function resetFlags() {
 	flags.stopMouseUp = false;
