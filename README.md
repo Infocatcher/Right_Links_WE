@@ -48,17 +48,17 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Right_Links">Right
 		<td></td>
 	</tr>
 	<tr>
-		<td>Support for canvas images (ability to open data:… and blob:… URIs)</td>
-		<td>Core functionality</td>
-		<td>Forbidden</td>
-		<td>Minor</td>
+		<td><del>Support for canvas images (ability to open data:… and blob:… URIs)</del></td>
+		<td><del>Core functionality</del></td>
+		<td><del>Forbidden</del><br><em>Works from background script: <a href="https://github.com/Infocatcher/Right_Links_WE/commit/0a0d5bb1fa52dfea9c8cb78827eeed2348647e81">URL.createObjectURL(Blob)</a></em></td>
+		<td><del>Minor</del></td>
 		<td></td>
 	</tr>
 	<tr>
-		<td>Configurable <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/commands">keyboard shortcuts</a> (note: also not possible to assign Ctrl+Alt+<em>X</em>)</td>
-		<td>UX</td>
+		<td><del>Configurable <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/commands">keyboard shortcuts</a> (note: also not possible to assign Ctrl+Alt+<em>X</em>)</del></td>
+		<td><del>UX</del></td>
 		<td><del>No API</del><br><em><a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/API/commands/update">browser.commands.update()</a> in Firefox 60+</em></td>
-		<td>Minor</td>
+		<td><del>Minor</del></td>
 		<td><del><a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1421811">Bug 1421811</a></del>, <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=1303384">bug 1303384</a></td>
 	</tr>
 </tbody>
