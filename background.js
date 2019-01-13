@@ -166,10 +166,23 @@ function updateHotkey(delay = 0) {
 	updateHotkey.timer = setTimeout(function() {
 		updateHotkey.timer = 0;
 		if(prefs.toggleKey) {
-			browser.commands.update({
-				name: "_execute_browser_action",
-				shortcut: prefs.toggleKey
-			});
+			try {
+				browser.commands.update({
+					name: "_execute_browser_action",
+					shortcut: prefs.toggleKey
+				}).then(function() {
+					browser.runtime.sendMessage({
+						action: "shortcutValidation",
+						error: ""
+					});
+				});
+			}
+			catch(e) {
+				browser.runtime.sendMessage({
+					action: "shortcutValidation",
+					error: "" + e
+				});
+			}
 		}
 		else {
 			browser.commands.reset("_execute_browser_action");

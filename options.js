@@ -3,9 +3,11 @@ function init() {
 	readPrefs(loadOptions);
 	addEventListener("input", saveOption);
 	addEventListener("unload", destroy, { once: true });
+	browser.runtime.onMessage.addListener(onMessageFromBG);
 }
 function destroy() {
 	removeEventListener("input", saveOption);
+	browser.runtime.onMessage.removeListener(onMessageFromBG);
 }
 function loadOptions() {
 	for(var id in prefs)
@@ -27,19 +29,26 @@ function saveOption(e) {
 	(save.prefs || (save.prefs = {}))[id] = getValue(node);
 	if(!save.timer)
 		save.timer = setTimeout(save, Date.now() - (save.last || 0) < 1000 ? 400 : 20);
-	if(id == "toggleKey")
-		validateKey();
+}
+function onMessageFromBG(msg, sender, sendResponse) {
+	if(msg.action != "shortcutValidation")
+		return;
+	var inp = $("toggleKey");
+	inp.title = msg.error;
+	inp.classList.toggle("error", msg.error);
 }
 function validateKey() {
 	var inp = $("toggleKey");
 	var key = inp.value;
-	// Patterns from error message
-	// Type error for parameter detail (Error processing shortcut: Value "..." must either: match the pattern ...
-	var isValid = !key // We use dummy manifest.json entry + browser.commands.reset()
-		|| /^\s*(Alt|Ctrl|Command|MacCtrl)\s*\+\s*(Shift\s*\+\s*)?([A-Z0-9]|Comma|Period|Home|End|PageUp|PageDown|Space|Insert|Delete|Up|Down|Left|Right)\s*$/.test(key)
-		|| /^\s*((Alt|Ctrl|Command|MacCtrl)\s*\+\s*)?(Shift\s*\+\s*)?(F[1-9]|F1[0-2])\s*$/.test(key)
-		|| /^(MediaNextTrack|MediaPlayPause|MediaPrevTrack|MediaStop)$/.test(key);
-	inp.classList.toggle("error", !isValid);
+	browser.commands.getAll().then(function(cmds) {
+		for(var cmd of cmds) {
+			if(cmd.name == "_execute_browser_action") {
+				var err = cmd.shortcut != key;
+				inp.classList.toggle("error", err);
+				inp.title = err ? cmd.shortcut : "";
+			}
+		}
+	});
 }
 function save() {
 	_log("Save: " + JSON.stringify(save.prefs));
