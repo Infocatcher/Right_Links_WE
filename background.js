@@ -193,11 +193,15 @@ function updateHotkey(delay = 0) {
 function onMessageFromContent(msg, sender, sendResponse) {
 	if(msg.action == "openURI") {
 		if(msg.uri instanceof Blob) // Should be converted here to prevent security errors
-			msg.uri = URL.createObjectURL(msg.uri);
+			var uri = msg.uri = URL.createObjectURL(msg.uri);
 		if(msg.loadIn == 1)
 			openURIInWindow(sender.tab, msg);
 		else
 			openURIInTab(sender.tab, msg);
+		if(uri) setTimeout(function() {
+			_log("Cleanup: URL.revokeObjectURL()");
+			URL.revokeObjectURL(uri);
+		}, 100);
 	}
 }
 function openURIInTab(sourceTab, data) {
