@@ -348,7 +348,8 @@ function getItemURI(it) {
 	return getLinkURI(it)
 		|| it.src || it.getAttribute("src")
 		|| it instanceof HTMLCanvasElement
-			&& (prefs.canvasImagesUseBlob ? "data:," : it.toDataURL());
+			//&& (prefs.canvasImagesUseBlob ? "data:," : it.toDataURL());
+			&& "data:,";
 }
 function getLinkURI(it) {
 	const ns = "http://www.w3.org/1999/xlink";
