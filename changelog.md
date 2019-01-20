@@ -6,6 +6,7 @@
 `*` – improved<br>
 
 ##### master/HEAD
+##### 0.5b7 (2019-01-20)
 `*` Internal tweaks: used separate global.js script for shared code, simplified localization.<br>
 `*` Improved options menu (on toolbar button).<br>
 `*` Logically re-grouped options.<br>
