@@ -6,6 +6,7 @@
 `*` – improved<br>
 
 ##### master/HEAD
+##### 0.5b8 (2019-01-27)
 `x` Fixed “Handle clicks on images” option.<br>
 `*` Disable sub-options in case of disabled parent option.<br>
 
