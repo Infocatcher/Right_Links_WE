@@ -300,7 +300,7 @@ function getItem(trg) {
 	if(!trg.localName) // trg === document
 		return null;
 	return getLink(trg)
-		|| getImg(trg);
+		|| prefs.enabledOnImages && getImg(trg);
 }
 function getLink(it) {
 	const docNode = Node.DOCUMENT_NODE; // 9
