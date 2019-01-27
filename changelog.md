@@ -6,6 +6,9 @@
 `*` – improved<br>
 
 ##### master/HEAD
+`x` Fixed “Handle clicks on images” option.<br>
+`*` Disable sub-options in case of disabled parent option.<br>
+
 ##### 0.5b7 (2019-01-20)
 `*` Internal tweaks: used separate global.js script for shared code, simplified localization.<br>
 `*` Improved options menu (on toolbar button).<br>
