@@ -4,6 +4,7 @@
 	<meta charset="utf-8" />
 	<style type="text/css">
 		.sub { margin-inline-start: 1.6em; }
+		.sub.disabled label { color: grayText; }
 		.group:not(:last-child) { margin-bottom: 1em; }
 		input[type="number"] { width: 5.5em; }
 		#updateNotice { border: 1px solid grayText; padding: 0.5em; font-size: 1.2em; }
@@ -23,12 +24,13 @@
 		<section><label><input id="enabledLeft" type="checkbox" /> __MSG_longLeftClick__</label></section>
 		<section class="sub"><label><input id="loadInBackgroundLeft" type="checkbox" /> __MSG_loadInBackground__</label></section>
 		<section class="sub">
-			__MSG_loadIn__
-			<select id="loadInLeft">
-				<option value="0">__MSG_newTab__</option>
-				<option value="1">__MSG_newWindow__</option>
-				<option value="2">__MSG_currentTab__</option>
-			</select>
+			<label>__MSG_loadIn__
+				<select id="loadInLeft">
+					<option value="0">__MSG_newTab__</option>
+					<option value="1">__MSG_newWindow__</option>
+					<option value="2">__MSG_currentTab__</option>
+				</select>
+			</label>
 		</section>
 		<section class="sub"><label>__MSG_longLeftClickTimeout__<input id="longLeftClickTimeout" type="number" min="0" max="30000" /></label></section>
 	</section>
@@ -36,12 +38,13 @@
 		<section><label><input id="enabledRight" type="checkbox" /> __MSG_rightClick__</label></section>
 		<section class="sub"><label><input id="loadInBackgroundRight" type="checkbox" /> __MSG_loadInBackground__</label></section>
 		<section class="sub">
-			__MSG_loadIn__
-			<select id="loadInRight">
-				<option value="0">__MSG_newTab__</option>
-				<option value="1">__MSG_newWindow__</option>
-				<option value="2">__MSG_currentTab__</option>
-			</select>
+			<label>__MSG_loadIn__
+				<select id="loadInRight">
+					<option value="0">__MSG_newTab__</option>
+					<option value="1">__MSG_newWindow__</option>
+					<option value="2">__MSG_currentTab__</option>
+				</select>
+			</label>
 		</section>
 		<section class="sub"><label>__MSG_contextMenuTimeout__<input id="showContextMenuTimeout" type="number" min="0" max="30000" /></label></section>
 	</section>

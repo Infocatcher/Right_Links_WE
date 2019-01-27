@@ -12,6 +12,7 @@ function destroy() {
 function loadOptions() {
 	for(var id in prefs)
 		loadOption(id, prefs[id]);
+	checkSubItems();
 	validateKey();
 }
 function onPrefChanged(key, newVal) {
@@ -29,6 +30,23 @@ function saveOption(e) {
 	(save.prefs || (save.prefs = {}))[id] = getValue(node);
 	if(!save.timer)
 		save.timer = setTimeout(save, Date.now() - (save.last || 0) < 1000 ? 400 : 20);
+	if(id == "enabledLeft" || id == "enabledRight" || id == "enabledOnImages")
+		disableSection(node);
+	else if(id == "toggleKey")
+		validateKey();
+}
+function checkSubItems() {
+	disableSection($("enabledLeft"));
+	disableSection($("enabledRight"));
+	disableSection($("enabledOnImages"));
+}
+function disableSection(ch) {
+	var dis = !ch.checked;
+	for(var sub of ch.closest("section.group").querySelectorAll("section.sub")) {
+		sub.classList.toggle("disabled", dis);
+		for(var it of sub.querySelectorAll("input, select"))
+			it.disabled = dis;
+	}
 }
 function onMessageFromBG(msg, sender, sendResponse) {
 	if(msg.action != "shortcutValidation")
