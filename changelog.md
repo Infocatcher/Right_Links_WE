@@ -6,6 +6,8 @@
 `*` – improved<br>
 
 ##### master/HEAD
+`+` Added separate blacklists for left-click and right-click to disable click handling on user-defined sites.<br>
+
 ##### 0.5b8 (2019-01-27)
 `x` Fixed “Handle clicks on images” option.<br>
 `*` Disable sub-options in case of disabled parent option.<br>
