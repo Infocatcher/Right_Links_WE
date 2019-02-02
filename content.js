@@ -33,6 +33,10 @@ function onPrefChanged(key, newVal) {
 	prefs[key] = newVal;
 	if(key == "enabled")
 		toggle(newVal);
+	else if(key == "blacklistLeft")
+		blacklist.left = null;
+	else if(key == "blacklistRight")
+		blacklist.right = null;
 }
 
 function listenClicks(on) {
@@ -59,6 +63,10 @@ function onMouseDown(e) {
 	_log("onMouseDown() -> getItem(): " + it);
 	if(!it)
 		return;
+	if(blacklist.check(e)) {
+		_log("onMouseDown() -> blacklisted site");
+		return;
+	}
 
 	if(isRight(e)) // For Linux with "contextmenu" event right after "mousedown"
 		flags.stopContextMenu = true;
@@ -126,6 +134,10 @@ function onClick(e) {
 		flags.stopContextMenu = false;
 		return;
 	}
+	if(blacklist.check(e)) {
+		_log("onClick() -> blacklisted site");
+		return;
+	}
 	flags.executed = true;
 	openURIItem(e, trg, it, prefs.loadInBackgroundRight, prefs.loadInRight);
 }
@@ -163,6 +175,27 @@ function enabledFor(e) {
 	return prefs.enabledLeft && isLeft(e)
 		|| prefs.enabledRight && isRight(e);
 }
+
+var blacklist = {
+	left: null,
+	right: null,
+	patterns: function(e) {
+		var [key, pref] = isLeft(e) ? ["left", "blacklistLeft"] : ["right", "blacklistRight"];
+		return this[key] || (this[key] = this.parsePatterns(prefs[pref]));
+	},
+	check: function(e) {
+		var curURI = e.view.location.href;
+		_log("blacklist.check(): " + curURI);
+		for(var pattern of this.patterns(e))
+			if(pattern.test(curURI))
+				return true;
+		return false;
+	},
+	parsePatterns: function(data) {
+		_log("parsePatterns():\n" + (data || "(no patterns)"));
+		return [];
+	}
+};
 
 function openURIItem(e, trg, it, inBG, loadIn) {
 	var uri = getItemURI(it);
