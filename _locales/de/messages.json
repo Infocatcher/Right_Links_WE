@@ -65,6 +65,9 @@
 	"longLeftClickTimeout": {
 		"message": "Long left-click timeout (ms): "
 	},
+	"blacklist": {
+		"message": "Disable on following sites:"
+	},
 	"mouseMoveTolerance": {
 		"message": "Mouse move tolerance (for mouse gestures, in px): "
 	},

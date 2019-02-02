@@ -10,6 +10,8 @@ var prefs = { // Defaults
 	loadInBackgroundRight: true,
 	loadInLeft: 0,
 	loadInRight: 0,
+	blacklistLeft: "",
+	blacklistRight: "",
 	enabledOnImages: true,
 	enabledOnCanvasImages: true,
 	canvasImagesSizeLimit: 0,

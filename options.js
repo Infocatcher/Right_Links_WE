@@ -44,7 +44,7 @@ function disableSection(ch) {
 	var dis = !ch.checked;
 	for(var sub of ch.closest("section.group").querySelectorAll("section.sub")) {
 		sub.classList.toggle("disabled", dis);
-		for(var it of sub.querySelectorAll("input, select"))
+		for(var it of sub.querySelectorAll("input, textarea, select"))
 			it.disabled = dis;
 	}
 }
