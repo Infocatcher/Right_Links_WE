@@ -192,8 +192,37 @@ var blacklist = {
 		return false;
 	},
 	parsePatterns: function(data) {
-		_log("parsePatterns():\n" + (data || "(no patterns)"));
-		return [];
+		var patterns = [];
+		for(var str of data.split(/[\r\n]+/)) {
+			str = str.trim();
+			if(/^\/(.+)\/(i?)$/.test(str)) {
+				var pattern = RegExp.$1;
+				var flags = RegExp.$2;
+			}
+			else {
+				var pattern = "^" + str
+					.replace(/[\\\/.^$+?|()\[\]{}]/g, "\\$&") // Escape special symbols
+					.replace(/\*/g, ".*")
+					+ "$";
+				var flags = "i";
+			}
+			try {
+				patterns.push(new RegExp(pattern, flags));
+			}
+			catch(e) {
+				_err(
+					"blacklist.parsePatterns(): Invalid regular expression:\n"
+					+ str + "\n-> " + pattern + "\n" + e
+				);
+			}
+		}
+		prefs.debug && _log(
+			"parsePatterns():" + (data
+				? "\n" + data + "\nPatterns:\n" + patterns.join("\n")
+				: " (no patterns)"
+			)
+		);
+		return patterns;
 	}
 };
 
