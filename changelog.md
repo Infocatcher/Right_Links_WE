@@ -7,6 +7,7 @@
 
 ##### master/HEAD
 `+` Added separate blacklists for left-click and right-click to disable click handling on user-defined sites.<br>
+`x` Fixed right-click support in Firefox 68+: now used “auxclick” event.<br>
 
 ##### 0.5b8 (2019-01-27)
 `x` Fixed “Handle clicks on images” option.<br>
