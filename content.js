@@ -39,7 +39,9 @@ function onPrefChanged(key, newVal) {
 		blacklist.right = null;
 }
 
+var auxClickHandler;
 function listenClicks(on) {
+	auxClickHandler = on;
 	listen(on, {
 		mousedown:   onMouseDown,
 		mouseup:     onMouseUp,
@@ -126,6 +128,13 @@ function onClick(e) {
 	if(isLeft(e)) {
 		clearTimeout(delayedTimer);
 		return;
+	}
+
+	var isClick = e.type == "click";
+	if(isClick && auxClickHandler) {
+		_log("Remove auxclick listener");
+		listen(false, { auxclick: onAuxClick });
+		auxClickHandler = false;
 	}
 
 	var trg = e.originalTarget || e.target;
