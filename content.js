@@ -131,7 +131,7 @@ function onClick(e) {
 	}
 
 	var isClick = e.type == "click";
-	if(isClick && auxClickHandler) {
+	if(isClick && auxClickHandler) { // Firefox 67 and older
 		_log("Remove auxclick listener");
 		listen(false, { auxclick: onAuxClick });
 		auxClickHandler = false;
@@ -139,13 +139,14 @@ function onClick(e) {
 
 	var trg = e.originalTarget || e.target;
 	var it = getItem(trg);
-	_log("onClick() -> getItem(): " + it);
+	var fn = isClick ? "onClick()" : "onAuxClick()";
+	_log(fn + " -> getItem(): " + it);
 	if(!it) {
 		flags.stopContextMenu = false;
 		return;
 	}
 	if(blacklist.check(e)) {
-		_log("onClick() -> blacklisted site");
+		_log(fn + " -> blacklisted site");
 		return;
 	}
 	flags.executed = true;
