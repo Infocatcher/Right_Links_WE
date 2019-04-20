@@ -44,6 +44,7 @@ function listenClicks(on) {
 		mousedown:   onMouseDown,
 		mouseup:     onMouseUp,
 		click:       onClick,
+		auxclick:    onAuxClick,
 		contextmenu: onContextMenu,
 		unload:      onUnload
 	});
@@ -140,6 +141,11 @@ function onClick(e) {
 	}
 	flags.executed = true;
 	openURIItem(e, trg, it, prefs.loadInBackgroundRight, prefs.loadInRight);
+}
+function onAuxClick(e) { // Will called after onClick()
+	if(!enabledFor(e))
+		return;
+	onClick(e);
 }
 function onContextMenu(e) {
 	if(flags.stopContextMenu)
