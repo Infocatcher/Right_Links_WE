@@ -34,8 +34,12 @@ function saveOption(e) {
 	(save.prefs || (save.prefs = {}))[id] = getValue(node);
 	if(!save.timer)
 		save.timer = setTimeout(save, Date.now() - (save.last || 0) < 1000 ? 400 : 20);
-	if(id == "enabledLeft" || id == "enabledRight" || id == "enabledOnImages")
+	if(id == "enabledLeft" || id == "enabledRight")
 		disableSection(node);
+	else if(id == "enabledOnImages")
+		disableSection(node), disableCanvasSection($("enabledOnCanvasImages"));
+	else if(id == "enabledOnCanvasImages")
+		disableCanvasSection(node);
 	else if(id == "toggleKey")
 		validateKey();
 }
@@ -43,6 +47,7 @@ function checkSubItems() {
 	disableSection($("enabledLeft"));
 	disableSection($("enabledRight"));
 	disableSection($("enabledOnImages"));
+	disableCanvasSection($("enabledOnCanvasImages"));
 }
 function disableSection(ch) {
 	var dis = !ch.checked;
@@ -51,6 +56,10 @@ function disableSection(ch) {
 		for(var it of sub.querySelectorAll("input, textarea, select"))
 			it.disabled = dis;
 	}
+}
+function disableCanvasSection(ch) {
+	if(!ch.closest("section.group").classList.contains("disabled"))
+		disableSection(ch);
 }
 function onMessageFromBG(msg, sender, sendResponse) {
 	if(msg.action != "shortcutValidation")
