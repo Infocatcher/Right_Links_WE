@@ -219,7 +219,13 @@ function openURIInTab(sourceTab, data) {
 			}
 			_log("openURIInTab(): will try without openerTabId");
 			delete opts.openerTabId;
-			browser.tabs.create(opts).catch(notifyError);
+			browser.tabs.create(opts)
+				.then(function(tab) {
+					browser.windows.update(tab.windowId, {
+						focused: true
+					});
+				})
+				.catch(notifyError);
 		});
 	}
 	catch(e) {
