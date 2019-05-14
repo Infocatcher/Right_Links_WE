@@ -8,6 +8,8 @@
 ##### master/HEAD
 `+` Added separate blacklists for left-click and right-click to disable click handling on user-defined sites.<br>
 `x` Fixed right-click support in Firefox 68+: now used “auxclick” event.<br>
+`*` Disable sub-option for canvas, if not checked “Canvas images”.<br>
+`x` Fixed ability to open tabs from popup window (without tab bar): tab will be opened in another window.<br>
 
 ##### 0.5b8 (2019-01-27)
 `x` Fixed “Handle clicks on images” option.<br>
