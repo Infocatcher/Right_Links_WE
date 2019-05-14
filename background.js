@@ -212,7 +212,15 @@ function openURIInTab(sourceTab, data) {
 		openerTabId: sourceTab.id
 	};
 	try {
-		browser.tabs.create(opts).catch(notifyError);
+		browser.tabs.create(opts).catch(function(e) {
+			if((e + "").indexOf("Opener tab must be in the same window") == -1) {
+				notifyError(e);
+				return;
+			}
+			_log("openURIInTab(): will try without openerTabId");
+			delete opts.openerTabId;
+			browser.tabs.create(opts).catch(notifyError);
+		});
 	}
 	catch(e) {
 		// Type error for parameter createProperties (Property "openerTabId" is unsupported by Firefox) for tabs.create.
