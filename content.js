@@ -88,7 +88,7 @@ function onMouseDown(e) {
 			return;
 		if(isLeft(e)) {
 			_log("onMouseDown() -> delayedTimer -> openURIItem()");
-			openURIItem(e, trg, it, prefs.loadInBackgroundLeft, prefs.loadInLeft);
+			openURIItem(e, trg, it, prefs.loadInBackgroundLeft, prefs.loadInLeft, prefs.loadInDiscardedLeft);
 			flags.stopMouseUp = flags.stopClick = true;
 		}
 		else {
@@ -150,7 +150,7 @@ function onClick(e) {
 		return;
 	}
 	flags.executed = true;
-	openURIItem(e, trg, it, prefs.loadInBackgroundRight, prefs.loadInRight);
+	openURIItem(e, trg, it, prefs.loadInBackgroundRight, prefs.loadInRight, prefs.loadInDiscardedRight);
 }
 function onAuxClick(e) { // Will called after onClick()
 	if(!enabledFor(e))
@@ -242,7 +242,7 @@ var blacklist = {
 	}
 };
 
-function openURIItem(e, trg, it, inBG, loadIn) {
+function openURIItem(e, trg, it, inBG, loadIn, discarded) {
 	var uri = getItemURI(it);
 	if(
 		uri == "data:,"
@@ -252,7 +252,7 @@ function openURIItem(e, trg, it, inBG, loadIn) {
 		&& "createObjectURL" in URL
 	) {
 		it.toBlob(function(blob) {
-			openURIIn(blob, inBG, loadIn);
+			openURIIn(blob, inBG, loadIn, discarded);
 		});
 		return;
 	}
@@ -273,13 +273,14 @@ function openURIItem(e, trg, it, inBG, loadIn) {
 		loadURI(trg, uri);
 		return;
 	}
-	openURIIn(uri, inBG, loadIn);
+	openURIIn(uri, inBG, loadIn, discarded);
 }
-function openURIIn(uri, inBG, loadIn) {
+function openURIIn(uri, inBG, loadIn, discarded) {
 	browser.runtime.sendMessage({
 		action: "openURI",
 		uri: uri,
 		inBG: inBG,
+		discarded: discarded,
 		loadIn: loadIn
 	}).then(function onResponse() {}, _err);
 }

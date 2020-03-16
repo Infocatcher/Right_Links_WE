@@ -8,6 +8,8 @@ var prefs = { // Defaults
 	enabledRight: true,
 	loadInBackgroundLeft: false,
 	loadInBackgroundRight: true,
+	loadInDiscardedLeft: true,
+	loadInDiscardedRight: true,
 	loadInLeft: 0,
 	loadInRight: 0,
 	blacklistLeft: "",
