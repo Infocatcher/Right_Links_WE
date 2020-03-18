@@ -32,6 +32,9 @@
 	"loadInBackground": {
 		"message": "Open links in background"
 	},
+	"loadInDiscardedTab": {
+		"message": "Don't load until selected"
+	},
 	"loadIn": {
 		"message": "Open in"
 	},

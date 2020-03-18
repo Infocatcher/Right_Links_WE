@@ -32,6 +32,9 @@
 	"loadInBackground": {
 		"message": "Зареждай връзките на на заден фон"
 	},
+	"loadInDiscardedTab": {
+		"message": "Don't load until selected"
+	},
 	"loadIn": {
 		"message": "Load in"
 	},

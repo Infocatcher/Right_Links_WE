@@ -32,6 +32,9 @@
 	"loadInBackground": {
 		"message": "Открывать ссылки в фоне"
 	},
+	"loadInDiscardedTab": {
+		"message": "Загружать только после переключения на вкладку"
+	},
 	"loadIn": {
 		"message": "Открывать в"
 	},
