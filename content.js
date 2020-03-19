@@ -273,14 +273,16 @@ function openURIItem(e, trg, it, inBG, loadIn, discarded) {
 		loadURI(trg, uri);
 		return;
 	}
-	openURIIn(uri, inBG, loadIn, discarded);
+	var title = it.textContent || it.title || it.alt || "";
+	openURIIn(uri, inBG, loadIn, discarded, title);
 }
-function openURIIn(uri, inBG, loadIn, discarded) {
+function openURIIn(uri, inBG, loadIn, discarded, title) {
 	browser.runtime.sendMessage({
 		action: "openURI",
 		uri: uri,
 		inBG: inBG,
 		discarded: discarded,
+		title: title,
 		loadIn: loadIn
 	}).then(function onResponse() {}, _err);
 }

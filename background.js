@@ -212,6 +212,8 @@ function openURIInTab(sourceTab, data) {
 		discarded: data.inBG && data.discarded,
 		openerTabId: sourceTab.id
 	};
+	if(opts.discarded && data.title)
+		opts.title = data.title;
 	try {
 		browser.tabs.create(opts).catch(function(e) {
 			if((e + "").indexOf("Opener tab must be in the same window") == -1) {
