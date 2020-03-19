@@ -35,11 +35,11 @@ function saveOption(e) {
 	if(!save.timer)
 		save.timer = setTimeout(save, Date.now() - (save.last || 0) < 1000 ? 400 : 20);
 	if(id == "enabledLeft" || id == "enabledRight")
-		disableSection(node);
+		disableSection(node), disableSubSection($("loadInBackground" + id.match(/[LR].+$/)[0]));
 	else if(id == "enabledOnImages")
-		disableSection(node), disableCanvasSection($("enabledOnCanvasImages"));
-	else if(id == "enabledOnCanvasImages")
-		disableCanvasSection(node);
+		disableSection(node), disableSubSection($("enabledOnCanvasImages"));
+	else if(id == "enabledOnCanvasImages" || id == "loadInBackgroundLeft" || id == "loadInBackgroundRight")
+		disableSubSection(node);
 	else if(id == "toggleKey")
 		validateKey();
 }
@@ -47,7 +47,9 @@ function checkSubItems() {
 	disableSection($("enabledLeft"));
 	disableSection($("enabledRight"));
 	disableSection($("enabledOnImages"));
-	disableCanvasSection($("enabledOnCanvasImages"));
+	disableSubSection($("enabledOnCanvasImages"));
+	disableSubSection($("loadInBackgroundLeft"));
+	disableSubSection($("loadInBackgroundRight"));
 }
 function disableSection(ch) {
 	var dis = !ch.checked;
@@ -57,7 +59,7 @@ function disableSection(ch) {
 			it.disabled = dis;
 	}
 }
-function disableCanvasSection(ch) {
+function disableSubSection(ch) {
 	if(!ch.closest("section.group").classList.contains("disabled"))
 		disableSection(ch);
 }
