@@ -274,6 +274,11 @@ function openURIItem(e, trg, it, inBG, loadIn, discarded) {
 		return;
 	}
 	var title = it.textContent || it.title || it.alt || "";
+	if(!title && it.children.length == 1) {
+		var img = it.children[0];
+		if(img.localName.toLowerCase() == "img")
+			title = img.title || img.alt || "";
+	}
 	openURIIn(uri, inBG, loadIn, discarded, title);
 }
 function openURIIn(uri, inBG, loadIn, discarded, title) {
