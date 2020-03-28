@@ -209,7 +209,8 @@ function openURIInTab(sourceTab, data) {
 	var opts = {
 		url: data.uri,
 		active: !data.inBG,
-		openerTabId: sourceTab.id
+		openerTabId: sourceTab.id,
+		windowId: sourceTab.windowId
 	};
 	try {
 		browser.tabs.create(opts).catch(function(e) {
