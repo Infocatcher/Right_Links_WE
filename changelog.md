@@ -6,6 +6,9 @@
 `*` – improved<br>
 
 ##### master/HEAD
+`+` Added ability to open link in discarded (unloaded) tab in Firefox 63+ (<a href="https://github.com/Infocatcher/Right_Links_WE/issues/22">#22</a>).<br>
+`x` Correctly open tabs from non-focused window in MacOS (<a href="https://github.com/Infocatcher/Right_Links_WE/issues/23">#23</a>, <a href="https://github.com/Infocatcher/Right_Links_WE/pull/24">thanks to asleepysamurai</a>).<br>
+
 ##### 0.5b9 (2019-05-26)
 `+` Added separate blacklists for left-click and right-click to disable click handling on user-defined sites.<br>
 `x` Fixed right-click support in Firefox 68+: now used “auxclick” event.<br>
