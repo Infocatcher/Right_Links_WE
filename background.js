@@ -209,7 +209,8 @@ function openURIInTab(sourceTab, data) {
 	var opts = {
 		url: data.uri,
 		active: !data.inBG,
-		openerTabId: sourceTab.id
+		openerTabId: sourceTab.id,
+		windowId: sourceTab.windowId
 	};
 	if(data.inBG && data.discarded) {
 		opts.discarded = true;
