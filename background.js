@@ -196,22 +196,34 @@ function onMessageFromContent(msg, sender, sendResponse) {
 			var uri = msg.uri = URL.createObjectURL(msg.uri);
 		if(msg.loadIn == 1)
 			openURIInWindow(sender.tab, msg);
-		else
-			openURIInTab(sender.tab, msg);
+		else {
+			platformInfo(function() {
+				openURIInTab(sender.tab, msg);
+			});
+		}
 		if(uri) setTimeout(function() {
 			_log("Cleanup: URL.revokeObjectURL()");
 			URL.revokeObjectURL(uri);
 		}, 100);
 	}
 }
+function platformInfo(callback) {
+	platformInfo.os = "win";
+	browser.runtime.getPlatformInfo().then(function(pi) {
+		platformInfo.os = pi.os;
+		_log("platformInfo(): OS: " + pi.os);
+		callback();
+	}, callback);
+}
 function openURIInTab(sourceTab, data) {
 	_log("openURIInTab(), inBG: " + data.inBG + ", URI: " + data.uri);
 	var opts = {
 		url: data.uri,
 		active: !data.inBG,
-		openerTabId: sourceTab.id,
-		windowId: sourceTab.windowId
+		openerTabId: sourceTab.id
 	};
+	if(platformInfo.os == "mac") // To not break popup windows in all OS
+		opts.windowId = sourceTab.windowId;
 	if(data.inBG && data.discarded) {
 		opts.discarded = true;
 		if(data.title)
