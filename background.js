@@ -210,8 +210,11 @@ function onMessageFromContent(msg, sender, sendResponse) {
 function platformInfo(callback) {
 	platformInfo.os = "win";
 	browser.runtime.getPlatformInfo().then(function(pi) {
-		platformInfo.os = pi.os;
 		_log("platformInfo(): OS: " + pi.os);
+		platformInfo = function(callback) {
+			callback();
+		};
+		platformInfo.os = pi.os;
 		callback();
 	}, callback);
 }
