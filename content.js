@@ -242,6 +242,7 @@ var blacklist = {
 	}
 };
 
+var trim = String.prototype.trim.call.bind(String.prototype.trim);
 function openURIItem(e, trg, it, inBG, loadIn, discarded) {
 	var uri = getItemURI(it);
 	if(
@@ -273,11 +274,11 @@ function openURIItem(e, trg, it, inBG, loadIn, discarded) {
 		loadURI(trg, uri);
 		return;
 	}
-	var title = it.textContent || it.title || it.alt || "";
+	var title = trim(it.textContent) || trim(it.title) || trim(it.alt) || "";
 	if(!title && it.children.length == 1) {
 		var img = it.children[0];
 		if(img.localName.toLowerCase() == "img")
-			title = img.title || img.alt || "";
+			title = trim(img.title) || trim(img.alt) || "";
 	}
 	openURIIn(uri, inBG, loadIn, discarded, title);
 }
