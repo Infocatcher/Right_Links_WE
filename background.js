@@ -70,26 +70,27 @@ browser.browserAction.onClicked.addListener(function() {
 
 function createMenus() {
 	// Note: browser.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT == 6
-	browser.contextMenus.create({
+	var item = browser.contextMenus.create.bind(browser.contextMenus);
+	item({
 		id: "enabledLeft",
 		title: browser.i18n.getMessage("longLeftClick"),
 		type: "checkbox",
 		contexts: ["browser_action"]
 	});
-	browser.contextMenus.create({
+	item({
 		id: "loadInBackgroundLeft",
 		title: browser.i18n.getMessage("loadInBackground"),
 		type: "checkbox",
 		contexts: ["browser_action"]
 	});
 
-	browser.contextMenus.create({
+	item({
 		id: "enabledRight",
 		title: browser.i18n.getMessage("rightClick"),
 		type: "checkbox",
 		contexts: ["browser_action"]
 	});
-	browser.contextMenus.create({
+	item({
 		id: "loadInBackgroundRight",
 		title: browser.i18n.getMessage("loadInBackground"),
 		type: "checkbox",
@@ -99,12 +100,12 @@ function createMenus() {
 	function addOptionsItems(brInfo) {
 		if(brInfo && brInfo.name == "Firefox" && parseFloat(brInfo.version) >= 62)
 			return; // Built-in Manage Extension menu item
-		browser.contextMenus.create({
+		item({
 			id: "optionsSeparator",
 			type: "separator",
 			contexts: ["browser_action"]
 		});
-		browser.contextMenus.create({
+		item({
 			id: "options",
 			title: browser.i18n.getMessage("options"),
 			icons: {
