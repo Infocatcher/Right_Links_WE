@@ -142,19 +142,20 @@ function createMenus() {
 	setTimeout(updateMenus, 50);
 }
 function updateMenus() {
-	browser.contextMenus.update("enabledLeft", {
+	var update = browser.contextMenus.update.bind(browser.contextMenus);
+	update("enabledLeft", {
 		checked: prefs.enabledLeft,
 		enabled: prefs.enabled
 	});
-	browser.contextMenus.update("loadInBackgroundLeft", {
+	update("loadInBackgroundLeft", {
 		checked: prefs.loadInBackgroundLeft,
 		enabled: prefs.enabled && prefs.enabledLeft
 	});
-	browser.contextMenus.update("enabledRight", {
+	update("enabledRight", {
 		checked: prefs.enabledRight,
 		enabled: prefs.enabled
 	});
-	browser.contextMenus.update("loadInBackgroundRight", {
+	update("loadInBackgroundRight", {
 		checked: prefs.loadInBackgroundRight,
 		enabled: prefs.enabled && prefs.enabledRight
 	});
