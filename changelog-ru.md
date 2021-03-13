@@ -6,6 +6,7 @@
 `*` – улучшено<br>
 
 ##### master/HEAD
+##### 0.5b10 (2021-03-13)
 `+` Добавлена возможность открывать ссылки в выгруженных вкладках в Firefox 63+ (<a href="https://github.com/Infocatcher/Right_Links_WE/issues/22">#22</a>).<br>
 `x` Исправлено открытие вкладок из неактивного окна в MacOS (<a href="https://github.com/Infocatcher/Right_Links_WE/issues/23">#23</a>, <a href="https://github.com/Infocatcher/Right_Links_WE/pull/24">спасибо asleepysamurai</a>).<br>
 
