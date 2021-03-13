@@ -2,7 +2,7 @@ function init() {
 	$("updateNotice").innerHTML = browser.i18n.getMessage("updateNotice");
 	$("blacklistLeft").placeholder = $("blacklistRight").placeholder = [
 		"https://example.com/*",
-		"/^https?://example(?:\.\w+){1,2}/something//i"
+		"/^https?://example(?:\\.\\w+){1,2}/something//i"
 	].join("\n");
 	readPrefs(loadOptions);
 	addEventListener("input", saveOption);
