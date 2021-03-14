@@ -91,6 +91,12 @@ function createMenus(brInfo) {
 		contexts: ["browser_action"]
 	});
 
+	hasManageExt && item({
+		id: "enabledSeparator",
+		type: "separator",
+		contexts: ["browser_action"]
+	});
+
 	item({
 		id: "enabledRight",
 		title: browser.i18n.getMessage("rightClick"),
