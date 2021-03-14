@@ -6,6 +6,9 @@
 `*` – improved<br>
 
 ##### master/HEAD
+`x` Fixed default options (changed by mistake in discarded tab implementation, see <a href="https://github.com/Infocatcher/Right_Links_WE/issues/22">#22</a>).<br>
+`+` Added separator between long left- and right-click options (only if exists built-in “Manage Extension” menu item).<br>
+
 ##### 0.5b10 (2021-03-13)
 `+` Added ability to open link in discarded (unloaded) tab in Firefox 63+ (<a href="https://github.com/Infocatcher/Right_Links_WE/issues/22">#22</a>).<br>
 `x` Correctly open tabs from non-focused window in MacOS (<a href="https://github.com/Infocatcher/Right_Links_WE/issues/23">#23</a>, <a href="https://github.com/Infocatcher/Right_Links_WE/pull/24">thanks to asleepysamurai</a>).<br>
