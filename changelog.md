@@ -6,6 +6,8 @@
 `*` – improved<br>
 
 ##### master/HEAD
+`x` Correctly open links without `.textContent`, e.g. with image instead of link text (bug in discarded tab implementation, see <a href="https://github.com/Infocatcher/Right_Links_WE/issues/22">#22</a>).<br>
+
 ##### 0.5b11 (2021-03-14)
 `x` Fixed default options (changed by mistake in discarded tab implementation, see <a href="https://github.com/Infocatcher/Right_Links_WE/issues/22">#22</a>).<br>
 `+` Added separator between long left- and right-click options (only if exists built-in “Manage Extension” menu item).<br>
