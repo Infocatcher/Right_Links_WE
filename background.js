@@ -15,7 +15,12 @@ function init() {
 }
 function initOnce() {
 	initOnce = function() {};
-	setTimeout(createMenus, 50);
+	setTimeout(function() {
+		if("getBrowserInfo" in browser.runtime)
+			browser.runtime.getBrowserInfo().then(createMenus);
+		else
+			createMenus();
+	}, 50);
 	updateHotkey();
 }
 function destroy() {
@@ -68,7 +73,9 @@ browser.browserAction.onClicked.addListener(function() {
 	});
 });
 
-function createMenus() {
+function createMenus(brInfo) {
+	var hasManageExt = brInfo && brInfo.name == "Firefox" && parseFloat(brInfo.version) >= 62;
+
 	// Note: browser.contextMenus.ACTION_MENU_TOP_LEVEL_LIMIT == 6
 	var item = browser.contextMenus.create.bind(browser.contextMenus);
 	item({
@@ -97,28 +104,20 @@ function createMenus() {
 		contexts: ["browser_action"]
 	});
 
-	function addOptionsItems(brInfo) {
-		if(brInfo && brInfo.name == "Firefox" && parseFloat(brInfo.version) >= 62)
-			return; // Built-in Manage Extension menu item
-		item({
-			id: "optionsSeparator",
-			type: "separator",
-			contexts: ["browser_action"]
-		});
-		item({
-			id: "options",
-			title: browser.i18n.getMessage("options"),
-			icons: {
-				"16": "icon16.png",
-				"24": "icon24.png"
-			},
-			contexts: ["browser_action"]
-		});
-	}
-	if("getBrowserInfo" in browser.runtime)
-		browser.runtime.getBrowserInfo().then(addOptionsItems);
-	else
-		addOptionsItems();
+	!hasManageExt && item({
+		id: "optionsSeparator",
+		type: "separator",
+		contexts: ["browser_action"]
+	});
+	!hasManageExt && item({
+		id: "options",
+		title: browser.i18n.getMessage("options"),
+		icons: {
+			"16": "icon16.png",
+			"24": "icon24.png"
+		},
+		contexts: ["browser_action"]
+	});
 
 	browser.contextMenus.onClicked.addListener(function(info, tab) {
 		var miId = info.menuItemId;
