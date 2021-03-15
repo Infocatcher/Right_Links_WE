@@ -1,0 +1,80 @@
+{
+	"extensionName": {
+		"message": "Right Links WE"
+	},
+	"extensionDescription": {
+		"message": "Rechtsklik om koppelingen te openen op nieuwe tabbladen (voor touchpads e.d.)"
+	},
+	"buttonTooltip": {
+		"message": "Right Links WE: "
+	},
+	"tooltipEnabled": {
+		"message": "Ingeschakeld"
+	},
+	"tooltipDisabled": {
+		"message": "Uitgeschakeld"
+	},
+	"options": {
+		"message": "Opties"
+	},
+	"updateNotice": {
+		"message": "<a href='https://github.com/Infocatcher/Right_Links_WE#issues'>Enkele functies</a> zijn niet meer te implementeren wegens <a href='https://wiki.mozilla.org/WebExtensions'>WebExtensions</a>-beperkingen. In Firefox 56 en ouder kunt u beter de volgende add-on gebruiken: <a href='https://addons.thunderbird.net/seamonkey/addon/right-links/'>Right Links</a> (<a href='https://github.com/Infocatcher/Right_Links'>GitHub</a>)."
+	},
+	"enabled": {
+		"message": "Ingeschakeld"
+	},
+	"keyboardShortcut": {
+		"message": "Sneltoets:"
+	},
+	"longLeftClick": {
+		"message": "Linkermuisknop ingedrukt houden"
+	},
+	"loadInBackground": {
+		"message": "Koppelingen op achtergrond openen"
+	},
+	"loadInDiscardedTab": {
+		"message": "Pas laden na aanklikken"
+	},
+	"loadIn": {
+		"message": "Openen op/in"
+	},
+	"newTab": {
+		"message": "nieuw tabblad"
+	},
+	"newWindow": {
+		"message": "nieuw venster"
+	},
+	"currentTab": {
+		"message": "huidig tabblad"
+	},
+	"rightClick": {
+		"message": "Rechtsklikken"
+	},
+	"enabledOnImages": {
+		"message": "Klikken op afbeeldingen"
+	},
+	"canvasImages": {
+		"message": "Canvasafbeeldingen"
+	},
+	"useBlob": {
+		"message": "Blob gebruiken:…"
+	},
+	"sizeLimit": {
+		"message": "Afmetingen beperken (in px):"
+	},
+	"contextMenuTimeout": {
+		"message": "Rechtermuisknopmenutime-out (in ms): "
+	},
+	"longLeftClickTimeout": {
+		"message": "Time-out bij ingedrukt houden van linkermuisknop (in ms): "
+	},
+	"blacklist": {
+		"message": "Uitschakelen op de volgende sites:"
+	},
+	"mouseMoveTolerance": {
+		"message": "Cursor-verplaatstolerantie (van toepassing op muisgebaren, in px): "
+	},
+	"debug": {
+		"message": "Foutopsporingsmodus"
+	}
+}
