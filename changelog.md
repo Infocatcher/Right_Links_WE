@@ -6,6 +6,8 @@
 `*` – improved<br>
 
 ##### master/HEAD
+`+` Added Dutch translation (thanks to <a href="https://github.com/Vistaus">Vistaus</a>: <a href="https://github.com/Infocatcher/Right_Links_WE/pull/26">#26</a>).<br>
+
 ##### 0.5b12 (2021-03-14)
 `x` Correctly open links without `.textContent`, e.g. with image instead of link text (bug in discarded tab implementation, see <a href="https://github.com/Infocatcher/Right_Links_WE/issues/22">#22</a>).<br>
 

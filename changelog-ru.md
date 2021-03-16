@@ -6,6 +6,8 @@
 `*` – улучшено<br>
 
 ##### master/HEAD
+`+` Добавлен перевод на нидерландский (спасибо <a href="https://github.com/Vistaus">Vistaus</a>: <a href="https://github.com/Infocatcher/Right_Links_WE/pull/26">#26</a>).<br>
+
 ##### 0.5b12 (2021-03-14)
 `x` Исправлено открытие ссылок без `.textContent`, например, с изображением вместо текста ссылки (ошибка в реализации открытия в выгруженных вкладках, см. <a href="https://github.com/Infocatcher/Right_Links_WE/issues/22">#22</a>).<br>
 
