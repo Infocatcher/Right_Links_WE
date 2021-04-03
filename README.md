@@ -27,6 +27,24 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Right_Links">Right
 		<td></td>
 	</tr>
 	<tr>
+		<td>Ability to handle clicks on internal restricted pages (about:…, chrome://…, especially on about:newtab)</td>
+		<td>Core functionality</td>
+		<td>No API</td>
+		<td>Major</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>Ability to handle clicks on restricted webpages (like <a href="https://addons.mozilla.org/">addons.mozilla.org</a>)</td>
+		<td>Core functionality</td>
+		<td>
+			My be configured (at your own risk) in about:config:
+			<br><strong>privacy.resistFingerprinting.block_mozAddonManager</strong> = true
+			<br><strong>extensions.webextensions.restrictedDomains</strong> = "" (empty string, or remove some domains as you like)
+		</td>
+		<td>Major</td>
+		<td></td>
+	</tr>
+	<tr>
 		<td>Ability to simulate click on JavaScript-links (e.g. with `window.open()` inside)</td>
 		<td>Core functionality</td>
 		<td>No API, new tabs/windows will be blocked</td>
