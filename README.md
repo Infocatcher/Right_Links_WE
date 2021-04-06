@@ -37,7 +37,7 @@ WebExtensions port of <a href="https://github.com/Infocatcher/Right_Links">Right
 		<td>Ability to handle clicks on restricted webpages (like <a href="https://addons.mozilla.org/">addons.mozilla.org</a>)</td>
 		<td>Core functionality</td>
 		<td>
-			My be configured (at your own risk) in about:config:
+			May be configured (at your own risk) in about:config:
 			<br><strong>privacy.resistFingerprinting.block_mozAddonManager</strong> = true
 			<br><strong>extensions.webextensions.restrictedDomains</strong> = "" (empty string, or remove some domains as you like)
 		</td>
