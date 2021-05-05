@@ -172,27 +172,28 @@ function updateHotkey(delay = 0) {
 		return;
 	updateHotkey.timer = setTimeout(function() {
 		updateHotkey.timer = 0;
+		function feedback(err) {
+			browser.runtime.sendMessage({
+				action: "shortcutValidation",
+				error: err || ""
+			});
+		}
 		if(prefs.toggleKey) {
 			try {
 				browser.commands.update({
 					name: "_execute_browser_action",
 					shortcut: prefs.toggleKey
 				}).then(function() {
-					browser.runtime.sendMessage({
-						action: "shortcutValidation",
-						error: ""
-					});
+					feedback();
 				});
 			}
 			catch(e) {
-				browser.runtime.sendMessage({
-					action: "shortcutValidation",
-					error: "" + e
-				});
+				feedback("" + e);
 			}
 		}
 		else {
 			browser.commands.reset("_execute_browser_action");
+			feedback();
 		}
 	}, delay);
 }
