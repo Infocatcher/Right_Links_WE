@@ -178,22 +178,21 @@ function updateHotkey(delay = 0) {
 				error: err || ""
 			});
 		}
-		if(prefs.toggleKey) {
-			try {
-				browser.commands.update({
-					name: "_execute_browser_action",
-					shortcut: prefs.toggleKey
-				}).then(function() {
-					feedback();
-				});
-			}
-			catch(e) {
-				feedback("" + e);
-			}
-		}
-		else {
+		if(!prefs.toggleKey) {
 			browser.commands.reset("_execute_browser_action");
 			feedback();
+			return;
+		}
+		try {
+			browser.commands.update({
+				name: "_execute_browser_action",
+				shortcut: prefs.toggleKey
+			}).then(function() {
+				feedback();
+			});
+		}
+		catch(e) {
+			feedback("" + e);
 		}
 	}, delay);
 }
