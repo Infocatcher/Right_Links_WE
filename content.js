@@ -243,7 +243,7 @@ var blacklist = {
 };
 
 function trim(s) {
-	return s ? String(s).trim() : "";
+	return s ? ("" + s).trim() : "";
 }
 function openURIItem(e, trg, it, inBG, loadIn, discarded) {
 	var uri = getItemURI(it);
