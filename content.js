@@ -482,6 +482,7 @@ function blinkNode(node, hl) {
 	}
 	if(hl) {
 		s("outline", "1px solid");
+		s("outline-offset", "0");
 		s("transition", "outline 100ms ease-in-out");
 	}
 	else {
